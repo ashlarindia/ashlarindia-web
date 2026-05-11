@@ -10,12 +10,12 @@ export const metadata = {
 
 export default function MutualFundsPage() {
   return (
-    <div className="container-shell section-space">
+    <div className="container-shell ">
      
 
       <div className="grid gap-8 lg:grid-cols-2 items-start mb-12">
         <div>
-          <div className="eyebrow w-fit mb-4">Investments</div>
+         
           <h1 className="text-4xl font-bold text-brand-navy mb-4">Mutual Funds</h1>
           <p className="text-slate-600 mb-6">
             Invest in direct mutual funds with zero commission. Choose from 2000+ funds across all categories - 

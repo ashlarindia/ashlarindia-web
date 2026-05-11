@@ -10,11 +10,11 @@ export const metadata = {
 
 export default function CommoditiesPage() {
   return (
-    <div className="container-shell section-space">
+    <>
     
 
       <div className="text-center mb-12">
-        <div className="eyebrow mx-auto w-fit mb-4">MCX Trading</div>
+        
         <h1 className="section-title mb-6">Commodities Trading</h1>
         <p className="section-copy mx-auto">
           Trade Gold, Silver, Crude Oil, and other commodities on MCX. Diversify your portfolio and hedge against inflation.
@@ -57,6 +57,6 @@ export default function CommoditiesPage() {
         <p className="text-slate-600 mb-4">Competitive margins and real-time MCX data</p>
         <Button className="bg-brand-orange hover:bg-brand-orange/90">Open Commodity Account</Button>
       </div>
-    </div>
+    </>
   );
 }

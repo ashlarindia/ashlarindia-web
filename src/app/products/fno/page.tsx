@@ -10,12 +10,12 @@ export const metadata = {
 
 export default function FnOPage() {
   return (
-    <div className="container-shell section-space">
+    <div className="container-shell ">
       
 
       <div className="grid gap-8 lg:grid-cols-2 items-start mb-12">
         <div>
-          <div className="eyebrow w-fit mb-4">Derivatives</div>
+        
           <h1 className="text-4xl font-bold text-brand-navy mb-4">
             Futures & Options<br />
             <span className="text-brand-orange">Trading</span>

@@ -38,11 +38,11 @@ export default function BondsPage() {
   ];
 
   return (
-    <div className="container-shell section-space">
+    <>
       
 
       <div className="mb-12 text-center">
-        <div className="eyebrow mx-auto w-fit mb-4">Government Securities</div>
+       
         <h1 className="section-title mb-6">Bonds & Government Securities</h1>
         <p className="section-copy mx-auto">
           Government securities represent one of the best investment options available with 
@@ -134,6 +134,6 @@ export default function BondsPage() {
           </Card>
         </div>
       </div>
-    </div>
+    </>
   );
 }

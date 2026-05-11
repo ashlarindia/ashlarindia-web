@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function EquityPage() {
   return (
-    <div className="container-shell section-space">
+    <div className="container-shell ">
       {/* Breadcrumb */}
       
       <div className="grid gap-8 lg:grid-cols-2 items-start mb-12">

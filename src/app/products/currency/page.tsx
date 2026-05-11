@@ -15,7 +15,7 @@ export default function CurrencyPage() {
 
       <div className="grid gap-8 lg:grid-cols-2 items-start mb-12">
         <div>
-          <div className="eyebrow w-fit mb-4">Forex</div>
+         
           <h1 className="text-4xl font-bold text-brand-navy mb-4">Currency Trading</h1>
           <p className="text-slate-600 mb-6">
             Trade major currency pairs including USD/INR, EUR/INR, GBP/INR, and JPY/INR. 

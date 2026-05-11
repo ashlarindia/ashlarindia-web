@@ -16,11 +16,11 @@ export default function IPOPage() {
   ];
 
   return (
-    <div className="container-shell section-space">
+    <div className="container-shell ">
       
 
       <div className="text-center mb-12">
-        <div className="eyebrow mx-auto w-fit mb-4">Public Issues</div>
+      
         <h1 className="section-title mb-6">IPO Investments</h1>
         <p className="section-copy mx-auto">
           Invest in upcoming and ongoing IPOs. Apply online with ASBA facility and get allotment directly in your Demat account.
