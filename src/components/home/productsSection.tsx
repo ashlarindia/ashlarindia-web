@@ -1,263 +1,164 @@
 'use client';
 
 import Link from 'next/link';
-import {
-  TrendingUp,
-  BarChart2,
-  Coins,
-  BadgeDollarSign,
-  Rocket,
-  PieChart,
-  ShieldCheck,
-  Landmark,
-  FileText,
-  CreditCard,
-} from 'lucide-react';
+import { TrendingUp, BarChart2, Coins, BadgeDollarSign, Rocket, PieChart, ShieldCheck, Landmark, FileText, CreditCard, Globe, Smartphone } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+import { PRODUCTS, getKycUrl } from '@/data/site-data';
 
-interface Product {
-  name: string;
-  href: string;
-  description: string;
-  Icon: LucideIcon;
-  badge?: string;
-  iconBg: string;
-  iconColor: string;
-  hoverBorder: string;
-  hoverText: string;
-}
+const ICON_MAP: Record<string, LucideIcon> = {
+  TrendingUp, BarChart2, Coins, BadgeDollarSign, Rocket,
+  PieChart, ShieldCheck, Landmark, FileText, CreditCard,
+};
 
-interface StatItem {
-  value: string;
-  label: string;
-}
-
-const PRODUCTS: Product[] = [
-  {
-    name: 'Equity',
-    href: '/equity',
-    description: 'Stocks & ETFs',
-    Icon: TrendingUp,
-    iconBg: 'bg-blue-50',
-    iconColor: 'text-blue-600',
-    hoverBorder: 'hover:border-blue-300',
-    hoverText: 'group-hover:text-blue-700',
-  },
-  {
-    name: 'F&O',
-    href: '/fo',
-    description: 'Futures & options',
-    Icon: BarChart2,
-    iconBg: 'bg-purple-50',
-    iconColor: 'text-purple-600',
-    hoverBorder: 'hover:border-purple-300',
-    hoverText: 'group-hover:text-purple-700',
-  },
-  {
-    name: 'Commodities',
-    href: '/commodities',
-    description: 'Gold, silver & oil',
-    Icon: Coins,
-    badge: 'MCX',
-    iconBg: 'bg-amber-50',
-    iconColor: 'text-amber-600',
-    hoverBorder: 'hover:border-amber-300',
-    hoverText: 'group-hover:text-amber-700',
-  },
-  {
-    name: 'Currency',
-    href: '/currency',
-    description: 'Forex trading',
-    Icon: BadgeDollarSign,
-    iconBg: 'bg-teal-50',
-    iconColor: 'text-teal-600',
-    hoverBorder: 'hover:border-teal-300',
-    hoverText: 'group-hover:text-teal-700',
-  },
-  {
-    name: 'IPO',
-    href: '/ipo',
-    description: 'New listings',
-    Icon: Rocket,
-    badge: 'Hot',
-    iconBg: 'bg-emerald-50',
-    iconColor: 'text-emerald-600',
-    hoverBorder: 'hover:border-emerald-300',
-    hoverText: 'group-hover:text-emerald-700',
-  },
-  {
-    name: 'Mutual Funds',
-    href: '/mutual-funds',
-    description: 'SIP & lumpsum',
-    Icon: PieChart,
-    iconBg: 'bg-indigo-50',
-    iconColor: 'text-indigo-600',
-    hoverBorder: 'hover:border-indigo-300',
-    hoverText: 'group-hover:text-indigo-700',
-  },
-  {
-    name: 'Life Insurance',
-    href: '/insurance',
-    description: 'Term & health',
-    Icon: ShieldCheck,
-    iconBg: 'bg-red-50',
-    iconColor: 'text-red-500',
-    hoverBorder: 'hover:border-red-300',
-    hoverText: 'group-hover:text-red-700',
-  },
-  {
-    name: 'Corporate FD',
-    href: '/corporate-fds',
-    description: 'Fixed deposits',
-    Icon: Landmark,
-    iconBg: 'bg-orange-50',
-    iconColor: 'text-orange-600',
-    hoverBorder: 'hover:border-orange-300',
-    hoverText: 'group-hover:text-orange-700',
-  },
-  {
-    name: 'Bonds',
-    href: '/bonds',
-    description: 'Govt & PSU bonds',
-    Icon: FileText,
-    iconBg: 'bg-slate-100',
-    iconColor: 'text-slate-600',
-    hoverBorder: 'hover:border-slate-400',
-    hoverText: 'group-hover:text-slate-800',
-  },
-  {
-    name: 'DP Services',
-    href: '/dp',
-    description: 'Demat & custody',
-    Icon: CreditCard,
-    iconBg: 'bg-cyan-50',
-    iconColor: 'text-cyan-600',
-    hoverBorder: 'hover:border-cyan-300',
-    hoverText: 'group-hover:text-cyan-700',
-  },
+const HIGHLIGHT_STATS = [
+  { value: '₹0',    label: 'Delivery brokerage'  },
+  { value: '₹10',   label: 'Flat F&O charges'    },
+  { value: '5 min', label: 'Account opening'      },
+  { value: '10+',   label: 'Asset classes'        },
 ];
 
-const HIGHLIGHT_STATS: StatItem[] = [
-  { value: '₹0',    label: 'Delivery brokerage' },
-  { value: '₹10',   label: 'Flat F&O charges'   },
-  { value: '5 min', label: 'Account opening'     },
-  { value: '10+',   label: 'Asset classes'       },
-];
+function ProductCard({ product, size }: { product: typeof PRODUCTS[0]; size: 'large' | 'medium' }) {
+  const Icon = ICON_MAP[product.icon];
+  const iconSize = size === 'large' ? 36 : 26;
+  const imgHeight = size === 'large' ? 'h-44' : 'h-32';
+  const iconWrap  = size === 'large' ? 'w-20 h-20 rounded-2xl' : 'w-14 h-14 rounded-xl';
+  const titleSize = size === 'large' ? 'text-base' : 'text-sm';
+  const descSize  = size === 'large' ? 'text-xs' : 'text-[11px]';
+
+  return (
+    <Link href={product.href}
+      className="group relative bg-white rounded-2xl border border-[#E8E8E8] overflow-hidden hover:border-[#0066CC] hover:shadow-xl hover:shadow-[#0066CC]/8 transition-all duration-200 active:scale-[0.98] flex flex-col"
+      style={{ fontFamily: "'Inter', sans-serif" }}>
+
+      {/* Illustrated top */}
+      <div className={`relative ${imgHeight} bg-gradient-to-br ${product.accentBg} flex items-center justify-center overflow-hidden`}>
+        <div aria-hidden="true" className="absolute -top-6 -right-6 w-28 h-28 rounded-full bg-white/40" />
+        <div aria-hidden="true" className="absolute -bottom-8 -left-8 w-36 h-36 rounded-full bg-white/25" />
+        <div className={`relative z-10 ${iconWrap} shadow-md flex items-center justify-center ${product.iconBg} ${product.iconColor} group-hover:scale-110 transition-transform duration-200`}>
+          {Icon && <Icon size={iconSize} strokeWidth={1.5} aria-hidden="true" />}
+        </div>
+        {product.badge && (
+          <span className="absolute top-3 right-3 text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#00C853] text-white shadow-sm">
+            {product.badge}
+          </span>
+        )}
+      </div>
+
+      {/* Text */}
+      <div className={`${size === 'large' ? 'p-5' : 'p-4'} flex flex-col flex-1`}>
+        <div className="flex items-center gap-2 mb-1">
+          <span className={`w-2 h-2 rounded-full flex-shrink-0 ${product.accentBar}`} />
+          <h3 className={`${titleSize} font-bold text-[#1A1A2E] group-hover:text-[#0066CC] transition-colors duration-150`}>
+            {product.name}
+          </h3>
+        </div>
+        <p className={`${descSize} text-[#8B8B9A] leading-relaxed ml-4`}>{product.description}</p>
+        {size === 'large' && (
+          <div className="mt-auto pt-4">
+            <span className="inline-flex items-center gap-1 text-xs font-semibold text-[#0066CC] opacity-0 group-hover:opacity-100 transition-opacity duration-150">
+              Explore <span aria-hidden="true">→</span>
+            </span>
+          </div>
+        )}
+      </div>
+    </Link>
+  );
+}
 
 export default function ProductsSection() {
   return (
-    <section className="py-20 bg-slate-50">
+    <section className="py-20 bg-[#F7F8FA]" style={{ fontFamily: "'Inter', sans-serif" }}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
 
         {/* Header */}
         <div className="text-center mb-14">
-          <span className="inline-block text-xs font-semibold tracking-widest uppercase text-blue-600 bg-blue-50 px-3 py-1 rounded-full mb-4">
+          <span className="inline-block text-xs font-semibold tracking-widest uppercase text-[#0066CC] bg-[#EBF5FF] px-3 py-1 rounded-full mb-4">
             Everything you need
           </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight mb-3">
-            Products &amp; services
+          <h2 className="text-3xl sm:text-4xl font-bold text-[#1A1A2E] tracking-[-0.02em] mb-3">
+            One account, multiple investment options
           </h2>
-          <p className="text-slate-500 text-base max-w-xl mx-auto">
-            From your first stock to complex derivatives — one account, one
-            platform, every asset class that matters.
+          <p className="text-[#6B6B7B] text-base max-w-xl mx-auto">
+            From your first stock to complex derivatives — every asset class that matters, all in one place.
           </p>
         </div>
 
-        {/* Product grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 mb-12">
-          {PRODUCTS.map((product) => {
-            const { Icon } = product;
+        {/* Row 1 — 4 large cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+          {PRODUCTS.slice(0, 4).map((p) => <ProductCard key={p.name} product={p} size="large" />)}
+        </div>
 
-            return (
-              <Link
-                key={product.name}
-                href={product.href}
-                className={[
-                  'group relative bg-white rounded-2xl border border-slate-200 p-4',
-                  'text-center flex flex-col items-center gap-3',
-                  'transition-all duration-200 active:scale-[0.97] hover:shadow-md',
-                  product.hoverBorder,
-                ].join(' ')}
-              >
-                {/* Badge — only rendered when defined */}
-                {product.badge && (
-                  <span className="absolute top-2.5 right-2.5 text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-100">
-                    {product.badge}
-                  </span>
-                )}
+        {/* Row 2 — 4 medium cards */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
+          {PRODUCTS.slice(4, 8).map((p) => <ProductCard key={p.name} product={p} size="medium" />)}
+        </div>
 
-                {/* Icon circle */}
-                <div
-                  className={[
-                    'w-11 h-11 rounded-xl flex items-center justify-center',
-                    'transition-colors duration-200',
-                    product.iconBg,
-                    product.iconColor,
-                  ].join(' ')}
-                >
-                  {/* ✅ Fix: lucide-react Icon component — works without any font/CDN setup */}
-                  <Icon size={20} strokeWidth={1.75} aria-hidden="true" />
-                </div>
+        {/* Row 3 — 2 medium + 1 CTA card spanning 2 cols */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-12">
+          {PRODUCTS.slice(8, 10).map((p) => <ProductCard key={p.name} product={p} size="medium" />)}
 
-                {/* Label */}
-                <div>
-                  <p
-                    className={[
-                      'text-sm font-semibold text-slate-800 transition-colors duration-150',
-                      product.hoverText,
-                    ].join(' ')}
-                  >
-                    {product.name}
-                  </p>
-                  <p className="text-xs text-slate-400 mt-0.5">
-                    {product.description}
-                  </p>
-                </div>
-
-                {/* Hover arrow */}
-                <span className="text-xs text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-150 -mt-1">
-                  Explore →
-                </span>
-              </Link>
-            );
-          })}
+          {/* Dark CTA card */}
+          <div className="col-span-2 bg-[#1A1A2E] rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4 overflow-hidden relative">
+            <div aria-hidden="true" className="absolute -top-8 -right-8 w-40 h-40 rounded-full blur-2xl"
+              style={{ background: 'radial-gradient(circle, rgba(0,102,204,0.25) 0%, transparent 70%)' }} />
+            <div className="relative z-10">
+              <p className="text-white font-bold text-base mb-1">Ready to start investing?</p>
+              <p className="text-[#8B8B9A] text-xs">Open a free demat account in 5 minutes. Zero charges · 10+ asset classes</p>
+            </div>
+            <Link href={getKycUrl('products')} target="_blank" rel="noopener noreferrer"
+              className="relative z-10 flex-shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white transition-all duration-150 active:scale-[0.98] whitespace-nowrap"
+              style={{ background: 'linear-gradient(135deg, #0066CC 0%, #004FA3 100%)' }}>
+              Open Free Account →
+            </Link>
+          </div>
         </div>
 
         {/* Stats strip */}
-        <div className="bg-slate-900 rounded-2xl px-6 py-5 grid grid-cols-2 sm:grid-cols-4 gap-6">
+        <div className="bg-[#1A1A2E] rounded-2xl px-6 py-5 grid grid-cols-2 sm:grid-cols-4 gap-6">
           {HIGHLIGHT_STATS.map((stat, i) => (
-            <div
-              key={stat.label}
-              className={[
-                'text-center',
-                // ✅ Fix: full class strings so Tailwind never purges them
-                i < HIGHLIGHT_STATS.length - 1
-                  ? 'sm:border-r sm:border-slate-700'
-                  : '',
-              ].join(' ')}
-            >
-              <p className="text-2xl font-bold text-white font-mono tracking-tight">
-                {stat.value}
-              </p>
-              <p className="text-xs text-slate-400 mt-1">{stat.label}</p>
+            <div key={stat.label} className={`text-center ${i < HIGHLIGHT_STATS.length - 1 ? 'sm:border-r sm:border-[#2D2D4A]' : ''}`}>
+              <p className="text-2xl font-bold text-white font-mono tracking-tight">{stat.value}</p>
+              <p className="text-xs text-[#8B8B9A] mt-1">{stat.label}</p>
             </div>
           ))}
         </div>
 
-        {/* Bottom CTA */}
-        <div className="text-center mt-10">
-          <Link
-            href="https://kyc.wisdomcapital.in/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-8 py-3.5 bg-blue-600 hover:bg-blue-700 active:scale-[0.98] text-white text-sm font-semibold rounded-xl transition-all duration-150"
-          >
-            Open free account — access all products
-            <span aria-hidden="true">→</span>
-          </Link>
-          <p className="text-xs text-slate-400 mt-3">
-            Zero account opening charges · No AMC for first year
-          </p>
+        {/* Trading Tools Section */}
+        <div className="mt-20">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl font-bold text-[#1A1A2E] mb-3">Our Trading Platforms</h2>
+            <p className="text-[#6B6B7B]">Advanced tools for seamless trading experience</p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-white p-6 rounded-2xl border border-[#E8E8E8] hover:border-[#0066CC] transition-all">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-xl bg-blue-50 text-[#0066CC] flex items-center justify-center">
+                  <Globe size={24} />
+                </div>
+                <div>
+                  <h3 className="font-bold text-[#1A1A2E] mb-2">Web Trading Platform</h3>
+                  <p className="text-sm text-[#6B6B7B] mb-3">Trade from anywhere with our powerful web-based platform</p>
+                  <Link href="https://trade.wisdomcapital.in/#!/app" target="_blank" className="text-xs font-semibold text-[#0066CC]">
+                    Access Web Platform →
+                  </Link>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white p-6 rounded-2xl border border-[#E8E8E8] hover:border-[#0066CC] transition-all">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-xl bg-blue-50 text-[#0066CC] flex items-center justify-center">
+                  <Smartphone size={24} />
+                </div>
+                <div>
+                  <h3 className="font-bold text-[#1A1A2E] mb-2">Mobile Trading App</h3>
+                  <p className="text-sm text-[#6B6B7B] mb-3">Trade on the go with our feature-rich mobile application</p>
+                  <Link href="https://play.google.com/store/search?q=wisdom+neo&c=apps&hl=en-IN" className="text-xs font-semibold text-[#0066CC]">
+                    Download App →
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
       </div>

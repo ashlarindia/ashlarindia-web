@@ -1,192 +1,97 @@
 'use client';
+import { WHY_FEATURES, TESTIMONIALS } from '@/data/site-data';
+import { Quote, ShieldCheck, IndianRupee, Headphones, Zap, BarChart2, Lock, Globe, Award } from 'lucide-react';
 
-import Link from 'next/link';
-import {
-  ShieldCheck,
-  IndianRupee,
-  Headphones,
-  Zap,
-  BarChart2,
-  Lock,
-  Globe,
-  Award,
-} from 'lucide-react';
-import type { LucideIcon } from 'lucide-react';
-
-interface Feature {
-  title: string;
-  desc: string;
-  Icon: LucideIcon;
-  iconBg: string;
-  iconColor: string;
-  accentBorder: string;
-  tag?: string;
-}
-
-const FEATURES: Feature[] = [
-  {
-    title: 'SEBI registered broker',
-    desc: 'Fully regulated with NSE, BSE & MCX memberships. Your funds are held in segregated client accounts — always protected.',
-    Icon: ShieldCheck,
-    iconBg: 'bg-emerald-50',
-    iconColor: 'text-emerald-600',
-    accentBorder: 'border-t-emerald-500',
-    tag: 'Regulated',
-  },
-  {
-    title: 'Flat ₹10 brokerage',
-    desc: 'One flat fee for intraday, F&O, and currency trades. Zero brokerage on equity delivery. No hidden charges, ever.',
-    Icon: IndianRupee,
-    iconBg: 'bg-blue-50',
-    iconColor: 'text-blue-600',
-    accentBorder: 'border-t-blue-500',
-    tag: 'Best price',
-  },
-  {
-    title: '24/7 dedicated support',
-    desc: 'Reach our expert team via phone, email, or chat. Average response time under 2 minutes during market hours.',
-    Icon: Headphones,
-    iconBg: 'bg-purple-50',
-    iconColor: 'text-purple-600',
-    accentBorder: 'border-t-purple-500',
-  },
-  {
-    title: 'Open account in 5 min',
-    desc: 'Fully paperless KYC with Aadhaar & PAN. Get your demat account approved and start trading the same day.',
-    Icon: Zap,
-    iconBg: 'bg-amber-50',
-    iconColor: 'text-amber-600',
-    accentBorder: 'border-t-amber-500',
-    tag: 'Instant',
-  },
-  {
-    title: 'Advanced trading platform',
-    desc: 'Web, mobile & desktop apps with real-time charts, 100+ indicators, options chain, and algo trading support.',
-    Icon: BarChart2,
-    iconBg: 'bg-indigo-50',
-    iconColor: 'text-indigo-600',
-    accentBorder: 'border-t-indigo-500',
-  },
-  {
-    title: 'Bank-grade security',
-    desc: '256-bit SSL encryption, 2-factor authentication, and biometric login. ISO 27001 certified infrastructure.',
-    Icon: Lock,
-    iconBg: 'bg-red-50',
-    iconColor: 'text-red-500',
-    accentBorder: 'border-t-red-500',
-  },
-  {
-    title: 'Pan-India presence',
-    desc: '50+ branches across India with experienced relationship managers for personalised investment guidance.',
-    Icon: Globe,
-    iconBg: 'bg-teal-50',
-    iconColor: 'text-teal-600',
-    accentBorder: 'border-t-teal-500',
-  },
-  {
-    title: '15 years of trust',
-    desc: 'Serving 50,000+ investors since 2009. Consistently rated among India\'s top discount brokers.',
-    Icon: Award,
-    iconBg: 'bg-orange-50',
-    iconColor: 'text-orange-600',
-    accentBorder: 'border-t-orange-500',
-    tag: '★ Top rated',
-  },
-];
+// Map icon names to actual Lucide components
+const iconMap: Record<string, any> = {
+  ShieldCheck, IndianRupee, Headphones, Zap, BarChart2, Lock, Globe, Award
+};
 
 export default function WhyAshlar() {
   return (
-    <section className="py-20 bg-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-
-        {/* Header */}
-        <div className="text-center mb-14">
-          <span className="inline-block text-xs font-semibold tracking-widest uppercase text-blue-600 bg-blue-50 px-3 py-1 rounded-full mb-4">
-            Why Ashlar India
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight mb-3">
-            Built for confident investors
-          </h2>
-          <p className="text-slate-500 text-base max-w-xl mx-auto">
-            Everything you need to trade smarter — transparent pricing, powerful
-            tools, and a team that puts you first.
-          </p>
-        </div>
-
-        {/* Feature grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-14">
-          {FEATURES.map((feature) => {
-            const { Icon } = feature;
-
-            return (
-              <div
-                key={feature.title}
-                className={[
-                  'group relative bg-white rounded-2xl border border-slate-200',
-                  'border-t-2 p-6 hover:shadow-md hover:border-slate-300',
-                  'transition-all duration-200',
-                  feature.accentBorder,
-                ].join(' ')}
-              >
-                {/* Optional badge */}
-                {feature.tag && (
-                  <span className="absolute top-4 right-4 text-[10px] font-bold px-2 py-0.5 rounded-md bg-slate-100 text-slate-500 border border-slate-200">
-                    {feature.tag}
-                  </span>
-                )}
-
-                {/* Icon */}
-                <div
-                  className={[
-                    'w-11 h-11 rounded-xl flex items-center justify-center mb-4',
-                    feature.iconBg,
-                    feature.iconColor,
-                  ].join(' ')}
-                >
-                  <Icon size={20} strokeWidth={1.75} aria-hidden="true" />
+    <>
+      {/* WHY FEATURES Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-[#1A1A2E] mb-3">Why Choose Ashlar India?</h2>
+            <p className="text-[#6B6B7B]">Experience trading with India's most transparent broker</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {WHY_FEATURES.map((feature, idx) => {
+              const IconComponent = iconMap[feature.icon];
+              return (
+                <div key={idx} className="text-center p-6 rounded-2xl border border-[#E8E8E8] hover:shadow-lg transition-all group">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-blue-50 text-[#0066CC] flex items-center justify-center group-hover:scale-110 transition-transform">
+                    {IconComponent && <IconComponent size={32} />}
+                  </div>
+                  <h3 className="font-bold text-[#1A1A2E] mb-2">{feature.title}</h3>
+                  <p className="text-sm text-[#6B6B7B] leading-relaxed">{feature.description}</p>
                 </div>
-
-                {/* Content */}
-                <h3 className="text-sm font-bold text-slate-900 mb-2 leading-snug">
-                  {feature.title}
-                </h3>
-                <p className="text-xs text-slate-500 leading-relaxed">
-                  {feature.desc}
-                </p>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Bottom CTA row */}
-        <div className="bg-slate-50 border border-slate-200 rounded-2xl px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-5">
-          <div>
-            <p className="text-base font-bold text-slate-900 mb-1">
-              Ready to start investing?
-            </p>
-            <p className="text-sm text-slate-500">
-              Join 50,000+ investors — open your free demat account in 5 minutes.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-3 flex-shrink-0">
-            <Link
-              href="https://kyc.wisdomcapital.in/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 active:scale-[0.98] text-white text-sm font-semibold rounded-xl transition-all duration-150"
-            >
-              Open free account →
-            </Link>
-            <Link
-              href="/products"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 text-sm font-semibold rounded-xl transition-all duration-150"
-            >
-              Explore products
-            </Link>
+              );
+            })}
           </div>
         </div>
+      </section>
 
-      </div>
-    </section>
+      {/* Testimonials Section */}
+      <section className="py-20 bg-[#F7F8FA]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-[#1A1A2E] mb-3">What Our Clients Say</h2>
+            <p className="text-[#6B6B7B]">Real stories from satisfied investors</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {TESTIMONIALS && TESTIMONIALS.length > 0 ? (
+              TESTIMONIALS.map((testimonial, idx) => (
+                <div key={idx} className="bg-white p-6 rounded-2xl border border-[#E8E8E8] shadow-sm hover:shadow-md transition-shadow">
+                  <div className="text-[#0066CC] mb-4 opacity-50">
+                    <Quote size={32} />
+                  </div>
+                  <p className="text-[#6B6B7B] text-sm leading-relaxed mb-4">
+                    "{testimonial.text}"
+                  </p>
+                  <div className="border-t border-[#E8E8E8] pt-4">
+                    <p className="font-semibold text-[#1A1A2E]">{testimonial.name}</p>
+                    <p className="text-xs text-[#8B8B9A]">{testimonial.role}</p>
+                    {testimonial.location && (
+                      <p className="text-xs text-[#8B8B9A] mt-1">{testimonial.location}</p>
+                    )}
+                  </div>
+                </div>
+              ))
+            ) : (
+              // Fallback testimonials if none exist in data
+              <>
+                <div className="bg-white p-6 rounded-2xl border border-[#E8E8E8]">
+                  <Quote size={32} className="text-[#0066CC] opacity-50 mb-4" />
+                  <p className="text-[#6B6B7B] text-sm leading-relaxed mb-4">"Excellent platform with transparent pricing. The customer support is very responsive."</p>
+                  <div className="border-t border-[#E8E8E8] pt-4">
+                    <p className="font-semibold text-[#1A1A2E]">Rajesh Kumar</p>
+                    <p className="text-xs text-[#8B8B9A]">Retail Investor</p>
+                  </div>
+                </div>
+                <div className="bg-white p-6 rounded-2xl border border-[#E8E8E8]">
+                  <Quote size={32} className="text-[#0066CC] opacity-50 mb-4" />
+                  <p className="text-[#6B6B7B] text-sm leading-relaxed mb-4">"The flat ₹10 brokerage has saved me thousands in trading costs. Highly recommended!"</p>
+                  <div className="border-t border-[#E8E8E8] pt-4">
+                    <p className="font-semibold text-[#1A1A2E]">Priya Sharma</p>
+                    <p className="text-xs text-[#8B8B9A]">Professional Trader</p>
+                  </div>
+                </div>
+                <div className="bg-white p-6 rounded-2xl border border-[#E8E8E8]">
+                  <Quote size={32} className="text-[#0066CC] opacity-50 mb-4" />
+                  <p className="text-[#6B6B7B] text-sm leading-relaxed mb-4">"Opening my demat account was seamless. The platform is very user-friendly."</p>
+                  <div className="border-t border-[#E8E8E8] pt-4">
+                    <p className="font-semibold text-[#1A1A2E]">Amit Patel</p>
+                    <p className="text-xs text-[#8B8B9A]">First-time Investor</p>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
