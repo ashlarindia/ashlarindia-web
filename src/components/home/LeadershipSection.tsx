@@ -12,18 +12,9 @@ const LEADERS = [
     linkedin: '#',
     email: 'bharat@ashlarindia.com',
   },
+  
   {
     id: 2,
-    name: 'Mr. Ankit Garg',
-    designation: 'Director',
-    experience: '20+ Years Experience',
-    image: '/leadership/AnkitGarg.jpeg',
-    bio: 'Mr. Ankit Garg has significant expertise in equity, commodity, and financial markets. He has been instrumental in managing business operations, technology integration, and strategic growth initiatives of the company.',
-    linkedin: '#',
-    email: 'ankit@ashlarindia.com',
-  },
-  {
-    id: 3,
     name: 'Mr. Sunil Kumar',
     designation: 'Whole-time Director',
     experience: '20+ Years Experience',
@@ -33,7 +24,7 @@ const LEADERS = [
     email: 'sunil@ashlarindia.com',
   },
   {
-    id: 4,
+    id: 3,
     name: 'Mr. Sudhir Bhalla',
     designation: 'Director',
     experience: '17+ Years Experience',

@@ -178,25 +178,23 @@ export const LOGIN_OPTIONS = [
   { name: 'Webmail',         href: 'http://mail.ashlarindia.com/',             external: true },
   { name: 'Trading API',     href: 'https://ashlarindia.com/trading-api',      external: true },
 ];
-
 export const NAV_PRODUCTS = [
-  { name: 'Equity',       href: '/equity'                  },
-  { name: 'F&O',          href: '/fo'                      },
-  { name: 'Commodities',  href: '/commodities'             },
-  { name: 'Currency',     href: '/currency'                },
-  { name: 'IPO',          href: '/ipo',   badge: 'Hot'     },
-  { name: 'Bonds',        href: '/bonds'                   },
-  { name: 'DP Services',  href: '/dp'                      },
+  { name: 'Equity',       href: '/products/equity'                  },
+  { name: 'F&O',          href: '/products/fno'                      },
+  { name: 'Commodities',  href: '/products/commodities'             },
+  { name: 'Currency',     href: '/products/currency'                },
+  { name: 'IPO',          href: '/products/ipo',   badge: 'Hot'     },
+  { name: 'Bonds',        href: '/products/bonds'                   },
+  { name: 'DP Services',  href: '/products/dp'                      },
 ];
 
 export const NAV_INVESTMENT = [
-  { name: 'Mutual Funds',     href: '/mutual-funds'     },
-  { name: 'Life Insurance',   href: '/insurance'        },
-  { name: 'Corporate FDs',    href: '/corporate-fds'    },
-  { name: 'Retirement Plans', href: '/retirement-plans' },
-  { name: 'Child Plans',      href: '/child-plans'      },
+  { name: 'Mutual Funds',     href: '/investment/mutual-funds'     },
+  { name: 'Life Insurance',   href: '/investment/life-insurance'    },
+  { name: 'Corporate FDs',    href: '/investment/corporate-fds'     },
+  { name: 'Retirement Plans', href: '/investment/retirement-plans'  },
+  { name: 'Child Plans',      href: '/investment/child-plans'       },
 ];
-
 // Already exists in your file
 export const NAV_CALCULATORS = [
   { name: 'Brokerage Calculator', href: '/calculators' },  // Updated path

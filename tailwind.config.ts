@@ -26,9 +26,9 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ['var(--font-inter)'],
-        display: ['var(--font-manrope)'],
-      },
+  display: ["var(--font-display)", "sans-serif"],
+  sans: ["var(--font-body)", "sans-serif"],
+}
     },
   },
   plugins: [],

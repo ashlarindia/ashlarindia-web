@@ -1,139 +1,72 @@
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Landmark, TrendingUp, Shield, DollarSign, Calendar, Receipt } from 'lucide-react';
+// src/app/products/bonds/page.tsx
+import type { Metadata } from "next";
+import { Hero, Prose, Features, CTA, Disclaimer } from "@/components/parts";
 
-export const metadata = {
-  title: 'Bonds & Government Securities | Ashlar Markets',
-  description: 'Invest in government bonds, treasury bills, and dated securities with zero default risk.',
+export const metadata: Metadata = {
+  title: "Bonds | Ashlar Securities",
+  description:
+    "Invest in government bonds, corporate bonds, tax-free bonds and NCDs through Ashlar. Earn steady, predictable income from a wide range of fixed-income options.",
 };
 
 export default function BondsPage() {
-  const advantages = [
-    {
-      icon: Receipt,
-      title: 'No Tax Deduction at Source',
-      description: 'TDS is not applicable on government securities',
-    },
-    {
-      icon: Shield,
-      title: 'Zero Default Risk',
-      description: 'Government backed securities with highest safety',
-    },
-    {
-      icon: TrendingUp,
-      title: 'High Liquidity',
-      description: 'Easy to buy and sell in secondary market',
-    },
-    {
-      icon: Calendar,
-      title: 'Regular Interest',
-      description: 'Interest payments on half-yearly basis',
-    },
-    {
-      icon: DollarSign,
-      title: 'Flexible Maturity',
-      description: 'Maturity from 2-30 years to suit your needs',
-    },
-  ];
-
   return (
-    <>
-      
+    <main>
+      <Hero
+        tag="Products / Bonds"
+        title="Steady income,"
+        highlight="predictable returns."
+        text="Bonds give your portfolio the calm that equity alone cannot. Pick from government bonds, corporate bonds, tax-free bonds and NCDs — all through your Ashlar account."
+      />
 
-      <div className="mb-12 text-center">
-       
-        <h1 className="section-title mb-6">Bonds & Government Securities</h1>
-        <p className="section-copy mx-auto">
-          Government securities represent one of the best investment options available with 
-          zero default risk and attractive returns.
+      <Prose>
+        <h2>What is a bond?</h2>
+        <p>
+          A bond is simply a loan you give to a government or a company. In return, the issuer pays you
+          regular interest, called the coupon, and returns your full principal on the maturity date. Bonds
+          are the calm, predictable cousin of stocks — they do not shoot up overnight, but they do not
+          crash overnight either.
         </p>
-      </div>
+        <p>
+          For most investors, bonds play three roles. They generate steady income. They protect your
+          capital when stock markets are weak. And they balance the ups and downs of an equity-heavy
+          portfolio. Retirees, conservative investors and anyone planning for a near-term goal will find
+          bonds useful.
+        </p>
 
-      <div className="grid gap-8 lg:grid-cols-3">
-        <div className="lg:col-span-2 space-y-8">
-          <Card className="card-surface">
-            <CardHeader>
-              <CardTitle className="text-2xl text-brand-navy">Understanding Government Securities</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4 text-slate-700">
-              <p>
-                A government security is a financial instrument issued by the Central or State Governments. 
-                Only Central Government of India holds the power to issue both treasury bills and bonds or dated securities. 
-                State Governments are empowered to issue only bonds or dated securities, also known as State Development Loans (SDLs).
-              </p>
-              <p>
-                Treasury bills represent short-term securities with a maturity period of less than one year. 
-                Government bonds or dated securities have a maturity period of one year or longer.
-              </p>
-              <p>
-                Treasury bills are zero-coupon securities issued at a discount on face value and redeemed at face value at maturity. 
-                The difference between discounted value and face value represents the accumulated interest.
-              </p>
-            </CardContent>
-          </Card>
+        <h2>Types of bonds you can invest in</h2>
+        <ul className="ml-6 list-disc space-y-2">
+          <li><strong>Government Securities (G-Secs).</strong> Backed by the Government of India. The safest fixed income you can buy.</li>
+          <li><strong>State Development Loans.</strong> Issued by state governments — sovereign-grade safety with slightly better yields.</li>
+          <li><strong>Corporate Bonds.</strong> Issued by Indian companies. Higher yields than G-Secs, with credit ratings to guide you.</li>
+          <li><strong>Tax-Free Bonds.</strong> Issued by select PSUs. Interest is fully exempt from income tax — ideal for higher tax brackets.</li>
+          <li><strong>NCDs (Non-Convertible Debentures).</strong> Fixed-tenure debentures from companies, offering attractive coupon rates.</li>
+        </ul>
 
-          <div>
-            <h2 className="text-2xl font-bold text-brand-navy mb-6">Types of Government Securities</h2>
-            <div className="grid gap-4">
-              <Card className="card-surface">
-                <CardContent className="pt-6">
-                  <h3 className="font-bold text-brand-navy mb-2">Treasury Bills (T-bills)</h3>
-                  <p className="text-slate-600">Short-term securities with maturity less than one year. Zero-coupon bonds issued at discount.</p>
-                </CardContent>
-              </Card>
-              <Card className="card-surface">
-                <CardContent className="pt-6">
-                  <h3 className="font-bold text-brand-navy mb-2">Government Dated Securities</h3>
-                  <p className="text-slate-600">Fixed rate bonds, floating rate bonds, zero coupon bonds, capital indexed bonds, and bonds with call/put options.</p>
-                </CardContent>
-              </Card>
-              <Card className="card-surface">
-                <CardContent className="pt-6">
-                  <h3 className="font-bold text-brand-navy mb-2">State Development Loans (SDLs)</h3>
-                  <p className="text-slate-600">Bonds issued by state governments for raising public loans.</p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
+        <h2>Things to check before you invest</h2>
+        <p>
+          Always look at the <strong>credit rating</strong> first — AAA and AA are considered safe; lower
+          ratings carry more risk for higher returns. Check the <strong>tenure</strong> and make sure it
+          matches your goal. Look at <strong>interest payment frequency</strong> — annual, half-yearly or
+          cumulative. And remember that bond prices move with interest rates, so if you sell before
+          maturity, you may get more or less than what you paid.
+        </p>
+      </Prose>
 
-          <div>
-            <h2 className="text-2xl font-bold text-brand-navy mb-6">Advantages of Government Securities</h2>
-            <div className="grid gap-6 md:grid-cols-2">
-              {advantages.map((adv, index) => (
-                <Card key={index} className="card-surface">
-                  <CardContent className="pt-6">
-                    <adv.icon className="h-10 w-10 text-brand-orange mb-4" />
-                    <h3 className="font-bold text-brand-navy mb-2">{adv.title}</h3>
-                    <p className="text-sm text-slate-600">{adv.description}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </div>
+      <Features
+        heading="Why invest in bonds with Ashlar"
+        items={[
+          { t: "Predictable income", d: "Fixed coupons paid on schedule — plan your cash flows easily." },
+          { t: "Capital protection", d: "Principal returned at maturity by the issuer." },
+          { t: "Portfolio balance", d: "Reduces risk by adding an asset class that behaves differently from stocks." },
+          { t: "Curated offerings", d: "Rated, exchange-traded bonds from reputed issuers only." },
+          { t: "All tenures", d: "Short-term to 10-year-plus — match a bond to every goal." },
+          { t: "Expert guidance", d: "Our team helps you balance safety, yield and tenure." },
+        ]}
+      />
 
-        <div className="lg:col-span-1">
-          <Card className="card-surface sticky top-24">
-            <CardHeader>
-              <CardTitle className="text-brand-navy">Start Investing in Bonds</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <Button className="w-full bg-brand-orange hover:bg-brand-orange/90">
-                Open Demat Account
-              </Button>
-              <Button variant="outline" className="w-full">
-                View Current Yields
-              </Button>
-              <div className="pt-4 text-center">
-                <p className="text-sm text-slate-500">Current G-Sec Yields</p>
-                <p className="text-xl font-bold text-brand-orange">7.2% - 7.8%</p>
-                <p className="text-xs text-slate-500 mt-2">*Rates subject to change</p>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    </>
+      <CTA title="Build the stable side of your portfolio." text="Talk to our fixed-income team and explore bond options today." />
+
+      <Disclaimer text="Bond prices are subject to interest rate and credit risk. Returns are not guaranteed except on hold-to-maturity. Read the offer document carefully before investing." />
+    </main>
   );
 }
