@@ -1,166 +1,290 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { TrendingUp, BarChart2, Coins, BadgeDollarSign, Rocket, PieChart, ShieldCheck, Landmark, FileText, CreditCard, Globe, Smartphone } from 'lucide-react';
-import type { LucideIcon } from 'lucide-react';
-import { PRODUCTS, getKycUrl } from '@/data/site-data';
+import type { FC } from "react";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import {
+  TrendingUp, BarChart2, Coins, BadgeDollarSign, Rocket,
+  PieChart, ShieldCheck, Landmark, FileText, CreditCard,
+  Globe, Smartphone, ArrowUpRight,
+} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import { PRODUCTS, getKycUrl } from "@/data/site-data";
+import SITE_CONTENT from "@/config/content";
 
+/* ----------------------------- icons ----------------------------- */
 const ICON_MAP: Record<string, LucideIcon> = {
   TrendingUp, BarChart2, Coins, BadgeDollarSign, Rocket,
   PieChart, ShieldCheck, Landmark, FileText, CreditCard,
 };
 
-const HIGHLIGHT_STATS = [
-  { value: '₹0',    label: 'Delivery brokerage'  },
-  { value: '₹10',   label: 'Flat F&O charges'    },
-  { value: '5 min', label: 'Account opening'      },
-  { value: '10+',   label: 'Asset classes'        },
-];
+/* ----------------------- semantic icon tones --------------------- */
+/* Restrained palette mapping — uses our design tokens.             */
+/* Cycles based on product index, but skews toward brand for core    */
+/* trading products and tones for insurance / IPO / mutual funds.    */
+const tones = [
+  "bg-brand-50  text-brand-700  ring-brand-600/10",   // primary
+  "bg-success/5 text-success    ring-success/15",      // growth/positive
+  "bg-amber-50  text-amber-700  ring-amber-600/10",   // attention
+  "bg-ink-50    text-ink-800    ring-border",         // neutral
+] as const;
 
-function ProductCard({ product, size }: { product: typeof PRODUCTS[0]; size: 'large' | 'medium' }) {
-  const Icon = ICON_MAP[product.icon];
-  const iconSize = size === 'large' ? 36 : 26;
-  const imgHeight = size === 'large' ? 'h-44' : 'h-32';
-  const iconWrap  = size === 'large' ? 'w-20 h-20 rounded-2xl' : 'w-14 h-14 rounded-xl';
-  const titleSize = size === 'large' ? 'text-base' : 'text-sm';
-  const descSize  = size === 'large' ? 'text-xs' : 'text-[11px]';
+/* ----------------------------- motion ---------------------------- */
+const grid = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.06, delayChildren: 0.05 } },
+};
+const cell = {
+  hidden: { opacity: 0, y: 14 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
+};
 
-  return (
-    <Link href={product.href}
-      className="group relative bg-white rounded-2xl border border-[#E8E8E8] overflow-hidden hover:border-[#0066CC] hover:shadow-xl hover:shadow-[#0066CC]/8 transition-all duration-200 active:scale-[0.98] flex flex-col"
-      style={{ fontFamily: "'Inter', sans-serif" }}>
+/* ----------------------------- arrow ----------------------------- */
+const Arrow: FC = () => (
+  <svg
+    aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none"
+    className="transition-transform duration-300 ease-out-expo group-hover:translate-x-0.5"
+  >
+    <path d="M1 7h12m0 0L7.5 1.5M13 7l-5.5 5.5"
+      stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
 
-      {/* Illustrated top */}
-      <div className={`relative ${imgHeight} bg-gradient-to-br ${product.accentBg} flex items-center justify-center overflow-hidden`}>
-        <div aria-hidden="true" className="absolute -top-6 -right-6 w-28 h-28 rounded-full bg-white/40" />
-        <div aria-hidden="true" className="absolute -bottom-8 -left-8 w-36 h-36 rounded-full bg-white/25" />
-        <div className={`relative z-10 ${iconWrap} shadow-md flex items-center justify-center ${product.iconBg} ${product.iconColor} group-hover:scale-110 transition-transform duration-200`}>
-          {Icon && <Icon size={iconSize} strokeWidth={1.5} aria-hidden="true" />}
-        </div>
-        {product.badge && (
-          <span className="absolute top-3 right-3 text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#00C853] text-white shadow-sm">
-            {product.badge}
-          </span>
-        )}
-      </div>
-
-      {/* Text */}
-      <div className={`${size === 'large' ? 'p-5' : 'p-4'} flex flex-col flex-1`}>
-        <div className="flex items-center gap-2 mb-1">
-          <span className={`w-2 h-2 rounded-full flex-shrink-0 ${product.accentBar}`} />
-          <h3 className={`${titleSize} font-bold text-[#1A1A2E] group-hover:text-[#0066CC] transition-colors duration-150`}>
-            {product.name}
-          </h3>
-        </div>
-        <p className={`${descSize} text-[#8B8B9A] leading-relaxed ml-4`}>{product.description}</p>
-        {size === 'large' && (
-          <div className="mt-auto pt-4">
-            <span className="inline-flex items-center gap-1 text-xs font-semibold text-[#0066CC] opacity-0 group-hover:opacity-100 transition-opacity duration-150">
-              Explore <span aria-hidden="true">→</span>
-            </span>
-          </div>
-        )}
-      </div>
-    </Link>
-  );
+/* --------------------------- product card ------------------------ */
+interface ProductCardProps {
+  product: typeof PRODUCTS[0];
+  toneIndex: number;
 }
 
-export default function ProductsSection() {
+const ProductCard: FC<ProductCardProps> = ({ product, toneIndex }) => {
+  const Icon = ICON_MAP[product.icon];
+  const tone = tones[toneIndex % tones.length];
+
   return (
-    <section className="py-20 bg-[#F7F8FA]" style={{ fontFamily: "'Inter', sans-serif" }}>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+    <motion.div variants={cell} className="h-full">
+      <Link
+        href={product.href}
+        className={[
+          "group relative flex h-full flex-col rounded-xl border border-border bg-surface p-5",
+          "transition-[transform,border-color,box-shadow] duration-300 ease-out-expo",
+          "hover:-translate-y-0.5 hover:border-border-strong hover:shadow-md",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2",
+        ].join(" ")}
+      >
+        {/* Hover glow — subtle, brand-toned */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 rounded-xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          style={{
+            background:
+              "radial-gradient(120% 80% at 50% 0%, rgba(139,47,38,0.06), transparent 60%)",
+          }}
+        />
+
+        <div className="relative">
+          {/* Icon + badge row */}
+          <div className="flex items-start justify-between">
+            <div
+              className={[
+                "flex h-11 w-11 items-center justify-center rounded-lg ring-1 ring-inset",
+                "transition-transform duration-300 group-hover:-translate-y-0.5",
+                tone,
+              ].join(" ")}
+            >
+              {Icon && <Icon size={20} strokeWidth={1.75} aria-hidden="true" />}
+            </div>
+            {product.badge && (
+              <span className="rounded-full bg-brand-600 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-white">
+                {product.badge}
+              </span>
+            )}
+          </div>
+
+          {/* Content */}
+          <h3 className="mt-5 font-display text-base font-medium leading-snug tracking-tight text-ink-900 transition-colors duration-200 group-hover:text-brand-700">
+            {product.name}
+          </h3>
+          <p className="mt-1.5 text-sm leading-relaxed text-ink-600">
+            {product.description}
+          </p>
+
+          {/* Persistent CTA — visible on touch + keyboard */}
+          <div className="mt-5 inline-flex items-center gap-1.5 text-xs font-medium text-brand-600">
+            Explore <Arrow />
+          </div>
+        </div>
+      </Link>
+    </motion.div>
+  );
+};
+
+/* --------------------------- final CTA card ---------------------- */
+const CtaCard: FC<{ title: string; description: string; buttonText: string }> = ({
+  title, description, buttonText,
+}) => (
+  <motion.div variants={cell} className="sm:col-span-2 lg:col-span-2">
+    <div className="relative h-full overflow-hidden rounded-xl bg-brand-700 p-6 text-white">
+      {/* Texture */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-50"
+        style={{
+          background:
+            "radial-gradient(60% 80% at 100% 0%, rgba(255,255,255,0.10), transparent 60%), radial-gradient(40% 60% at 0% 100%, rgba(255,255,255,0.06), transparent 60%)",
+        }}
+      />
+      <div className="relative flex h-full flex-col">
+        <p className="text-[11px] font-medium uppercase tracking-wider text-brand-100">
+          Get started
+        </p>
+        <h3 className="mt-2 font-display text-xl font-medium leading-snug">
+          {title}
+        </h3>
+        <p className="mt-2 max-w-sm text-sm leading-relaxed text-brand-100/90">
+          {description}
+        </p>
+        <div className="mt-5 sm:mt-auto sm:pt-4">
+          <Link
+            href={getKycUrl("products")}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex h-10 items-center gap-2 rounded-lg bg-white px-5 text-sm font-medium text-brand-700 transition-[transform,box-shadow] duration-300 ease-out-expo hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-700"
+          >
+            {buttonText}
+            <ArrowUpRight size={15} className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          </Link>
+        </div>
+      </div>
+    </div>
+  </motion.div>
+);
+
+/* -------------------------- platform card ------------------------ */
+interface PlatformCardProps {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+  href: string;
+  buttonText: string;
+}
+
+const PlatformCard: FC<PlatformCardProps> = ({ icon: Icon, title, description, href, buttonText }) => (
+  <motion.div variants={cell}>
+    <div className="group rounded-xl border border-border bg-surface p-6 transition-[transform,border-color,box-shadow] duration-300 ease-out-expo hover:-translate-y-0.5 hover:border-border-strong hover:shadow-md">
+      <div className="flex items-start gap-4">
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-700 ring-1 ring-inset ring-brand-600/10 transition-colors duration-300 group-hover:bg-brand-600 group-hover:text-white group-hover:ring-brand-600">
+          <Icon size={22} strokeWidth={1.75} />
+        </div>
+        <div className="min-w-0 flex-1">
+          <h3 className="font-display text-base font-medium text-ink-900">{title}</h3>
+          <p className="mt-1.5 text-sm leading-relaxed text-ink-600">{description}</p>
+          <Link
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-brand-600 hover:text-brand-700"
+          >
+            {buttonText} <Arrow />
+          </Link>
+        </div>
+      </div>
+    </div>
+  </motion.div>
+);
+
+/* ------------------------------ section -------------------------- */
+export default function ProductsSection() {
+  const { products } = SITE_CONTENT;
+  const PlatformsAnimContainer = motion.div;
+
+  return (
+   <section className="relative bg-surface-subtle pt-0 pb-22 sm:pb-30">
+      <div className="container">
 
         {/* Header */}
-        <div className="text-center mb-14">
-          <span className="inline-block text-xs font-semibold tracking-widest uppercase text-[#0066CC] bg-[#EBF5FF] px-3 py-1 rounded-full mb-4">
-            Everything you need
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-[#1A1A2E] tracking-[-0.02em] mb-3">
-            One account, multiple investment options
+        <div className="mx-auto mb-14 max-w-2xl text-center">
+          <span className="text-eyebrow uppercase text-brand-600">{products.badge}</span>
+          <h2 className="mt-4 font-display text-display-lg text-ink-900 text-balance">
+            {products.title}
           </h2>
-          <p className="text-[#6B6B7B] text-base max-w-xl mx-auto">
-            From your first stock to complex derivatives — every asset class that matters, all in one place.
+          <p className="mt-4 text-base leading-relaxed text-ink-600 text-balance">
+            {products.subtitle}
           </p>
         </div>
 
-        {/* Row 1 — 4 large cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-          {PRODUCTS.slice(0, 4).map((p) => <ProductCard key={p.name} product={p} size="large" />)}
-        </div>
-
-        {/* Row 2 — 4 medium cards */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
-          {PRODUCTS.slice(4, 8).map((p) => <ProductCard key={p.name} product={p} size="medium" />)}
-        </div>
-
-        {/* Row 3 — 2 medium + 1 CTA card spanning 2 cols */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-12">
-          {PRODUCTS.slice(8, 10).map((p) => <ProductCard key={p.name} product={p} size="medium" />)}
-
-          {/* Dark CTA card */}
-          <div className="col-span-2 bg-[#1A1A2E] rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4 overflow-hidden relative">
-            <div aria-hidden="true" className="absolute -top-8 -right-8 w-40 h-40 rounded-full blur-2xl"
-              style={{ background: 'radial-gradient(circle, rgba(0,102,204,0.25) 0%, transparent 70%)' }} />
-            <div className="relative z-10">
-              <p className="text-white font-bold text-base mb-1">Ready to start investing?</p>
-              <p className="text-[#8B8B9A] text-xs">Open a free demat account in 5 minutes. Zero charges · 10+ asset classes</p>
-            </div>
-            <Link href={getKycUrl('products')} target="_blank" rel="noopener noreferrer"
-              className="relative z-10 flex-shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white transition-all duration-150 active:scale-[0.98] whitespace-nowrap"
-              style={{ background: 'linear-gradient(135deg, #0066CC 0%, #004FA3 100%)' }}>
-              Open Free Account →
-            </Link>
-          </div>
-        </div>
-
-        {/* Stats strip */}
-        <div className="bg-[#1A1A2E] rounded-2xl px-6 py-5 grid grid-cols-2 sm:grid-cols-4 gap-6">
-          {HIGHLIGHT_STATS.map((stat, i) => (
-            <div key={stat.label} className={`text-center ${i < HIGHLIGHT_STATS.length - 1 ? 'sm:border-r sm:border-[#2D2D4A]' : ''}`}>
-              <p className="text-2xl font-bold text-white font-mono tracking-tight">{stat.value}</p>
-              <p className="text-xs text-[#8B8B9A] mt-1">{stat.label}</p>
-            </div>
+        {/* Bento grid: 10 products + 1 CTA card spanning 2 cols */}
+        <motion.div
+          variants={grid}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-80px" }}
+          className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4"
+        >
+          {PRODUCTS.map((p, i) => (
+            <ProductCard key={p.name} product={p} toneIndex={i} />
           ))}
-        </div>
+          <CtaCard
+            title={products.ctaCard.title}
+            description={products.ctaCard.description}
+            buttonText={products.ctaCard.buttonText}
+          />
+        </motion.div>
 
-        {/* Trading Tools Section */}
-        <div className="mt-20">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl font-bold text-[#1A1A2E] mb-3">Our Trading Platforms</h2>
-            <p className="text-[#6B6B7B]">Advanced tools for seamless trading experience</p>
-          </div>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-white p-6 rounded-2xl border border-[#E8E8E8] hover:border-[#0066CC] transition-all">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-blue-50 text-[#0066CC] flex items-center justify-center">
-                  <Globe size={24} />
-                </div>
-                <div>
-                  <h3 className="font-bold text-[#1A1A2E] mb-2">Web Trading Platform</h3>
-                  <p className="text-sm text-[#6B6B7B] mb-3">Trade from anywhere with our powerful web-based platform</p>
-                  <Link href="https://trade.wisdomcapital.in/#!/app" target="_blank" className="text-xs font-semibold text-[#0066CC]">
-                    Access Web Platform →
-                  </Link>
-                </div>
+        {/* Stats — light, restrained, brand accent on numbers only */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-12 overflow-hidden rounded-xl border border-border bg-surface shadow-sm"
+        >
+          <div className="grid grid-cols-2 divide-x divide-y divide-border-subtle sm:grid-cols-4 sm:divide-y-0">
+            {products.highlightStats.map((stat) => (
+              <div key={stat.label} className="px-5 py-5 text-center sm:px-6 sm:py-6">
+                <p className="font-display text-2xl font-medium tabular-nums tracking-tight text-brand-700 sm:text-3xl">
+                  {stat.value}
+                </p>
+                <p className="mt-1 text-xs text-ink-500">{stat.label}</p>
               </div>
-            </div>
-            <div className="bg-white p-6 rounded-2xl border border-[#E8E8E8] hover:border-[#0066CC] transition-all">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-blue-50 text-[#0066CC] flex items-center justify-center">
-                  <Smartphone size={24} />
-                </div>
-                <div>
-                  <h3 className="font-bold text-[#1A1A2E] mb-2">Mobile Trading App</h3>
-                  <p className="text-sm text-[#6B6B7B] mb-3">Trade on the go with our feature-rich mobile application</p>
-                  <Link href="https://play.google.com/store/search?q=wisdom+neo&c=apps&hl=en-IN" className="text-xs font-semibold text-[#0066CC]">
-                    Download App →
-                  </Link>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
-        </div>
+        </motion.div>
 
+        {/* Trading platforms */}
+        <div className="mt-20 sm:mt-24">
+          <div className="mx-auto mb-10 max-w-2xl text-center">
+            <span className="text-eyebrow uppercase text-brand-600">Platforms</span>
+            <h2 className="mt-4 font-display text-display-lg text-ink-900 text-balance">
+              {products.tradingPlatforms.title}
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-ink-600 text-balance">
+              {products.tradingPlatforms.subtitle}
+            </p>
+          </div>
+
+          <PlatformsAnimContainer
+            variants={grid}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-80px" }}
+            className="grid gap-4 md:grid-cols-2 md:gap-6"
+          >
+            <PlatformCard
+              icon={Globe}
+              title={products.tradingPlatforms.web.title}
+              description={products.tradingPlatforms.web.description}
+              href={products.tradingPlatforms.web.href}
+              buttonText={products.tradingPlatforms.web.buttonText}
+            />
+            <PlatformCard
+              icon={Smartphone}
+              title={products.tradingPlatforms.mobile.title}
+              description={products.tradingPlatforms.mobile.description}
+              href={products.tradingPlatforms.mobile.href}
+              buttonText={products.tradingPlatforms.mobile.buttonText}
+            />
+          </PlatformsAnimContainer>
+        </div>
       </div>
     </section>
   );

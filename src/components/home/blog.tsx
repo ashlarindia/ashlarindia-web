@@ -1,33 +1,43 @@
+"use client";
+
 import type { FC } from "react";
+import Link from "next/link";
+import { motion } from "framer-motion";
+
+type Category = "Beginners" | "Research" | "Advanced";
 
 interface BlogPost {
+  slug: string;
   title: string;
-  date: string;
+  date: string;        // ISO — formatted at render
   excerpt: string;
-  category: string;
+  category: Category;
   readTime: string;
 }
 
 const blogs: BlogPost[] = [
   {
-    title: "How to Start Trading in 2024",
-    date: "Jan 15, 2024",
+    slug: "how-to-start-trading-2024",
+    title: "How to start trading in 2024",
+    date: "2024-01-15",
     excerpt:
       "A step-by-step beginner guide to opening a demat account, understanding market orders, and placing your first trade confidently.",
     category: "Beginners",
     readTime: "5 min read",
   },
   {
-    title: "Top 10 Stocks to Watch in 2024",
-    date: "Jan 10, 2024",
+    slug: "top-10-stocks-to-watch",
+    title: "Top 10 stocks to watch in 2024",
+    date: "2024-01-10",
     excerpt:
       "Our research team's picks across banking, IT, and pharma sectors — with valuations, targets, and risk levels explained clearly.",
     category: "Research",
     readTime: "7 min read",
   },
   {
-    title: "Understanding F&O Trading",
-    date: "Jan 5, 2024",
+    slug: "understanding-fno-trading",
+    title: "Understanding F&O trading",
+    date: "2024-01-05",
     excerpt:
       "A complete guide to futures and options — how they work, key strategies for hedging and speculation, and common mistakes to avoid.",
     category: "Advanced",
@@ -35,102 +45,144 @@ const blogs: BlogPost[] = [
   },
 ];
 
-const categoryColors: Record<string, { bg: string; text: string }> = {
-  Beginners: { bg: "bg-teal-50", text: "text-teal-700" },
-  Research:  { bg: "bg-blue-50",  text: "text-blue-700"  },
-  Advanced:  { bg: "bg-amber-50", text: "text-amber-700" },
+// Restrained, semantic tone mapping — three distinct but quiet treatments
+const categoryTone: Record<Category, string> = {
+  Beginners: "text-success border-success/20 bg-success/5",
+  Research:  "text-brand-600 border-brand-600/20 bg-brand-50",
+  Advanced:  "text-ink-800 border-ink-200 bg-ink-50",
 };
 
+const formatDate = (iso: string) =>
+  new Date(iso).toLocaleDateString("en-IN", {
+    day: "numeric", month: "short", year: "numeric",
+  });
+
+// Framer Motion: GPU-only properties, single stagger orchestrator
+const container = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
+};
+const item = {
+  hidden: { opacity: 0, y: 16 },
+  show: {
+    opacity: 1, y: 0,
+    transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
+  },
+};
+
+const ArrowIcon = () => (
+  <svg
+    aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none"
+    className="transition-transform duration-300 ease-out-expo group-hover:translate-x-0.5"
+  >
+    <path d="M1 7h12m0 0L7.5 1.5M13 7l-5.5 5.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const ArticleCard: FC<{ post: BlogPost; featured?: boolean }> = ({ post, featured }) => (
+  <motion.article variants={item} className="h-full">
+    <Link
+      href={`/blog/${post.slug}`}
+      className={[
+        "group relative flex h-full flex-col rounded-xl border border-border bg-surface",
+        "transition-[transform,border-color,box-shadow] duration-300 ease-out-expo",
+        "hover:-translate-y-0.5 hover:border-border-strong hover:shadow-md",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2",
+        featured ? "p-7 lg:p-8" : "p-6",
+      ].join(" ")}
+    >
+      {/* Meta row */}
+      <div className="mb-5 flex items-center gap-3">
+        <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-[11px] font-medium ${categoryTone[post.category]}`}>
+          {post.category}
+        </span>
+        <span className="h-1 w-1 rounded-full bg-ink-200" aria-hidden="true" />
+        <time dateTime={post.date} className="text-xs text-ink-400">
+          {formatDate(post.date)}
+        </time>
+      </div>
+
+      {/* Title */}
+      <h3
+        className={[
+          "font-display font-medium tracking-tight text-ink-900 text-balance",
+          "transition-colors duration-200 group-hover:text-brand-700",
+          featured ? "text-2xl lg:text-[28px] leading-[1.2]" : "text-lg leading-snug",
+        ].join(" ")}
+      >
+        {post.title}
+      </h3>
+
+      {/* Excerpt */}
+      <p className={`mt-3 flex-1 text-ink-600 leading-relaxed ${featured ? "text-[15px]" : "text-sm"}`}>
+        {post.excerpt}
+      </p>
+
+      {/* Footer */}
+      <div className="mt-6 flex items-center justify-between border-t border-border-subtle pt-4">
+        <span className="inline-flex items-center gap-1.5 text-sm font-medium text-brand-600">
+          Read article <ArrowIcon />
+        </span>
+        <span className="text-xs text-ink-400">{post.readTime}</span>
+      </div>
+    </Link>
+  </motion.article>
+);
+
 const Blog: FC = () => {
+  const [featured, ...rest] = blogs;
+
   return (
-    <section className="py-20 bg-slate-50">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+    <section className="relative bg-surface py-22 sm:py-30">
+      <div className="container">
 
         {/* Header */}
-        <div className="text-center mb-14">
-          <span className="inline-block text-xs font-semibold tracking-widest uppercase text-blue-600 bg-blue-50 px-3 py-1 rounded-full mb-4">
-            Market Insights
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight mb-3">
-            Latest from our blog
+        <div className="mx-auto mb-14 max-w-2xl text-center">
+          <span className="text-eyebrow uppercase text-brand-600">Market Insights</span>
+          <h2 className="mt-4 font-display text-display-lg text-ink-900 text-balance">
+            Latest from our editorial desk
           </h2>
-          <p className="text-slate-500 text-base max-w-xl mx-auto">
+          <p className="mt-4 text-base leading-relaxed text-ink-600 text-balance">
             Expert analysis, trading guides, and market updates — written for
             investors at every level.
           </p>
         </div>
 
-        {/* Cards */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {blogs.map((blog, i) => {
-            const color = categoryColors[blog.category] ?? {
-              bg: "bg-slate-100",
-              text: "text-slate-600",
-            };
+        {/* Editorial grid: featured + stacked secondary */}
+        <motion.div
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-80px" }}
+          className="grid gap-5 lg:grid-cols-2 lg:gap-6"
+        >
+          {/* Featured */}
+          <ArticleCard post={featured} featured />
 
-            return (
-              <article
-                key={i}
-                className="group bg-white rounded-2xl border border-slate-200 overflow-hidden hover:border-blue-300 hover:shadow-lg transition-all duration-200 flex flex-col"
-              >
-                {/* Top accent bar */}
-                <div
-                  className={`h-1 w-full ${
-                    i === 0
-                      ? "bg-teal-500"
-                      : i === 1
-                      ? "bg-blue-500"
-                      : "bg-amber-500"
-                  }`}
-                />
+          {/* Secondary stack */}
+          <div className="grid gap-5 lg:gap-6">
+            {rest.map((post) => (
+              <ArticleCard key={post.slug} post={post} />
+            ))}
+          </div>
+        </motion.div>
 
-                <div className="p-6 flex flex-col flex-1">
-                  {/* Meta row */}
-                  <div className="flex items-center justify-between mb-4">
-                    <span
-                      className={`text-xs font-semibold px-2.5 py-1 rounded-md ${color.bg} ${color.text}`}
-                    >
-                      {blog.category}
-                    </span>
-                    <span className="text-xs text-slate-400">{blog.readTime}</span>
-                  </div>
-
-                  {/* Date */}
-                  <p className="text-xs text-slate-400 mb-2">{blog.date}</p>
-
-                  {/* Title */}
-                  <h3 className="text-lg font-semibold text-slate-900 leading-snug mb-3 group-hover:text-blue-700 transition-colors duration-150">
-                    {blog.title}
-                  </h3>
-
-                  {/* Excerpt */}
-                  <p className="text-sm text-slate-500 leading-relaxed flex-1">
-                    {blog.excerpt}
-                  </p>
-
-                  {/* Divider */}
-                  <div className="border-t border-slate-100 mt-5 pt-4">
-                    <button className="flex items-center gap-1.5 text-sm font-semibold text-blue-600 hover:text-blue-800 transition-colors duration-150 group/btn">
-                      Read article
-                      <span className="inline-block transition-transform duration-150 group-hover/btn:translate-x-1">
-                        →
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              </article>
-            );
-          })}
-        </div>
-
-        {/* View all button */}
-        <div className="text-center mt-12">
-          <button className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-slate-300 bg-white text-sm font-semibold text-slate-700 hover:border-blue-400 hover:text-blue-700 hover:bg-blue-50 transition-all duration-200">
+        {/* CTA */}
+        <div className="mt-14 flex justify-center">
+          <Link
+            href="/blog"
+            className={[
+              "group inline-flex items-center gap-2 rounded-lg border border-border px-5 py-2.5",
+              "text-sm font-medium text-ink-800 bg-surface",
+              "transition-all duration-300 ease-out-expo",
+              "hover:border-brand-600 hover:text-brand-700 hover:shadow-sm",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2",
+            ].join(" ")}
+          >
             View all articles
-            <span>→</span>
-          </button>
+            <ArrowIcon />
+          </Link>
         </div>
-
       </div>
     </section>
   );

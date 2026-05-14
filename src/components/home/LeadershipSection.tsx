@@ -1,250 +1,319 @@
-// src/components/home/LeadershipSection.tsx
-'use client';
+"use client";
 
-const LEADERS = [
+import type { FC } from "react";
+import { motion } from "framer-motion";
+import { Mail, ShieldCheck } from "lucide-react";
+import Image from "next/image";
+
+/* ---------------- data ---------------- */
+
+interface Leader {
+  id: number;
+  name: string;
+  designation: string;
+  experience: string;
+  bio: string;
+  linkedin?: string;
+  email: string;
+  image: string;
+}
+
+interface Registration {
+  title: string;
+  value: string;
+  image: string;
+}
+
+const LEADERS: Leader[] = [
   {
     id: 1,
-    name: 'Mr. Bharat Bansal',
-    designation: 'Chairman & Managing Director',
-    experience: '35+ Years Experience',
-    image: '/leadership/BharatBansal.webp',
-    bio: 'Mr. Bharat Bansal is one of the Founder Directors of Ashlar Group with extensive experience in capital markets, public issues, commodity trading, and financial services. He has played a vital role in building Ashlar India into a trusted financial services brand.',
-    linkedin: '#',
-    email: 'bharat@ashlarindia.com',
+    name: "Mr. Bharat Bansal",
+    designation: "Chairman & Managing Director",
+    experience: "35+ years",
+    bio: "One of the founder directors of the Ashlar Group with extensive experience in capital markets, public issues, commodity trading and financial services.",
+    email: "bharat@ashlarindia.com",
+    image: "/leadership/BharatBansal.webp",
   },
-  
   {
     id: 2,
-    name: 'Mr. Sunil Kumar',
-    designation: 'Whole-time Director',
-    experience: '20+ Years Experience',
-    image: '/leadership/SunilKumar.jpeg',
-    bio: 'Mr. Sunil Kumar has deep experience in financial markets and investor services. He has contributed significantly towards operational efficiency, client servicing, and execution of key business functions.',
-    linkedin: '#',
-    email: 'sunil@ashlarindia.com',
+    name: "Mr. Sunil Kumar",
+    designation: "Whole-time Director",
+    experience: "20+ years",
+    bio: "Deep experience in financial markets and investor services, with significant contributions to operational efficiency and client servicing.",
+    email: "sunil@ashlarindia.com",
+    image: "/leadership/SunilKumar.jpeg",
   },
   {
     id: 3,
-    name: 'Mr. Sudhir Bhalla',
-    designation: 'Director',
-    experience: '17+ Years Experience',
-    image: '/leadership/SudhirBhalla.jpeg',
-    bio: 'Mr. Sudhir Bhalla is responsible for strategic planning, operational management, and corporate expansion initiatives. His leadership and industry expertise have supported the long-term growth of Ashlar India.',
-    linkedin: '#',
-    email: 'sudhir@ashlarindia.com',
+    name: "Mr. Sudhir Bhalla",
+    designation: "Director",
+    experience: "17+ years",
+    bio: "Responsible for strategic planning, operational management and corporate expansion initiatives across business verticals.",
+    email: "sudhir@ashlarindia.com",
+    image: "/leadership/SudhirBhalla.jpeg",
+  },
+  
+];
+
+const REGISTRATIONS: Registration[] = [
+  {
+    title: "SEBI Registration",
+    value: "INZ000203739",
+    image: "/icons/sebi.png",
+  },
+  {
+    title: "NSE Member",
+    value: "13718",
+    image: "/icons/nse.png",
+  },
+  {
+    title: "BSE Member",
+    value: "3302",
+    image: "/icons/bse.png",
+  },
+  {
+    title: "MCX Member",
+    value: "56815",
+    image: "/icons/mcx.png",
+  },
+  {
+    title: "NCDEX Member",
+    value: "01002",
+    image: "/icons/ncdex.jfif",
+  },
+  {
+    title: "NSDL DP-ID",
+    value: "IN303921",
+    image: "/icons/nsdl.jfif",
+  },
+  {
+    title: "SEBI DP Registration",
+    value: "IN-DP-2362016",
+    image: "/icons/sebi.png",
+  },
+  {
+    title: "CIN",
+    value: "U74899UP1994PTC016662",
+    image: "/icons/cin.png",
   },
 ];
 
-const TIMELINE = [
-  {
-    year: '2009',
-    title: 'Company Founded',
-    desc: 'Ashlar India was established to provide transparent and reliable financial market services.',
-  },
-  {
-    year: '2010',
-    title: 'SEBI Registration',
-    desc: 'Registered with SEBI as a stock broker and investment service provider.',
-  },
-  {
-    year: '2011',
-    title: 'NSE & BSE Membership',
-    desc: 'Expanded operations through NSE and BSE memberships.',
-  },
-  {
-    year: '2013',
-    title: 'MCX Membership',
-    desc: 'Entered commodity trading services through MCX membership.',
-  },
-  {
-    year: '2016',
-    title: 'NSDL Depository Services',
-    desc: 'Started Depository Participant services under NSDL.',
-  },
-];
+/* ---------------- motion ---------------- */
 
-const REGISTRATIONS = [
-  {
-    title: 'SEBI Registration',
-    value: 'INZ000203739',
+const container = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.05,
+    },
   },
-  {
-    title: 'NSE Member',
-    value: '13718',
+};
+
+const item = {
+  hidden: {
+    opacity: 0,
+    y: 16,
   },
-  {
-    title: 'BSE Member',
-    value: '3302',
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.55,
+      ease: [0.16, 1, 0.3, 1],
+    },
   },
-  {
-    title: 'MCX Member',
-    value: '56815',
-  },
-  {
-    title: 'NCDEX Member',
-    value: '01002',
-  },
-  {
-    title: 'NSDL DP-ID',
-    value: 'IN303921',
-  },
-  {
-    title: 'SEBI DP Registration',
-    value: 'IN-DP-2362016',
-  },
-];
+};
+
+/* ---------------- icons ---------------- */
+
+const LinkedInIcon: FC<{ size?: number }> = ({
+  size = 14,
+}) => (
+  <svg
+    aria-hidden="true"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="currentColor"
+  >
+    <path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z" />
+  </svg>
+);
+
+/* ---------------- leader card ---------------- */
+
+const LeaderCard: FC<{ leader: Leader }> = ({
+  leader,
+}) => (
+  <motion.article
+    variants={item}
+    className={[
+      "group relative flex h-full flex-col rounded-xl border border-border bg-surface p-6",
+      "transition-[transform,border-color,box-shadow] duration-300 ease-out",
+      "hover:-translate-y-0.5 hover:border-border-strong hover:shadow-md",
+    ].join(" ")}
+  >
+    {/* Profile Image */}
+    <div className="mb-5 overflow-hidden rounded-xl">
+      <Image
+        src={leader.image}
+        alt={leader.name}
+        width={400}
+        height={300}
+        className="h-56 w-full object-cover"
+      />
+    </div>
+
+    {/* Top section */}
+    <div className="flex items-center justify-between">
+      <h3 className="font-display text-lg font-medium leading-snug tracking-tight text-ink-900">
+        {leader.name}
+      </h3>
+
+      <span className="rounded-full border border-border-subtle bg-surface-subtle px-2.5 py-0.5 text-[11px] font-medium text-ink-600">
+        {leader.experience}
+      </span>
+    </div>
+
+    <p className="mt-1 text-[11px] font-semibold uppercase tracking-wider text-brand-600">
+      {leader.designation}
+    </p>
+
+    {/* Bio */}
+    <p className="mt-4 flex-1 text-sm leading-relaxed text-ink-600">
+      {leader.bio}
+    </p>
+
+    {/* Contact */}
+    <div className="mt-5 flex items-center gap-2 border-t border-border-subtle pt-4">
+      {leader.linkedin && (
+        <a
+          href={leader.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${leader.name} on LinkedIn`}
+          className="flex h-8 w-8 items-center justify-center rounded-md border border-border-subtle text-ink-400 transition-colors hover:border-brand-600 hover:bg-brand-50 hover:text-brand-700"
+        >
+          <LinkedInIcon />
+        </a>
+      )}
+
+      <a
+        href={`mailto:${leader.email}`}
+        aria-label={`Email ${leader.name}`}
+        className="flex h-8 w-8 items-center justify-center rounded-md border border-border-subtle text-ink-400 transition-colors hover:border-brand-600 hover:bg-brand-50 hover:text-brand-700"
+      >
+        <Mail size={14} strokeWidth={1.75} />
+      </a>
+    </div>
+  </motion.article>
+);
+
+/* ---------------- main ---------------- */
 
 export default function LeadershipSection() {
   return (
-    <section className="py-16 bg-[#f8fafc]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-
+    <section className="relative bg-surface-subtle pt-0 pb-22 sm:pb-30">
+      <div className="container">
         {/* Header */}
-        <div className="text-center mb-14">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-blue-50 text-blue-600 text-sm font-semibold mb-4">
-            About Ashlar India
+        <div className="mx-auto mb-14 max-w-2xl text-center">
+          <span className="text-eyebrow uppercase text-brand-600">
+            Leadership
           </span>
 
-          <h2 className="text-3xl md:text-4xl font-bold text-[#111827] mb-5">
-            Leadership Team
+          <h2 className="mt-4 font-display text-display-lg text-ink-900 text-balance">
+            The people behind Ashlar
           </h2>
 
-          <p className="text-gray-600 leading-7 max-w-3xl mx-auto">
-            Ashlar India is led and managed by a highly experienced team of
-            professionals with deep expertise in stock broking, capital markets,
-            compliance, risk management, and investor services.
+          <p className="mt-4 text-base leading-relaxed text-ink-600 text-balance">
+            Three decades of capital-markets experience,
+            focused on one outcome — building durable
+            financial trust for every client we serve.
           </p>
         </div>
 
-        {/* Leadership Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Leaders Grid */}
+       <motion.div
+  variants={container}
+  initial="hidden"
+  whileInView="show"
+  viewport={{ once: true, margin: "-80px" }}
+  className="mx-auto grid max-w-6xl gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6"
+>
+  {LEADERS.map((leader) => (
+    <LeaderCard
+      key={leader.id}
+      leader={leader}
+    />
+  ))}
+</motion.div>
 
-          {LEADERS.map((leader) => (
-            <div
-              key={leader.id}
-              className="bg-white rounded-[24px] border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 p-6"
-            >
-
-              {/* Image */}
-              <div className="flex justify-center">
-                <img
-                  src={leader.image}
-                  alt={leader.name}
-                  className="w-24 h-24 rounded-full object-cover border-4 border-gray-100"
+        {/* Registrations */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{
+            duration: 0.6,
+            ease: [0.16, 1, 0.3, 1],
+          }}
+          className="mt-16 overflow-hidden rounded-2xl border border-border bg-surface shadow-sm"
+        >
+          {/* Header */}
+          <div className="flex items-center justify-between gap-4 border-b border-border-subtle bg-surface-subtle px-6 py-5 sm:px-8">
+            <div className="flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-50 text-brand-700 ring-1 ring-inset ring-brand-600/10">
+                <ShieldCheck
+                  size={18}
+                  strokeWidth={1.75}
                 />
               </div>
 
-              {/* Name */}
-              <h3 className="text-[22px] font-semibold text-center text-[#111827] mt-5">
-                {leader.name}
-              </h3>
+              <div>
+                <p className="text-eyebrow uppercase text-brand-600">
+                  Verified credentials
+                </p>
 
-              {/* Designation */}
-              <p className="text-sm text-center text-blue-600 font-medium mt-1">
-                {leader.designation}
-              </p>
-
-              {/* Experience */}
-              <p className="text-xs text-center text-gray-500 mt-1">
-                {leader.experience}
-              </p>
-
-              {/* Bio */}
-              <p className="text-[13px] leading-6 text-gray-600 mt-5 text-justify">
-                {leader.bio}
-              </p>
-
-              {/* Links */}
-              <div className="mt-5 flex flex-col gap-2">
-
-                <a
-                  href={leader.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-blue-600 hover:underline"
-                >
-                  LinkedIn Profile
-                </a>
-
-                <a
-                  href={`mailto:${leader.email}`}
-                  className="text-sm text-gray-600 hover:text-blue-600"
-                >
-                  {leader.email}
-                </a>
-
+                <h3 className="font-display text-base font-medium text-ink-900">
+                  Regulatory registrations &
+                  memberships
+                </h3>
               </div>
             </div>
-          ))}
-        </div>
-
-        {/* Timeline Section */}
-        {/* <div className="mt-24">
-
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold text-[#111827]">
-              Company Timeline
-            </h3>
-
-            <p className="text-gray-500 mt-3">
-              Key milestones in Ashlar India's journey
-            </p>
           </div>
 
-          <div className="grid md:grid-cols-5 gap-6">
-
-            {TIMELINE.map((item, index) => (
+          {/* Registration Grid */}
+          <div className="grid grid-cols-2 divide-x divide-y divide-border-subtle sm:grid-cols-4">
+            {REGISTRATIONS.map((reg) => (
               <div
-                key={index}
-                className="bg-white rounded-2xl border border-gray-100 p-6 text-center shadow-sm hover:shadow-lg transition-all"
+                key={reg.title}
+                className="px-5 py-4 transition-colors hover:bg-surface-subtle sm:px-6 sm:py-5"
               >
-                <div className="text-3xl font-bold text-blue-600 mb-3">
-                  {item.year}
+                {/* Image */}
+                <div className="mb-3 flex h-12 w-12 items-center justify-center overflow-hidden rounded-lg border border-border-subtle bg-white">
+                  <Image
+                    src={reg.image}
+                    alt={reg.title}
+                    width={48}
+                    height={48}
+                    className="object-contain"
+                  />
                 </div>
 
-                <h4 className="font-semibold text-[#111827] mb-3">
-                  {item.title}
-                </h4>
+                {/* Title */}
+                <p className="text-[10px] font-medium uppercase tracking-wider text-ink-400">
+                  {reg.title}
+                </p>
 
-                <p className="text-sm text-gray-600 leading-6">
-                  {item.desc}
+                {/* Value */}
+                <p className="mt-1.5 break-all font-mono text-[13px] font-medium tabular-nums text-ink-900">
+                  {reg.value}
                 </p>
               </div>
             ))}
           </div>
-        </div> */}
-
-        {/* Memberships & Registrations */}
-        {/* <div className="mt-24">
-
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold text-[#111827]">
-              Memberships & Registrations
-            </h3>
-
-            <p className="text-gray-500 mt-3">
-              Official registrations and exchange memberships
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-
-            {REGISTRATIONS.map((item, index) => (
-              <div
-                key={index}
-                className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all"
-              >
-                <p className="text-sm text-gray-500">
-                  {item.title}
-                </p>
-
-                <p className="text-xl font-bold text-blue-600 mt-2 break-all">
-                  {item.value}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div> */}
+        </motion.div>
       </div>
     </section>
   );

@@ -1,254 +1,54 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import {
-  Shield,
-  Database,
-  Lock,
-  RefreshCw,
-  ArrowRight,
-  CheckCircle2,
-  FileText,
-  Users,
-} from "lucide-react";
+import Link from 'next/link';
 
-export default function DPPage() {
+export default function DPServicesPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-[#1A1A2E] to-[#2D2D4A] py-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-6 border border-white/10 bg-white/5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#00C853] animate-pulse" />
-            <span className="text-[#C0C0D0] text-xs font-medium">
-              DP Services · Demat Account · Depository
-            </span>
-          </div>
-          <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-            Depository Participant (DP)
-          </h1>
-          <p className="text-[#9B9BAA] text-lg mb-8 max-w-2xl mx-auto">
-            अपने shares और securities को सुरक्षित रखें Electronic Form में |
-            NSDL & CDSL registered DP
+    <div className="min-h-screen bg-white">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+        
+        <h1 className="text-3xl font-bold text-gray-900 mb-4">Depository Participant</h1>
+
+        <div className="space-y-6 text-gray-700 leading-relaxed">
+          <p>
+            A depository is a place where something is deposit for storage and security in electronic form through registered Depository Participants. Basically, it's an institution that functions like a bank, similarly some bank hold the fund of investors, likewise, depository keep an account for investors securities (share, mutual fund debentures etc) hold by them in a dematerialized form. A frequent of services is offered to investors by Depository Participants on behalf of the depository.
           </p>
-          <Link
-            href="https://kyc.wisdomcapital.in/"
+
+          <p>
+            Banks, financial institutions, stock-brokers or clearing houses can be a Depository Participant in India by registering with Central Depository Services (India) Limited (CDSL) and National Securities Depository Limited (NSDL). Therefore, both of these depositories are registered with Securities and Exchange Board of India (SEBI).
+          </p>
+
+          <h2 className="text-xl font-semibold text-gray-900 mt-6 mb-3">An investor can open a Beneficial Owner (BO) account with a Depository Participant (DP) to avail of the depository services. The services provided by a Depository Participant (DP) and its benefits are listed below:</h2>
+
+          <ul className="list-disc pl-6 space-y-2">
+            <li>Dematerialization of physical securities into electronic form</li>
+            <li>Rematerialization of electronic securities into physical form</li>
+            <li>Transfer of securities without any delay and without any need for stamp duty</li>
+            <li>Change of beneficial ownership</li>
+            <li>Settlement of trades</li>
+            <li>A better method for storage of securities after dematerialization in electronic form</li>
+            <li>It also prevents the risk of bad delivery, theft, forgery or delays associated with physical securities</li>
+            <li>Lower charges for each transaction unlike physical securities</li>
+            <li>Any shares arising out of bonus, split, consolidation or merger are credited into the Demat account of the investor automatically</li>
+            <li>In case of change of address effected with DP, it is automatically registered with the firms whose shares an investor owns, thus eliminating the need for a lengthy procedure</li>
+            <li>Greater transparency in management of securities</li>
+          </ul>
+
+          <p>
+            The storage of securities in electronic form allows easier access, high level of convenience in handling of securities and ease of access which has led a greater number of investors to opt for depository services to achieve a high level of competence in trading and management of securities.
+          </p>
+        </div>
+
+        <div className="mt-8 pt-6 border-t border-gray-200">
+          <Link 
+            href="https://kyc.wisdomcapital.in/" 
             target="_blank"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-[#0066CC] text-white rounded-lg font-semibold hover:bg-[#0052A3]"
+            className="inline-block px-6 py-2 bg-[#0066CC] text-white rounded hover:bg-[#0052A3] transition"
           >
-            Open Demat Account <ArrowRight size={18} />
+            Open Demat Account
           </Link>
         </div>
-      </section>
-
-      {/* What is DP */}
-      <section className="py-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl font-bold text-[#1A1A2E] mb-4">
-                Depository Participant Kya Hai?
-              </h2>
-              <p className="text-[#6B6B7B] mb-4 leading-relaxed">
-                Depository वो जगह है जहाँ आपके shares और securities को
-                electronic form में सुरक्षित रखा जाता है। जैसे bank आपके पैसे
-                रखता है, वैसे ही depository आपके shares रखता है।
-              </p>
-              <p className="text-[#6B6B7B] mb-6 leading-relaxed">
-                Ashlar India CDSL और NSDL का registered Depository Participant
-                (DP) है। हम आपको demat account provide करते हैं जहाँ आप अपने
-                shares सुरक्षित रख सकते हैं।
-              </p>
-              <div className="flex gap-4">
-                <div className="bg-blue-50 rounded-lg px-4 py-2 text-center">
-                  <div className="font-bold text-[#0066CC]">NSDL</div>
-                  <div className="text-xs text-gray-600">IN303921</div>
-                </div>
-                <div className="bg-blue-50 rounded-lg px-4 py-2 text-center">
-                  <div className="font-bold text-[#0066CC]">CDSL</div>
-                  <div className="text-xs text-gray-600">IN-DP-2362016</div>
-                </div>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-white rounded-xl p-4 text-center shadow-sm border border-gray-100">
-                <Database size={32} className="text-[#0066CC] mx-auto mb-2" />
-                <div className="font-bold text-[#1A1A2E]">
-                  Electronic Storage
-                </div>
-                <div className="text-xs text-gray-500">
-                  No physical certificates
-                </div>
-              </div>
-              <div className="bg-white rounded-xl p-4 text-center shadow-sm border border-gray-100">
-                <Lock size={32} className="text-[#00C853] mx-auto mb-2" />
-                <div className="font-bold text-[#1A1A2E]">100% Safe</div>
-                <div className="text-xs text-gray-500">SEBI regulated</div>
-              </div>
-              <div className="bg-white rounded-xl p-4 text-center shadow-sm border border-gray-100">
-                <RefreshCw size={32} className="text-orange-500 mx-auto mb-2" />
-                <div className="font-bold text-[#1A1A2E]">Instant Transfer</div>
-                <div className="text-xs text-gray-500">T+1 settlement</div>
-              </div>
-              <div className="bg-white rounded-xl p-4 text-center shadow-sm border border-gray-100">
-                <Shield size={32} className="text-purple-500 mx-auto mb-2" />
-                <div className="font-bold text-[#1A1A2E]">Safe Custody</div>
-                <div className="text-xs text-gray-500">No theft or forgery</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Services */}
-      <section className="py-16 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <h2 className="text-3xl font-bold text-[#1A1A2E] text-center mb-4">
-            DP Services
-          </h2>
-          <p className="text-center text-[#6B6B7B] mb-12">
-            हम आपको क्या services provide करते हैं?
-          </p>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                title: "Dematerialization (DEMAT)",
-                desc: "Physical certificates को electronic form में बदलना",
-              },
-              {
-                title: "Rematerialization (REMAT)",
-                desc: "Electronic shares को physical form में बदलना",
-              },
-              {
-                title: "Transfer of Securities",
-                desc: "एक account से दूसरे account में shares transfer करना",
-              },
-              {
-                title: "Settlement of Trades",
-                desc: "खरीदे या बेचे गए shares का settlement",
-              },
-              {
-                title: "Pledge/Unpledge",
-                desc: "Shares को pledge करके margin लेना",
-              },
-              {
-                title: "Nomination Facility",
-                desc: "अपने shares के लिए nominee add करना",
-              },
-            ].map((item, idx) => (
-              <div
-                key={idx}
-                className="flex items-start gap-3 p-4 bg-gray-50 rounded-xl"
-              >
-                <CheckCircle2
-                  size={20}
-                  className="text-[#00C853] flex-shrink-0 mt-0.5"
-                />
-                <div>
-                  <h3 className="font-semibold text-[#1A1A2E] mb-1">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm text-[#6B6B7B]">{item.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Benefits */}
-      <section className="py-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <h2 className="text-3xl font-bold text-[#1A1A2E] text-center mb-4">
-            Benefits of Demat Account
-          </h2>
-          <p className="text-center text-[#6B6B7B] mb-12">
-            Demat account होने के फायदे
-          </p>
-          <div className="grid md:grid-cols-2 gap-4">
-            {[
-              "No risk of theft, forgery or loss of certificates",
-              "Instant transfer and settlement of shares",
-              "Lower transaction charges compared to physical",
-              "Automatic credit of bonus, splits, and dividends",
-              "Easy address change - update once reflected everywhere",
-              "One statement for all your investments",
-              "Trade anytime, anywhere on mobile/web",
-              "No stamp duty on transfer of securities",
-            ].map((benefit, idx) => (
-              <div key={idx} className="flex items-center gap-2 p-2">
-                <CheckCircle2 size={16} className="text-[#00C853]" />
-                <span className="text-sm text-[#6B6B7B]">{benefit}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* How to Open */}
-      <section className="py-16 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <h2 className="text-3xl font-bold text-[#1A1A2E] text-center mb-4">
-            How to Open Demat Account?
-          </h2>
-          <p className="text-center text-[#6B6B7B] mb-8">
-            सिर्फ 5 मिनट में, बिल्कुल FREE
-          </p>
-          <div className="grid md:grid-cols-4 gap-4">
-            {[
-              {
-                step: "01",
-                title: "Fill Form",
-                desc: "Online application भरें",
-              },
-              {
-                step: "02",
-                title: "Upload Docs",
-                desc: "PAN और Aadhaar upload करें",
-              },
-              {
-                step: "03",
-                title: "Video KYC",
-                desc: "Video call complete करें",
-              },
-              {
-                step: "04",
-                title: "Start Trading",
-                desc: "Account active हो जाएगा",
-              },
-            ].map((item) => (
-              <div key={item.step} className="text-center">
-                <div className="w-12 h-12 bg-[#0066CC] text-white rounded-full flex items-center justify-center mx-auto mb-3 font-bold">
-                  {item.step}
-                </div>
-                <h3 className="font-semibold text-[#1A1A2E] mb-1">
-                  {item.title}
-                </h3>
-                <p className="text-xs text-gray-500">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-16 bg-[#1A1A2E]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">
-            Open Free Demat Account
-          </h2>
-          <p className="text-[#9B9BAA] mb-8">
-            Zero account opening charges · Zero maintenance fees
-          </p>
-          <Link
-            href="https://kyc.wisdomcapital.in/"
-            target="_blank"
-            className="inline-flex items-center gap-2 px-8 py-3 bg-[#0066CC] text-white rounded-lg font-semibold hover:bg-[#0052A3]"
-          >
-            Open Account Now <ArrowRight size={18} />
-          </Link>
-        </div>
-      </section>
+      </div>
     </div>
   );
 }

@@ -1,7 +1,21 @@
-'use client';
+"use client";
 
-import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
+import { useState, useEffect, useRef, ChangeEvent, FormEvent } from "react";
+import Link from "next/link";
+import { motion, AnimatePresence, useInView } from "framer-motion";
+import {
+  Phone,
+  Mail,
+  MapPin,
+  Clock,
+  Send,
+  CheckCircle2,
+  AlertCircle,
+  RefreshCw,
+  ShieldCheck,
+} from "lucide-react";
 
+/* ------------------------------ types ------------------------------ */
 interface FormData {
   name: string;
   email: string;
@@ -10,363 +24,466 @@ interface FormData {
   message: string;
 }
 
-interface FormField {
-  id: keyof FormData;
-  label: string;
-  type: string;
-  placeholder: string;
-  required: boolean;
-}
-
-type SubmitStatus = 'idle' | 'loading' | 'success' | 'error';
+type SubmitStatus = "idle" | "loading" | "success" | "error";
 
 const INITIAL_FORM: FormData = {
-  name: '',
-  email: '',
-  phone: '',
-  subject: '',
-  message: '',
+  name: "",
+  email: "",
+  phone: "",
+  subject: "",
+  message: "",
 };
 
-const FIELDS: FormField[] = [
-  { id: 'name',    label: 'Full name',      type: 'text',  placeholder: 'Enter your full name', required: true },
-  { id: 'email',   label: 'Email address',  type: 'email', placeholder: 'your@email.com',       required: true },
-  { id: 'phone',   label: 'Phone number',   type: 'tel',   placeholder: '+91 XXXXX XXXXX',      required: true },
-  { id: 'subject', label: 'Subject',        type: 'text',  placeholder: 'How can we help you?', required: true },
-];
+const MESSAGE_MAX = 600;
 
-const CONTACT_INFO = [
-  { icon: '📞', label: 'Call us', value: '0120-6633299', sub: 'Mon–Sat, 9 AM – 6 PM' },
-  { icon: '✉️', label: 'Email us', value: 'investorcell@ashlarindia.com', sub: 'Reply within 24 hours' },
-  { icon: '📍', label: 'Head office', value: 'A-38, Sector-10, Noida-201301', sub: 'Sector-10, Noida' },
-];
-
-// Generate random math captcha
+/* --------------------------- captcha --------------------------- */
 const generateCaptcha = () => {
-  const num1 = Math.floor(Math.random() * 10) + 1;
-  const num2 = Math.floor(Math.random() * 10) + 1;
-  const isAddition = Math.random() > 0.5;
-  
-  if (isAddition) {
-    return { question: `${num1} + ${num2}`, answer: num1 + num2 };
-  } else {
-    // Ensure num1 >= num2 for subtraction to avoid negatives
-    if (num1 >= num2) {
-      return { question: `${num1} - ${num2}`, answer: num1 - num2 };
-    } else {
-      return { question: `${num2} - ${num1}`, answer: num2 - num1 };
-    }
+  const a = Math.floor(Math.random() * 10) + 1;
+  const b = Math.floor(Math.random() * 10) + 1;
+
+  const add = Math.random() > 0.5;
+
+  if (add) {
+    return {
+      question: `${a} + ${b}`,
+      answer: a + b,
+    };
   }
+
+  const [hi, lo] = a >= b ? [a, b] : [b, a];
+
+  return {
+    question: `${hi} − ${lo}`,
+    answer: hi - lo,
+  };
 };
 
-export default function ContactForm() {
-  const [formData, setFormData] = useState<FormData>(INITIAL_FORM);
-  const [status, setStatus] = useState<SubmitStatus>('idle');
-  const [captcha, setCaptcha] = useState(() => generateCaptcha());
-  const [captchaInput, setCaptchaInput] = useState('');
-  const [captchaError, setCaptchaError] = useState(false);
-  const [phoneForCall, setPhoneForCall] = useState('');
-  const [showCallbackMsg, setShowCallbackMsg] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
+/* ----------------------------- field ------------------------------- */
+interface FieldProps {
+  label: string;
+  name: keyof FormData;
+  type?: string;
+  required?: boolean;
+  value: string;
+  placeholder?: string;
+  onChange: (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+  textarea?: boolean;
+  rows?: number;
+  maxLength?: number;
+}
 
-  // Fix hydration
+const Field: React.FC<FieldProps> = ({
+  label,
+  name,
+  type = "text",
+  required,
+  value,
+  placeholder,
+  onChange,
+  textarea,
+  rows = 5,
+  maxLength,
+}) => {
+  const base =
+    "block w-full rounded-lg border border-border bg-surface px-4 py-3 text-[15px] text-ink-900 " +
+    "placeholder:text-ink-400 transition-[border-color,box-shadow] duration-200 " +
+    "focus:outline-none focus:border-brand-600 focus:ring-4 focus:ring-brand-600/10";
+
+  return (
+    <label className="block">
+      <span className="mb-1.5 flex items-center gap-1 text-xs font-medium text-ink-600">
+        {label}
+        {required && (
+          <span aria-hidden="true" className="text-brand-600">
+            *
+          </span>
+        )}
+      </span>
+
+      {textarea ? (
+        <textarea
+          name={name}
+          required={required}
+          rows={rows}
+          value={value}
+          placeholder={placeholder}
+          maxLength={maxLength}
+          onChange={onChange}
+          className={`${base} resize-none`}
+        />
+      ) : (
+        <input
+          type={type}
+          name={name}
+          required={required}
+          value={value}
+          placeholder={placeholder}
+          onChange={onChange}
+          className={base}
+        />
+      )}
+
+      {textarea && maxLength && (
+        <span className="mt-1 block text-right text-[11px] tabular-nums text-ink-400">
+          {value.length} / {maxLength}
+        </span>
+      )}
+    </label>
+  );
+};
+
+/* --------------------------- info card item ----------------------- */
+const InfoItem: React.FC<{
+  icon: React.ElementType;
+  label: string;
+  children: React.ReactNode;
+}> = ({ icon: Icon, label, children }) => (
+  <div className="flex items-start gap-4">
+    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-700 ring-1 ring-inset ring-brand-600/10">
+      <Icon size={18} strokeWidth={1.75} />
+    </div>
+
+    <div className="min-w-0">
+      <p className="text-[11px] font-medium uppercase tracking-wider text-ink-400">
+        {label}
+      </p>
+
+      <div className="mt-1 text-sm text-ink-800">{children}</div>
+    </div>
+  </div>
+);
+
+/* ------------------------------ map ------------------------------- */
+const LazyMap: React.FC = () => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  const inView = useInView(ref, {
+    once: true,
+    margin: "200px",
+  });
+
+  return (
+    <div
+      ref={ref}
+      className="relative h-[360px] w-full overflow-hidden rounded-xl border border-border bg-surface-muted"
+    >
+      {inView ? (
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.061807115718!2d77.314163!3d28.613459!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce4a6c2f4b2f7%3A0x8f8b2c7e8f8b2c7e!2sNoida%2C%20Uttar%20Pradesh%20201301!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+          width="100%"
+          height="100%"
+          style={{
+            border: 0,
+            filter: "saturate(0.85) contrast(0.95)",
+          }}
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          title="Ashlar office location, Sector 67 Noida"
+        />
+      ) : (
+        <div className="flex h-full w-full items-center justify-center bg-dot-grid">
+          <div className="flex items-center gap-2 rounded-full bg-surface/80 px-4 py-2 text-xs font-medium text-ink-600 backdrop-blur">
+            <MapPin size={14} />
+            Loading map…
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+/* ------------------------------ page ------------------------------ */
+export default function ContactPage() {
+  const [formData, setFormData] = useState<FormData>(INITIAL_FORM);
+
+  const [status, setStatus] =
+    useState<SubmitStatus>("idle");
+
+  const [captcha, setCaptcha] = useState({
+    question: "0 + 0",
+    answer: 0,
+  });
+
+  const [captchaInput, setCaptchaInput] =
+    useState("");
+
+  const [captchaError, setCaptchaError] =
+    useState(false);
+
   useEffect(() => {
-    setIsMounted(true);
-    // Regenerate captcha on client only
     setCaptcha(generateCaptcha());
   }, []);
 
   const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
 
-  const handleCaptchaChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setCaptchaInput(e.target.value);
-    if (captchaError) setCaptchaError(false);
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const refreshCaptcha = () => {
     setCaptcha(generateCaptcha());
-    setCaptchaInput('');
+    setCaptchaInput("");
     setCaptchaError(false);
   };
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (
+    e: FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault();
-    
-    // Validate captcha
-    if (parseInt(captchaInput) !== captcha.answer) {
+
+    if (parseInt(captchaInput, 10) !== captcha.answer) {
       setCaptchaError(true);
       return;
     }
-    
-    setStatus('loading');
+
+    setStatus("loading");
+
     try {
-      // Replace with your actual API endpoint
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(formData),
       });
-      
-      if (response.ok) {
-        setStatus('success');
+
+      if (res.ok) {
+        setStatus("success");
+
         setFormData(INITIAL_FORM);
-        setCaptchaInput('');
+
+        setCaptchaInput("");
+
         setCaptcha(generateCaptcha());
       } else {
-        setStatus('error');
+        setStatus("error");
       }
     } catch {
-      setStatus('error');
+      setStatus("error");
+    } finally {
+      setTimeout(() => {
+        setStatus("idle");
+      }, 5000);
     }
   };
-
-  const handleCallRequest = (e: FormEvent) => {
-    e.preventDefault();
-    if (phoneForCall.length >= 10) {
-      setShowCallbackMsg(true);
-      setTimeout(() => setShowCallbackMsg(false), 5000);
-    }
-  };
-
-  // Don't render on server to avoid hydration mismatch
-  if (!isMounted) {
-    return null;
-  }
 
   return (
-    <section className="py-16 bg-gray-50">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+    <main className="bg-surface-subtle">
+      {/* Header */}
+      {/* Body */}
+{/* Body */}
+<section className="py-12 sm:py-16">
+  <div className="container">
+    
+    {/* Grid */}
+    <div className="grid items-start gap-6 lg:grid-cols-12">
+      
+      {/* Left Column */}
+      <aside className="lg:col-span-4">
+        <div className="lg:sticky lg:top-24">
+          
+          {/* Contact Card */}
+          <div className="rounded-xl border border-border bg-surface p-6 shadow-xs">
+            <h2 className="font-display text-lg font-medium text-ink-900">
+              Reach us directly
+            </h2>
 
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-            Get in Touch
-          </h2>
-          <p className="text-gray-500 text-base max-w-md mx-auto">
-            Have a question? We're here to help you with your trading journey
+            <div className="mt-6 space-y-5">
+              
+              {/* Phone */}
+              <InfoItem icon={Phone} label="Phone">
+                <a
+                  href="tel:+911206633299"
+                  className="font-medium hover:text-brand-700"
+                >
+                  0120-6633299
+                </a>
+
+                <p className="mt-0.5 text-xs text-ink-400">
+                  Mon–Sat · 9 AM – 6 PM IST
+                </p>
+              </InfoItem>
+
+              {/* Email */}
+              <InfoItem icon={Mail} label="Email">
+                <a
+                  href="mailto:investorcell@ashlarindia.com"
+                  className="break-all font-medium hover:text-brand-700"
+                >
+                  investorcell@ashlarindia.com
+                </a>
+
+                <p className="mt-0.5 text-xs text-ink-400">
+                  Replies within 24 hours
+                </p>
+              </InfoItem>
+
+              {/* Office */}
+              <InfoItem icon={MapPin} label="Office">
+                <address className="not-italic">
+                  A-38, Sector 67, Noida
+                  <br />
+                  Uttar Pradesh — 201301
+                </address>
+              </InfoItem>
+
+              {/* Hours */}
+              <InfoItem icon={Clock} label="Hours">
+                <>
+                  <p>Mon – Fri · 9 AM – 6 PM</p>
+
+                  <p>Saturday · 9 AM – 5 PM</p>
+
+                  <p className="text-ink-400">
+                    Sunday · Closed
+                  </p>
+                </>
+              </InfoItem>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      {/* Right Column */}
+      <div className="lg:col-span-8">
+        
+        {/* Form Card */}
+        <div className="rounded-xl border border-border bg-surface shadow-sm">
+          <div className="p-6 sm:p-8">
+            
+            <h2 className="font-display text-xl font-medium text-ink-900">
+              Send us a message
+            </h2>
+
+            <p className="mt-1 text-sm text-ink-600">
+              Tell us what you're working on —
+              we'll route you to the right person.
+            </p>
+
+            <form
+              onSubmit={handleSubmit}
+              noValidate
+              className="mt-6 space-y-5"
+            >
+              
+              {/* FORM FIELDS HERE */}
+
+              {/* Submit */}
+              <div className="pt-2">
+                <button
+                  type="submit"
+                  disabled={status === "loading"}
+                  className={[
+                    "group inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg",
+                    "bg-brand-600 px-6 text-sm font-medium text-white shadow-brand",
+                    "transition-[transform,background-color,box-shadow] duration-300 ease-out",
+                    "hover:-translate-y-0.5 hover:bg-brand-700",
+                    "active:translate-y-0",
+                    "disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2",
+                  ].join(" ")}
+                >
+                  {status === "loading" ? (
+                    <>
+                      <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                      Sending…
+                    </>
+                  ) : (
+                    <>
+                      <Send
+                        size={15}
+                        className="transition-transform duration-300 group-hover:translate-x-0.5"
+                      />
+
+                      Send message
+                    </>
+                  )}
+                </button>
+
+                <p className="mt-3 text-center text-xs text-ink-400">
+                  By submitting you agree to our{" "}
+                  <Link
+                    href="/privacy-policy"
+                    className="font-medium text-ink-600 underline-offset-2 hover:text-brand-700 hover:underline"
+                  >
+                    Privacy Policy
+                  </Link>
+                  . We never share your data.
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        {/* SEBI BOX */}
+        <div className="mt-6 rounded-xl border border-amber-200/60 bg-amber-50/60 p-5">
+          <div className="flex items-center gap-2">
+            <ShieldCheck
+              size={16}
+              className="text-amber-700"
+            />
+
+            <p className="text-[11px] font-semibold uppercase tracking-wider text-amber-800">
+              SEBI Investor Helpline
+            </p>
+          </div>
+
+          <p className="mt-3 font-display text-2xl font-medium tracking-tight text-amber-900">
+            1800 266 7575
+          </p>
+
+          <p className="mt-2 text-xs leading-relaxed text-amber-800/80">
+            For grievance escalation, visit the
+            SEBI SCORES portal at{" "}
+            <a
+              href="https://scores.gov.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-amber-900 underline-offset-2 hover:underline"
+            >
+              scores.gov.in
+            </a>
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-5 gap-8">
-
-          {/* Left Side - Contact Info & Callback Section */}
-          <div className="lg:col-span-2">
-            {/* Contact Cards */}
-            <div className="space-y-4 mb-6">
-              {CONTACT_INFO.map((item) => (
-                <div
-                  key={item.label}
-                  className="bg-white rounded-xl border border-gray-200 p-5 flex items-start gap-4 hover:shadow-md transition-shadow"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-xl flex-shrink-0">
-                    {item.icon}
-                  </div>
-                  <div>
-                    <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-0.5">
-                      {item.label}
-                    </p>
-                    <p className="text-sm font-semibold text-gray-900">{item.value}</p>
-                    <p className="text-xs text-gray-400 mt-0.5">{item.sub}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Callback Request Section - Like Lakshmishree */}
-            <div className="bg-gray-900 rounded-xl p-6 text-white">
-              {!showCallbackMsg ? (
-                <>
-                  <h3 className="text-lg font-bold mb-3">Please enter your phone number</h3>
-                  <p className="text-gray-300 text-sm mb-4">and we call you back soon</p>
-                  <form onSubmit={handleCallRequest} className="space-y-3">
-                    <input
-                      type="tel"
-                      value={phoneForCall}
-                      onChange={(e) => setPhoneForCall(e.target.value)}
-                      placeholder="+91 XXXXX XXXXX"
-                      className="w-full px-4 py-2 rounded-lg text-gray-900 text-sm"
-                      required
-                    />
-                    <button
-                      type="submit"
-                      className="w-full py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm font-semibold transition-colors"
-                    >
-                      Request Callback
-                    </button>
-                  </form>
-                </>
-              ) : (
-                <div className="text-center py-4">
-                  <div className="text-4xl mb-3">📞</div>
-                  <h3 className="text-lg font-bold mb-2">We are calling you to {phoneForCall}</h3>
-                  <p className="text-gray-300 text-sm">Thank you. We'll call you back soon.</p>
-                </div>
-              )}
-            </div>
-
-            {/* SEBI Notice - Compliance */}
-            <div className="mt-4 bg-amber-50 border border-amber-200 rounded-xl p-4">
-              <p className="text-xs font-semibold text-amber-800 mb-1">SEBI Investor Helpline</p>
-              <p className="text-sm font-bold text-amber-900">1800 266 7575</p>
-              <p className="text-xs text-amber-700 mt-1">
-                For grievance escalation, contact SEBI SCORES portal at{' '}
-                <span className="font-semibold">scores.gov.in</span>
-              </p>
-            </div>
-          </div>
-
-          {/* Right Side - Contact Form */}
-          <div className="lg:col-span-3">
-            <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
-              <div className="h-1 w-full bg-blue-600" />
-              
-              <div className="p-6 md:p-8">
-                {/* Success Message */}
-                {status === 'success' && (
-                  <div className="mb-6 bg-green-50 border border-green-200 rounded-lg p-4">
-                    <p className="text-sm font-semibold text-green-800">✓ Message sent successfully</p>
-                    <p className="text-xs text-green-700 mt-1">
-                      Our support team will get back to you within one business day.
-                    </p>
-                  </div>
-                )}
-
-                {/* Error Message */}
-                {status === 'error' && (
-                  <div className="mb-6 bg-red-50 border border-red-200 rounded-lg p-4">
-                    <p className="text-sm font-semibold text-red-800">Something went wrong</p>
-                    <p className="text-xs text-red-700 mt-1">
-                      Please try again or email us directly at investorcell@ashlarindia.com
-                    </p>
-                  </div>
-                )}
-
-                <form onSubmit={handleSubmit} noValidate>
-                  {/* Name & Email */}
-                  <div className="grid sm:grid-cols-2 gap-4 mb-4">
-                    {FIELDS.slice(0, 2).map((field) => (
-                      <div key={field.id}>
-                        <label htmlFor={field.id} className="block text-xs font-semibold text-gray-700 mb-1.5">
-                          {field.label} {field.required && <span className="text-red-500">*</span>}
-                        </label>
-                        <input
-                          id={field.id}
-                          name={field.id}
-                          type={field.type}
-                          required={field.required}
-                          placeholder={field.placeholder}
-                          value={formData[field.id]}
-                          onChange={handleChange}
-                          disabled={status === 'loading'}
-                          className="w-full px-3.5 py-2.5 text-sm text-gray-900 placeholder-gray-400 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:bg-white transition-all disabled:opacity-50"
-                        />
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Phone & Subject */}
-                  <div className="grid sm:grid-cols-2 gap-4 mb-4">
-                    {FIELDS.slice(2, 4).map((field) => (
-                      <div key={field.id}>
-                        <label htmlFor={field.id} className="block text-xs font-semibold text-gray-700 mb-1.5">
-                          {field.label} {field.required && <span className="text-red-500">*</span>}
-                        </label>
-                        <input
-                          id={field.id}
-                          name={field.id}
-                          type={field.type}
-                          required={field.required}
-                          placeholder={field.placeholder}
-                          value={formData[field.id]}
-                          onChange={handleChange}
-                          disabled={status === 'loading'}
-                          className="w-full px-3.5 py-2.5 text-sm text-gray-900 placeholder-gray-400 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:bg-white transition-all disabled:opacity-50"
-                        />
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Message */}
-                  <div className="mb-4">
-                    <label htmlFor="message" className="block text-xs font-semibold text-gray-700 mb-1.5">
-                      Message <span className="text-red-500">*</span>
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      rows={4}
-                      required
-                      placeholder="Please describe your query in detail..."
-                      value={formData.message}
-                      onChange={handleChange}
-                      disabled={status === 'loading'}
-                      className="w-full px-3.5 py-2.5 text-sm text-gray-900 placeholder-gray-400 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:bg-white transition-all resize-none disabled:opacity-50"
-                    />
-                  </div>
-
-                  {/* Math CAPTCHA */}
-                  <div className="mb-6">
-                    <label className="block text-xs font-semibold text-gray-700 mb-1.5">
-                      Verify you are human <span className="text-red-500">*</span>
-                    </label>
-                    <div className="flex items-center gap-3">
-                      <div className="bg-gray-100 border border-gray-200 rounded-lg px-4 py-2.5 text-sm font-mono font-semibold">
-                        {captcha.question} = ?
-                      </div>
-                      <input
-                        type="text"
-                        value={captchaInput}
-                        onChange={handleCaptchaChange}
-                        placeholder="Enter answer"
-                        className="w-24 px-3 py-2.5 text-sm text-gray-900 text-center bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        disabled={status === 'loading'}
-                      />
-                      <button
-                        type="button"
-                        onClick={refreshCaptcha}
-                        className="p-2 text-gray-500 hover:text-blue-600 transition-colors"
-                        aria-label="Refresh captcha"
-                      >
-                        ↻
-                      </button>
-                    </div>
-                    {captchaError && (
-                      <p className="text-xs text-red-500 mt-1">Incorrect answer. Please try again.</p>
-                    )}
-                  </div>
-
-                  {/* Submit Button */}
-                  <button
-                    type="submit"
-                    disabled={status === 'loading'}
-                    className="w-full flex items-center justify-center gap-2 py-3 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg transition-all disabled:opacity-60"
-                  >
-                    {status === 'loading' ? (
-                      <>
-                        <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        Sending...
-                      </>
-                    ) : (
-                      'Send Message'
-                    )}
-                  </button>
-
-                  <p className="text-center text-xs text-gray-400 mt-4">
-                    By submitting, you agree to our{' '}
-                    <a href="/privacy" className="text-blue-600 hover:underline">Privacy Policy</a>.
-                    We never share your data.
-                  </p>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
-    </section>
+    </div>
+
+    {/* Map */}
+    <div className="mt-12">
+      <div className="mb-4 flex items-end justify-between">
+        <div>
+          <span className="text-eyebrow uppercase text-ink-400">
+            Visit
+          </span>
+
+          <h3 className="mt-1 font-display text-lg font-medium text-ink-900">
+            Find us in Noida
+          </h3>
+        </div>
+
+        <a
+          href="https://www.google.com/maps/dir/?api=1&destination=A-38+Sector+67+Noida"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-sm font-medium text-brand-600 hover:text-brand-700"
+        >
+          Get directions →
+        </a>
+      </div>
+
+      <LazyMap />
+    </div>
+  </div>
+</section>
+    </main>
   );
 }

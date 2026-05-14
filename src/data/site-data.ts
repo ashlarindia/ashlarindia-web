@@ -204,26 +204,26 @@ export const LOGIN_OPTIONS = [
 ];
 export const NAV_PRODUCTS = [
   { name: "Equity", href: "/products/equity" },
-  { name: "Bonds", href: "/products/bonds" },
-  { name: 'Corporate FD"s', href: "/products/corporate-fd" },
+  { name: "Stocks", href: "/products/stocks" },
+  { name: 'Comodities', href: "/products/commodities" },
   {
-    name: "Depository Participants",
-    href: "/products/depository-participants(IP)",
+    name: "Future & Options",
+    href: "/products/futute-options",
   },
   {
-    name: "General Insurance",
-    href: "/products/general-insurance",
+    name: "Currency",
+    href: "/products/currency",
     badge: "Hot",
   },
-  { name: "Life Insurance", href: "/products/life-insurance" },
+  { name: "IPO", href: "/products/ipo" },
+   { name: "Depository Participants(DP)", href: "/products/life-insurance" },
 ];
 
 export const NAV_INVESTMENT = [
-  { name: "Mutual Funds", href: "/investment/mutual-funds" },
+  { name: "Bonds", href: "/investment/bonds" },
   { name: "Life Insurance", href: "/investment/life-insurance" },
-  { name: "Corporate FDs", href: "/investment/corporate-fds" },
-  { name: "Retirement Plans", href: "/investment/retirement-plans" },
-  { name: "Child Plans", href: "/investment/child-plans" },
+  { name: "General Insurance", href: "/investment/general-insurance" },
+  { name: "Corporate FD's", href: "/investment/corporate-fd" },
 ];
 // Already exists in your file
 export const NAV_CALCULATORS = [

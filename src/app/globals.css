@@ -1,113 +1,33 @@
-@import "tailwindcss";
-
-@theme {
-  --color-brand-navy: #0f172a;
-  --color-brand-orange: #f97316;
-  --color-slate-200: #e2e8f0;
-  --color-slate-600: #475569;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
-  :root {
-    --background: #f8fafc;
-    --foreground: #0f172a;
-     --brand-red: #CC0000;
-  }
-
   html {
     scroll-behavior: smooth;
   }
-
   body {
-    background: var(--background);
-    color: var(--foreground);
+    font-feature-settings: "ss01", "cv11";
+    text-rendering: optimizeLegibility;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
-@layer components {
-  .container-shell {
-    max-width: 80rem;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 1rem;
-    padding-right: 1rem;
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
   }
-
-  @layer utilities {
-  .shadow-soft {
-    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05), 0 1px 2px -1px rgb(0 0 0 / 0.05);
-  }
-  
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
-}
-  
-  @media (min-width: 640px) {
-    .container-shell {
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
-    }
-  }
-  
-  @media (min-width: 1024px) {
-    .container-shell {
-      padding-left: 2rem;
-      padding-right: 2rem;
-    }
-  }
-  
-  .section-space {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
-  }
-  
-  @media (min-width: 640px) {
-    .section-space {
-      padding-top: 5rem;
-      padding-bottom: 5rem;
-    }
-  }
-  
-  @media (min-width: 1024px) {
-    .section-space {
-      padding-top: 6rem;
-      padding-bottom: 6rem;
-    }
-  }
-  
-  .card-surface {
-    border-radius: 1.5rem;
-    border: 1px solid #e2e8f0;
-    background-color: white;
-    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05);
-  }
-  
-  .section-title {
-    font-size: 1.875rem;
-    font-weight: 800;
-    letter-spacing: -0.025em;
-    color: #0f172a;
-  }
-  
-  @media (min-width: 640px) {
-    .section-title {
-      font-size: 2.25rem;
-    }
-  }
-  
-  .eyebrow::before {
-    content: '';
-    display: inline-block;
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 9999px;
-    background-color: #f97316;
-    margin-right: 0.5rem;
+  .bg-dot-grid {
+    background-image: radial-gradient(rgba(15, 15, 17, 0.08) 1px, transparent 1px);
+    background-size: 24px 24px;
   }
 }
