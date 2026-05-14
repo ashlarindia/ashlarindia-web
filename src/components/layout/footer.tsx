@@ -1,14 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
 
 import {
   Phone,
   Mail,
   MapPin,
-  ChevronDown,
-  ExternalLink,
 } from 'lucide-react';
 
 import {
@@ -19,159 +16,54 @@ import {
   FaXTwitter,
 } from 'react-icons/fa6';
 
-import { SITE, getKycUrl } from '@/data/site-data';
-
-const PRODUCTS = [
-  'Equity',
-  'F&O',
-  'Commodity',
-  'Currency',
-  'IPO',
-  'Mutual Funds',
-];
-
 export default function Footer() {
-  const [open, setOpen] = useState(false);
-
   return (
-    <footer className="bg-[#071028] text-gray-300 border-t border-slate-800">
+    <footer className="bg-[#cf2e2e] text-white text-sm">
 
-      {/* CTA */}
-      <div className="border-b border-slate-800 bg-gradient-to-r from-[#081225] to-[#0B1733]">
-        <div className="max-w-7xl mx-auto px-6 py-10 flex flex-col lg:flex-row items-center justify-between gap-6">
+      {/* MAIN CONTAINER */}
+      <div className="max-w-6xl mx-auto px-6 pt-10 pb-8">
 
-          <div>
-            <h2 className="text-3xl font-bold text-white mb-3">
-              Start Investing with Ashlar India
-            </h2>
+        {/* TOP GRID */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
 
-            <p className="text-slate-400">
-              Open your demat account in minutes and trade with confidence.
-            </p>
-          </div>
-
-          <Link
-            href={getKycUrl('footer')}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-8 py-4 rounded-2xl bg-blue-600 hover:bg-blue-700 transition-all text-white font-semibold shadow-lg hover:scale-105"
-          >
-            Open Free Account
-          </Link>
-
-        </div>
-      </div>
-
-      {/* MAIN */}
-      <div className="max-w-7xl mx-auto px-6 py-16">
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-14">
-
-          {/* BRAND */}
+          {/* ABOUT */}
           <div>
 
-            <h2 className="text-4xl font-bold text-white mb-6">
-              Ashlar<span className="text-blue-500">India</span>
-            </h2>
-
-            <p className="leading-8 text-slate-400 mb-8">
-              SEBI registered stock broker offering equity, derivatives,
-              commodity and currency trading solutions across India.
-            </p>
-
-            <div className="space-y-5 text-sm">
-
-              <a
-                href={`tel:${SITE.tollFree.replace(/-/g, '')}`}
-                className="flex items-center gap-3 hover:text-white transition"
-              >
-                <Phone size={18} />
-                {SITE.tollFree}
-              </a>
-
-              <a
-                href={`mailto:${SITE.email}`}
-                className="flex items-center gap-3 hover:text-white transition"
-              >
-                <Mail size={18} />
-                {SITE.email}
-              </a>
-
-              <div className="flex items-start gap-3">
-                <MapPin size={18} className="mt-1" />
-                <span>{SITE.address}</span>
-              </div>
-
-            </div>
-
-            {/* SOCIALS */}
-            <div className="flex gap-4 mt-10">
-
-              <a
-                href="https://facebook.com/ashlarindia"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-11 h-11 rounded-xl bg-slate-800 hover:bg-blue-600 transition flex items-center justify-center"
-              >
-                <FaFacebookF />
-              </a>
-
-              <a
-                href="https://instagram.com/ashlarindia"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-11 h-11 rounded-xl bg-slate-800 hover:bg-pink-600 transition flex items-center justify-center"
-              >
-                <FaInstagram />
-              </a>
-
-              <a
-                href="https://linkedin.com/company/ashlarindia"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-11 h-11 rounded-xl bg-slate-800 hover:bg-blue-700 transition flex items-center justify-center"
-              >
-                <FaLinkedinIn />
-              </a>
-
-              <a
-                href="https://youtube.com/@ashlarindia"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-11 h-11 rounded-xl bg-slate-800 hover:bg-red-600 transition flex items-center justify-center"
-              >
-                <FaYoutube />
-              </a>
-
-              <a
-                href="https://twitter.com/ashlarindia"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-11 h-11 rounded-xl bg-slate-800 hover:bg-slate-700 transition flex items-center justify-center"
-              >
-                <FaXTwitter />
-              </a>
-
-            </div>
-
-          </div>
-
-          {/* PRODUCTS */}
-          <div>
-
-            <h3 className="text-white text-xl font-semibold mb-6">
-              Products
+            <h3 className="font-bold text-lg mb-5">
+              About Ashlar
             </h3>
 
-            <ul className="space-y-4">
+            <ul className="space-y-2 text-[13px]">
 
-              {PRODUCTS.map((item) => (
-                <li key={item}>
-                  <Link href="/" className="hover:text-white transition">
-                    {item}
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <Link href="/about-us" className="hover:underline">
+                  » About Us
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/business-partner" className="hover:underline">
+                  » Business Partner
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/announcements" className="hover:underline">
+                  » Announcements
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/careers" className="hover:underline">
+                  » Careers
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/circular" className="hover:underline">
+                  » Circular
+                </Link>
+              </li>
 
             </ul>
 
@@ -180,43 +72,95 @@ export default function Footer() {
           {/* SUPPORT */}
           <div>
 
-            <h3 className="text-white text-xl font-semibold mb-6">
+            <h3 className="font-bold text-lg mb-5">
               Support
             </h3>
 
-            <ul className="space-y-4">
+            <ul className="space-y-2 text-[13px]">
 
               <li>
-                <Link href="/contact" className="hover:text-white transition">
-                  Contact Us
+                <Link href="/contact" className="hover:underline">
+                  » Contact Us
                 </Link>
               </li>
 
               <li>
-                <Link href="/faqs" className="hover:text-white transition">
-                  FAQs
+                <Link href="/margin-calculator" className="hover:underline">
+                  » Margin Calculator
                 </Link>
               </li>
 
               <li>
-                <Link
-                  href="/brokerage-calculator"
-                  className="hover:text-white transition"
-                >
-                  Brokerage Calculator
+                <Link href="/quick-mail" className="hover:underline">
+                  » Quick Mail
                 </Link>
               </li>
 
               <li>
-                <a
-                  href="https://scores.gov.in"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 hover:text-white transition"
-                >
-                  SEBI SCORES
-                  <ExternalLink size={14} />
-                </a>
+                <Link href="/downloads" className="hover:underline">
+                  » Downloads
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/complaints" className="hover:underline">
+                  » Complaints
+                </Link>
+              </li>
+
+            </ul>
+
+          </div>
+
+          {/* ACCOUNTS */}
+          <div>
+
+            <h3 className="font-bold text-lg mb-5">
+              Accounts
+            </h3>
+
+            <ul className="space-y-2 text-[13px]">
+
+              <li>
+                <Link href="/open-account" className="hover:underline">
+                  » Open Account
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/re-kyc" className="hover:underline">
+                  » Re-KYC
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/kra-inquiry" className="hover:underline">
+                  » KRA Inquiry
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/freeze-blocking" className="hover:underline">
+                  » Freezing/Blocking
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/fund-transfer" className="hover:underline">
+                  » Fund Transfer
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/pledge-unpledge" className="hover:underline">
+                  » Pledge/Un-Pledge
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/nomination" className="hover:underline">
+                  » Nomination
+                </Link>
               </li>
 
             </ul>
@@ -226,37 +170,92 @@ export default function Footer() {
           {/* OFFICE */}
           <div>
 
-            <h3 className="text-white text-xl font-semibold mb-6">
-              Office Address
+            <h3 className="font-bold text-lg mb-5">
+              Office Address Details
             </h3>
 
-            <div className="space-y-5 text-sm leading-7">
+            <div className="space-y-3 text-[13px] leading-6">
 
-              <p>
-                <span className="font-semibold text-white">
-                  Corporate Address:
+              <p className="flex items-start gap-2">
+                <MapPin size={16} className="mt-1" />
+
+                <span>
+                  Corporate Address : 1D, A-1, Sector-10,
+                  Noida, Uttar Pradesh India - 201301
                 </span>
-                <br />
-                1D, A-1, Sector-10,
-                <br />
-                Noida, Uttar Pradesh - 201301
               </p>
 
-              <p>
-                <span className="font-semibold text-white">
-                  Landline:
-                </span>
-                <br />
-                0120-6633205
+              <p className="flex items-center gap-2">
+                <Phone size={16} />
+
+                <a
+                  href="tel:01206633205"
+                  className="hover:underline"
+                >
+                  Landline No : 0120-6633205
+                </a>
               </p>
 
-              <p>
-                <span className="font-semibold text-white">
-                  Email:
-                </span>
-                <br />
-                compliance@ashlarindia.com
+              <p className="flex items-center gap-2">
+                <Mail size={16} />
+
+                <a
+                  href="mailto:compliance@ashlarindia.com"
+                  className="hover:underline"
+                >
+                  compliance@ashlarindia.com
+                </a>
               </p>
+
+            </div>
+
+            {/* SOCIALS */}
+            <div className="flex gap-4 mt-5 text-lg">
+
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:scale-110 transition"
+              >
+                <FaXTwitter />
+              </a>
+
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:scale-110 transition"
+              >
+                <FaFacebookF />
+              </a>
+
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:scale-110 transition"
+              >
+                <FaLinkedinIn />
+              </a>
+
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:scale-110 transition"
+              >
+                <FaInstagram />
+              </a>
+
+              <a
+                href="https://youtube.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:scale-110 transition"
+              >
+                <FaYoutube />
+              </a>
 
             </div>
 
@@ -264,240 +263,301 @@ export default function Footer() {
 
         </div>
 
-        {/* LEGAL LINKS */}
-        <div className="border-t border-slate-800 mt-16 pt-10 text-center">
+        {/* TOP LINKS */}
+        <div className="border-t border-white/40 mt-10 pt-5 text-center text-[12px] leading-7">
 
-          <div className="flex flex-wrap justify-center gap-3 text-sm font-medium leading-8 text-slate-300">
+          <Link href="/investor-charter" className="hover:underline">
+            Investor Charter
+          </Link>
 
-            <Link href="/investor-charter" className="hover:text-white">
-              Investor Charter
-            </Link>
+          {' | '}
 
-            |
+          <Link href="/cyber-security" className="hover:underline">
+            Investor Cybersecurity Awareness Campaign
+          </Link>
 
-            <Link href="/cyber-security" className="hover:text-white">
-              Cybersecurity Awareness Campaign
-            </Link>
+          {' | '}
 
-            |
+          <Link href="/escalation-matrix" className="hover:underline">
+            Escalation Matrix
+          </Link>
 
-            <Link href="/escalation-matrix" className="hover:text-white">
-              Escalation Matrix
-            </Link>
+          {' | '}
 
-            |
+          <Link href="/regulatory" className="hover:underline">
+            Regulatory & Other Info
+          </Link>
 
-            <Link href="/regulatory" className="hover:text-white">
-              Regulatory & other info
-            </Link>
+          {' | '}
 
-            |
+          <Link href="/policies" className="hover:underline">
+            Policies & Procedure
+          </Link>
 
-            <Link href="/policies" className="hover:text-white">
-              Policies & Procedure
-            </Link>
+          {' | '}
 
-            |
+          <Link href="/terms" className="hover:underline">
+            Terms & Conditions
+          </Link>
 
-            <Link href="/terms" className="hover:text-white">
-              Terms & Conditions
-            </Link>
+          {' | '}
 
-            |
+          <Link href="/disclaimer" className="hover:underline">
+            Disclaimer
+          </Link>
 
-            <Link href="/disclaimer" className="hover:text-white">
-              Disclaimer
-            </Link>
+          {' | '}
 
-            |
-
-            <Link href="/privacy-policy" className="hover:text-white">
-              Privacy Policy
-            </Link>
-
-          </div>
+          <Link href="/privacy-policy" className="hover:underline">
+            Privacy Policy
+          </Link>
 
         </div>
 
-        {/* DISCLOSURE */}
-        <div className="border-t border-slate-800 mt-10 pt-10">
+        {/* RISK DISCLOSURE */}
+        <div className="border-t border-white/40 mt-5 pt-5 text-[11px] leading-6">
 
-          <button
-            onClick={() => setOpen(!open)}
-            className="flex items-center justify-between w-full"
-          >
+          <h3 className="font-bold text-sm mb-4">
+            Risk Disclosure :
+          </h3>
 
-            <span className="text-2xl font-semibold text-white">
-              Risk Disclosure & Attention Investors
-            </span>
+          <p>
+            Stock Brokers can accept securities as margin from clients
+            only by way of pledge in the depository system w.e.f.
+            September 1, 2020.
+          </p>
 
-            <ChevronDown
-              className={`transition duration-300 ${
-                open ? 'rotate-180' : ''
-              }`}
-            />
+          <p className="mt-3">
+            Update your mobile number & email Id with your stock
+            broker/depository participant and receive OTP directly
+            from depository.
+          </p>
 
-          </button>
+          <p className="mt-3">
+            Check your Securities /MF/ Bonds in the consolidated
+            account statement issued by NSDL/CDSL every month.
+          </p>
 
-          {open && (
+          <p className="mt-3">
+            Investments in securities market are subject to
+            market risks.
+          </p>
 
-            <div className="mt-10 text-sm leading-8 text-slate-300 space-y-8">
+          {/* ATTENTION */}
+          <div className="mt-6">
 
-              <div>
+            <h3 className="font-bold text-sm mb-4">
+              Attention Investors
+            </h3>
 
-                <h3 className="text-white text-xl font-semibold mb-5">
-                  Risk Disclosure
-                </h3>
+            <div className="space-y-3 text-[11px] leading-6">
 
-                <p>
-                  Stock Brokers can accept securities as margin from clients
-                  only by way of pledge in the depository system w.e.f.
-                  September 1, 2020.
-                </p>
+              <p>
+                1. Stock Brokers can accept securities as margin
+                from clients only by way of pledge in the
+                depository system.
+              </p>
 
-                <p>
-                  Update your mobile number & email ID with your stock
-                  broker/depository participant and receive OTP directly from
-                  depository on your email id and/or mobile number to create pledge.
-                </p>
+              <p>
+                2. Update your email id and mobile number
+                with your stock broker.
+              </p>
 
-                <p>
-                  Check your securities / MF / bonds in the consolidated account
-                  statement issued by NSDL/CDSL every month.
-                </p>
+              <p>
+                3. Check your securities / MF / bonds in
+                consolidated account statement.
+              </p>
 
-                <p>
-                  Investments in securities market are subject to market risks,
-                  read all related documents carefully before investing.
-                </p>
+              <p>
+                4. Prevent Unauthorized transactions
+                in your account.
+              </p>
 
-              </div>
+              <p>
+                5. Receive information of your transactions
+                directly from Exchange.
+              </p>
 
-              <div>
+              <p>
+                6. KYC is one time exercise while dealing
+                in securities market.
+              </p>
 
-                <h3 className="text-white text-xl font-semibold mb-5">
-                  Attention Investors
-                </h3>
+              <p>
+                7. Beware of fraudsters collecting
+                customer data.
+              </p>
 
-                <ol className="list-decimal pl-5 space-y-3">
+              <p>
+                8. Avoid unauthorized investment schemes
+                and fake trading tips.
+              </p>
 
-                  <li>
-                    Prevent Unauthorized transactions in your account.
-                  </li>
-
-                  <li>
-                    Receive transaction alerts directly from exchange.
-                  </li>
-
-                  <li>
-                    KYC is one time exercise while dealing in securities markets.
-                  </li>
-
-                  <li>
-                    Investors should avoid unauthorized investment schemes.
-                  </li>
-
-                  <li>
-                    Investors are requested not to transfer funds
-                    to unknown bank accounts.
-                  </li>
-
-                  <li>
-                    Investor awareness regarding fraudsters and fake tips.
-                  </li>
-
-                </ol>
-
-              </div>
-
-              <div>
-
-                <h3 className="text-white text-xl font-semibold mb-5">
-                  Important Exchange Information
-                </h3>
-
-                <p>
-                  Clients are required to inform us of any short sale
-                  transactions executed on a Trading Day.
-                </p>
-
-                <p>
-                  Short selling is permitted only in securities eligible
-                  under Futures & Options (F&O).
-                </p>
-
-                <p>
-                  For any clarification, you may contact our support team.
-                </p>
-
-              </div>
+              <p>
+                9. For any clarification, contact support team.
+              </p>
 
             </div>
 
-          )}
+          </div>
 
         </div>
 
         {/* REGISTRATION */}
-        <div className="border-t border-slate-800 mt-12 pt-10 text-center text-sm leading-8 text-slate-400">
+        <div className="border-t border-white/40 mt-6 pt-5 text-center text-[11px] leading-6">
 
-          <p>
-            SEBI | NSE | BSE | MCX | E-Voting: Shareholders/Members |
-            SMART ODR | SCORES 2.0 | Investor Education |
-            SCORES Mobile App | IRRA
+          <p className="flex flex-wrap justify-center gap-2">
+
+            <a
+              href="https://www.sebi.gov.in/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline"
+            >
+              SEBI
+            </a>
+
+            <span>|</span>
+
+            <a
+              href="https://www.nseindia.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline"
+            >
+              NSE
+            </a>
+
+            <span>|</span>
+
+            <a
+              href="https://www.bseindia.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline"
+            >
+              BSE
+            </a>
+
+            <span>|</span>
+
+            <a
+              href="https://www.mcxindia.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline"
+            >
+              MCX
+            </a>
+
+            <span>|</span>
+
+            <a
+              href="https://www.evoting.nsdl.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline"
+            >
+              E Voting
+            </a>
+
+            <span>|</span>
+
+            <a
+              href="https://smartodr.in/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline"
+            >
+              SMART ODR
+            </a>
+
+            <span>|</span>
+
+            <a
+              href="https://scores.sebi.gov.in/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline"
+            >
+              SCORES 2.0
+            </a>
+
+            <span>|</span>
+
+            <a
+              href="https://investor.sebi.gov.in/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline"
+            >
+              Investor Education
+            </a>
+
+            <span>|</span>
+
+            <a
+              href="https://scores.sebi.gov.in/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline"
+            >
+              SCORES Mobile App
+            </a>
+
+            <span>|</span>
+
+            <a
+              href="https://www.cdslindia.com/Footer/grievances.aspx"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline"
+            >
+              IRRA
+            </a>
+
           </p>
 
-          <p>
-            Registration No: INZ000203739 |
-            NSE: 13718 |
-            BSE: 3302 |
-            MCX: 56815 |
-            NCDEX: 01002 |
-            NSDL - DPID: IN303921 |
-            SEBI Reg: IN-DP-2362016
+          <p className="mt-3">
+            Registration No: INZ000203739 Membership- NSE:13718 |
+            BSE:3302 | MCX:56815 | NCDEX:01002 |
+            NSDL - DPID : IN303921 |
+            SEBI Reg : IN-DP-2362016
           </p>
 
-          <p>
-            Ashlar Securities Pvt. Ltd. |
-            Sector-67, Noida - 201301
+          <p className="mt-3">
+            Register Office: A-38, Sector-67, Noida-201301
           </p>
 
-          <p>
-            Contact No: 0120-6633205,231 |
-            Email: investorcell@ashlarindia.com
+          <p className="mt-3">
+
+            Contact No :
+
+            <a
+              href="tel:01206633298"
+              className="ml-1 hover:underline"
+            >
+              0120-6633298
+            </a>
+
+            {' | '}
+
+            Email :
+
+            <a
+              href="mailto:investorsec@ashlarindia.com"
+              className="ml-1 hover:underline"
+            >
+              investorsec@ashlarindia.com
+            </a>
+
           </p>
 
-          <p>
-            Wisdom Capital is an online brand of Ashlar Securities Pvt. Ltd.
+          <p className="mt-3">
+            Wisdom Capital is an online brand of
+            Ashlar Securities Pvt. Ltd.
           </p>
-
         </div>
-
-        {/* BOTTOM */}
-        <div className="border-t border-slate-800 mt-10 pt-8 flex flex-col lg:flex-row justify-between items-center gap-4">
-
-          <p className="text-sm text-slate-500">
-            © 2026 Ashlar India Pvt. Ltd. All rights reserved.
-          </p>
-
-          <div className="flex flex-wrap gap-6 text-sm">
-
-            <Link href="/privacy-policy" className="hover:text-white">
-              Privacy Policy
-            </Link>
-
-            <Link href="/terms" className="hover:text-white">
-              Terms & Conditions
-            </Link>
-
-            <Link href="/disclosures" className="hover:text-white">
-              Disclosures
-            </Link>
-
-          </div>
-
-        </div>
-
       </div>
 
     </footer>
