@@ -114,7 +114,7 @@ export default function ContactPage() {
             return (
               <div
                 key={index}
-                className="bg-white rounded-[32px] p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-100 hover:-translate-y-2"
+                className="bg-white rounded-4xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-100 hover:-translate-y-2"
               >
 
                 {/* ICON */}

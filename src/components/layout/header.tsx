@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Menu, X, ChevronDown, ExternalLink, Phone } from 'lucide-react';
 import {
@@ -168,15 +169,23 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-[64px]">
 
-          {/* Logo */}
-          <Link href="/" onClick={closeMobile} className="flex-shrink-0">
-            <img
-              src="/logo.png"
-              alt="Ashlar Logo"
-              className="h-10 w-auto"
-            />
-          </Link>
-          
+         {/* Logo */}
+<Link
+  href="/"
+  onClick={closeMobile}
+  className="flex items-center"
+>
+
+  <Image
+    src="/Ashlar_logo.jpeg"
+    alt="Ashlar India"
+    width={190}
+    height={60}
+    priority
+    className="h-12 w-auto object-contain"
+  />
+
+</Link>
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-0" aria-label="Main navigation">
             <Link href="/" className="px-3 py-2 text-sm font-medium text-[#374151] hover:text-[#5367FF] rounded-lg hover:bg-[#F5F6FF] transition-colors duration-150">
