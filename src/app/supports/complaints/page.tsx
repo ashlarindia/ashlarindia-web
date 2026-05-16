@@ -1,10 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+
 import { AlertTriangle, Shield, Mail, Phone } from 'lucide-react';
 
 export default function ComplaintsPage() {
-  const [complaintType, setComplaintType] = useState('');
+
 
   return (
     <div className="min-h-screen bg-gray-50 py-12">

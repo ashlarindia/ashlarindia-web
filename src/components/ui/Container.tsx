@@ -1,9 +1,18 @@
-import React from 'react'
+import type { FC, ReactNode } from "react";
+import { cn } from "@/lib/cn";
 
-const Container = () => {
-  return (
-    <div>Container</div>
-  )
+interface ContainerProps {
+  children: ReactNode;
+  className?: string;
+  as?: "div" | "section" | "article" | "main";
 }
 
-export default Container
+/**
+ * Standard responsive container.
+ * Replaces: <div className="container">...</div>
+ */
+const Container: FC<ContainerProps> = ({ children, className, as: Tag = "div" }) => (
+  <Tag className={cn("container", className)}>{children}</Tag>
+);
+
+export default Container;

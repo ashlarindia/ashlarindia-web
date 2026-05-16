@@ -9,23 +9,22 @@ import { getKycUrl } from "@/data/site-data";
 /* ---------------- data ---------------- */
 const FOOTER_PRODUCTS = [
   { label: "Equity Trading", href: "/products/equity" },
-  { label: "F&O", href: "/products/fno" },
+  { label: "F&O", href: "/products/futute-options" },
   { label: "Commodities", href: "/products/commodities" },
   { label: "Currency", href: "/products/currency" },
   { label: "IPO", href: "/products/ipo" },
-  { label: "Mutual Funds", href: "/investment/mutual-funds" },
-  { label: "Bonds & NCDs", href: "/products/bonds" },
   { label: "DP Services", href: "/products/dp" },
+   { label: "Stocks", href: "/products/stocks" },
 ];
 
 const FOOTER_ACCOUNTS = [
   { label: "Open Account", href: getKycUrl("footer"), external: true },
   { label: "Re-KYC", href: "/accounts/re-kyc" },
   { label: "KRA Inquiry", href: "/accounts/kra-inquiry" },
-  { label: "Freezing & Blocking", href: "/accounts/freezing-blocking" },
+  { label: "Freezing & Blocking", href: "/accounts/freeze-blocking" },
   { label: "Fund Transfer", href: "/accounts/fund-transfer" },
   { label: "Pledge & Unpledge", href: "/accounts/pledge-unpledge" },
-  { label: "Online Nomination", href: "/accounts/online-nomination" },
+  { label: "Online Nomination", href: "/accounts/nomination" },
 ];
 
 const FOOTER_SUPPORT = [
