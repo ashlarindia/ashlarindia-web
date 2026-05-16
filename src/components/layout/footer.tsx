@@ -289,6 +289,7 @@ export default function Footer() {
                 </a>
               ))}
             </div>
+
           </div>
 
           {/* Products */}
@@ -321,7 +322,9 @@ export default function Footer() {
                   </FooterLink>
                 </li>
               ))}
+
             </ul>
+
           </div>
 
           {/* Support */}
@@ -337,6 +340,7 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
+
           </div>
 
           {/* Company */}
@@ -353,6 +357,7 @@ export default function Footer() {
               ))}
             </ul>
           </div>
+
         </div>
       </div>
 
@@ -376,7 +381,9 @@ export default function Footer() {
               </a>
             ))}
           </div>
+
         </div>
+
       </div>
 
       {/* Legal */}
