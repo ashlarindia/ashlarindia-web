@@ -1,10 +1,10 @@
 "use client";
 
-import type { FC } from "react";
 import { useId, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { AlertTriangle, ChevronDown, ShieldCheck } from "lucide-react";
 import SITE_CONTENT from "@/config/content";
+import { Container } from "@/components/ui";
 
 export default function RiskDisclosure() {
   const { riskDisclosure } = SITE_CONTENT;
@@ -16,7 +16,7 @@ export default function RiskDisclosure() {
       aria-labelledby={`${panelId}-title`}
       className="border-y border-border-subtle bg-surface-subtle"
     >
-      <div className="container py-5">
+      <Container className="py-5">
         {/* Toggle header — full-width, single affordance */}
         <button
           type="button"
@@ -30,7 +30,7 @@ export default function RiskDisclosure() {
           ].join(" ")}
         >
           <div className="flex min-w-0 flex-1 items-start gap-3">
-            {/* Icon — quiet amber tile */}
+            {/* Icon tile */}
             <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-amber-100/70 text-amber-700 ring-1 ring-inset ring-amber-600/15">
               <AlertTriangle size={15} strokeWidth={1.75} />
             </div>
@@ -43,11 +43,10 @@ export default function RiskDisclosure() {
                 {riskDisclosure.title}
               </p>
 
-              {/* Inline summary — always visible, truncated by CSS, not JS */}
+              {/* Inline summary — CSS line-clamp */}
               <p
                 className={[
                   "mt-1 text-[13px] leading-relaxed text-ink-600",
-                  // Clamp to one line on mobile, two on sm+; full text when expanded
                   isExpanded ? "" : "line-clamp-1 sm:line-clamp-2",
                 ].join(" ")}
               >
@@ -59,7 +58,7 @@ export default function RiskDisclosure() {
             </div>
           </div>
 
-          {/* Chevron — rotates instead of swapping icons */}
+          {/* Chevron */}
           <div className="mt-1 flex shrink-0 items-center gap-1.5 text-xs font-medium text-ink-500 transition-colors group-hover:text-ink-800">
             <span className="hidden sm:inline">
               {isExpanded ? "Show less" : "Read more"}
@@ -93,7 +92,10 @@ export default function RiskDisclosure() {
                 {/* Numbered risk bullets */}
                 <ol className="space-y-2.5 lg:col-span-8">
                   {riskDisclosure.bullets.map((bullet: string, idx: number) => (
-                    <li key={idx} className="flex items-start gap-3 text-[13px] leading-relaxed text-ink-600">
+                    <li
+                      key={idx}
+                      className="flex items-start gap-3 text-[13px] leading-relaxed text-ink-600"
+                    >
                       <span className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-surface font-mono text-[10px] font-medium tabular-nums text-ink-500 ring-1 ring-inset ring-border-subtle">
                         {String(idx + 1).padStart(2, "0")}
                       </span>
@@ -102,7 +104,7 @@ export default function RiskDisclosure() {
                   ))}
                 </ol>
 
-                {/* Side panel: source + statutory disclaimer */}
+                {/* Side panel */}
                 <aside className="space-y-4 lg:col-span-4">
                   <div className="rounded-lg border border-border bg-surface p-4">
                     <div className="flex items-center gap-2">
@@ -129,7 +131,7 @@ export default function RiskDisclosure() {
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
+      </Container>
     </section>
   );
 }

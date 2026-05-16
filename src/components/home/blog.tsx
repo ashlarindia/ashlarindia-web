@@ -1,15 +1,22 @@
 "use client";
 
 import type { FC } from "react";
-import Link from "next/link";
-import { motion } from "framer-motion";
+import {
+  Section,
+  SectionHeader,
+  ArticleCard,
+  Button,
+  StaggerGrid,
+  StaggerItem,
+} from "@/components/ui";
 
+/* ---------------- types & data ---------------- */
 type Category = "Beginners" | "Research" | "Advanced";
 
 interface BlogPost {
   slug: string;
   title: string;
-  date: string;        // ISO — formatted at render
+  date: string;
   excerpt: string;
   category: Category;
   readTime: string;
@@ -45,146 +52,67 @@ const blogs: BlogPost[] = [
   },
 ];
 
-// Restrained, semantic tone mapping — three distinct but quiet treatments
-const categoryTone: Record<Category, string> = {
-  Beginners: "text-success border-success/20 bg-success/5",
-  Research:  "text-brand-600 border-brand-600/20 bg-brand-50",
-  Advanced:  "text-ink-800 border-ink-200 bg-ink-50",
+// Map our category strings to ArticleCard's tone prop
+const categoryToneMap: Record<Category, "success" | "brand" | "ink"> = {
+  Beginners: "success",
+  Research: "brand",
+  Advanced: "ink",
 };
 
-const formatDate = (iso: string) =>
-  new Date(iso).toLocaleDateString("en-IN", {
-    day: "numeric", month: "short", year: "numeric",
-  });
-
-// Framer Motion: GPU-only properties, single stagger orchestrator
-const container = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
-};
-const item = {
-  hidden: { opacity: 0, y: 16 },
-  show: {
-    opacity: 1, y: 0,
-    transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
-  },
-};
-
-const ArrowIcon = () => (
-  <svg
-    aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none"
-    className="transition-transform duration-300 ease-out-expo group-hover:translate-x-0.5"
-  >
-    <path d="M1 7h12m0 0L7.5 1.5M13 7l-5.5 5.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
-const ArticleCard: FC<{ post: BlogPost; featured?: boolean }> = ({ post, featured }) => (
-  <motion.article variants={item} className="h-full">
-    <Link
-      href={`/blog/${post.slug}`}
-      className={[
-        "group relative flex h-full flex-col rounded-xl border border-border bg-surface",
-        "transition-[transform,border-color,box-shadow] duration-300 ease-out-expo",
-        "hover:-translate-y-0.5 hover:border-border-strong hover:shadow-md",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2",
-        featured ? "p-7 lg:p-8" : "p-6",
-      ].join(" ")}
-    >
-      {/* Meta row */}
-      <div className="mb-5 flex items-center gap-3">
-        <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-[11px] font-medium ${categoryTone[post.category]}`}>
-          {post.category}
-        </span>
-        <span className="h-1 w-1 rounded-full bg-ink-200" aria-hidden="true" />
-        <time dateTime={post.date} className="text-xs text-ink-400">
-          {formatDate(post.date)}
-        </time>
-      </div>
-
-      {/* Title */}
-      <h3
-        className={[
-          "font-display font-medium tracking-tight text-ink-900 text-balance",
-          "transition-colors duration-200 group-hover:text-brand-700",
-          featured ? "text-2xl lg:text-[28px] leading-[1.2]" : "text-lg leading-snug",
-        ].join(" ")}
-      >
-        {post.title}
-      </h3>
-
-      {/* Excerpt */}
-      <p className={`mt-3 flex-1 text-ink-600 leading-relaxed ${featured ? "text-[15px]" : "text-sm"}`}>
-        {post.excerpt}
-      </p>
-
-      {/* Footer */}
-      <div className="mt-6 flex items-center justify-between border-t border-border-subtle pt-4">
-        <span className="inline-flex items-center gap-1.5 text-sm font-medium text-brand-600">
-          Read article <ArrowIcon />
-        </span>
-        <span className="text-xs text-ink-400">{post.readTime}</span>
-      </div>
-    </Link>
-  </motion.article>
-);
-
+/* ---------------- component ---------------- */
 const Blog: FC = () => {
   const [featured, ...rest] = blogs;
 
   return (
-    <section className="relative bg-surface py-22 sm:py-30">
-      <div className="container">
+    <Section>
+      <SectionHeader
+        eyebrow="Market Insights"
+        title="Latest from our editorial desk"
+        description="Expert analysis, trading guides, and market updates — written for investors at every level."
+        className="mb-14"
+      />
 
-        {/* Header */}
-        <div className="mx-auto mb-14 max-w-2xl text-center">
-          <span className="text-eyebrow uppercase text-brand-600">Market Insights</span>
-          <h2 className="mt-4 font-display text-display-lg text-ink-900 text-balance">
-            Latest from our editorial desk
-          </h2>
-          <p className="mt-4 text-base leading-relaxed text-ink-600 text-balance">
-            Expert analysis, trading guides, and market updates — written for
-            investors at every level.
-          </p>
+      {/* Editorial grid: featured + stacked secondary */}
+      <StaggerGrid className="grid gap-5 lg:grid-cols-2 lg:gap-6">
+        {/* Featured */}
+        <StaggerItem>
+          <ArticleCard
+            slug={featured.slug}
+            title={featured.title}
+            excerpt={featured.excerpt}
+            date={featured.date}
+            category={featured.category}
+            categoryTone={categoryToneMap[featured.category]}
+            readTime={featured.readTime}
+            featured
+          />
+        </StaggerItem>
+
+        {/* Secondary stack */}
+        <div className="grid gap-5 lg:gap-6">
+          {rest.map((post) => (
+            <StaggerItem key={post.slug}>
+              <ArticleCard
+                slug={post.slug}
+                title={post.title}
+                excerpt={post.excerpt}
+                date={post.date}
+                category={post.category}
+                categoryTone={categoryToneMap[post.category]}
+                readTime={post.readTime}
+              />
+            </StaggerItem>
+          ))}
         </div>
+      </StaggerGrid>
 
-        {/* Editorial grid: featured + stacked secondary */}
-        <motion.div
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-80px" }}
-          className="grid gap-5 lg:grid-cols-2 lg:gap-6"
-        >
-          {/* Featured */}
-          <ArticleCard post={featured} featured />
-
-          {/* Secondary stack */}
-          <div className="grid gap-5 lg:gap-6">
-            {rest.map((post) => (
-              <ArticleCard key={post.slug} post={post} />
-            ))}
-          </div>
-        </motion.div>
-
-        {/* CTA */}
-        <div className="mt-14 flex justify-center">
-          <Link
-            href="/blog"
-            className={[
-              "group inline-flex items-center gap-2 rounded-lg border border-border px-5 py-2.5",
-              "text-sm font-medium text-ink-800 bg-surface",
-              "transition-all duration-300 ease-out-expo",
-              "hover:border-brand-600 hover:text-brand-700 hover:shadow-sm",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2",
-            ].join(" ")}
-          >
-            View all articles
-            <ArrowIcon />
-          </Link>
-        </div>
+      {/* CTA */}
+      <div className="mt-14 flex justify-center">
+        <Button href="/blog" variant="secondary" size="md" withArrow>
+          View all articles
+        </Button>
       </div>
-    </section>
+    </Section>
   );
 };
 

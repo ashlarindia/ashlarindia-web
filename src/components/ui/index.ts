@@ -4,7 +4,7 @@ export { default as SectionHeader } from "./SectionHeader";
 export { default as Button } from "./Button";
 export { default as Badge } from "./Badge";
 export { default as ArrowLink, Arrow} from "./ArrowLink";
-export { default as FeatureCard } from "./motion/FeatureCard";
+export { default as FeatureCard } from "./FeatureCard";
 export { default as StatCard } from "./StatCard";
 export { default as ArticleCard } from "./ArticleCard";
 export { default as PersonCard } from "./PersonCard";
