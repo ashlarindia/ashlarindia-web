@@ -2,7 +2,7 @@ import "./globals.css";
 
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-
+import LiveTicker from "@/components/home/LiveTicker";
 import { Inter, Fraunces } from "next/font/google";
 
 import Header from "@/components/layout/header";
@@ -40,7 +40,7 @@ export default function RootLayout({
       <body className="bg-surface text-ink-800 antialiased selection:bg-brand-100 selection:text-brand-800">
         
         <Header />
-
+<LiveTicker/>
         <main>
           {children}
         </main>

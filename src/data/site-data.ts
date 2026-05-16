@@ -258,7 +258,7 @@ export function getKycUrl(page: string) {
 // Data for new sections
 export const COMPANY_STATS = [
   { value: "15+", label: "Years of experience" },
-  { value: "600+", label: "Satisfied Clients" },
+  { value: "1000+", label: "Satisfied Clients" },
   { value: "50+", label: "High skilled people" },
   { value: "10+", label: "Asset classes" },
 ];

@@ -91,9 +91,14 @@ const config: Config = {
         "out-quart": "cubic-bezier(0.25, 1, 0.5, 1)",
       },
       keyframes: {
+        "ticker-scroll": {
+    "0%":   { transform: "translate3d(0, 0, 0)" },
+    "100%": { transform: "translate3d(-50%, 0, 0)" },
+  },
         "fade-up": {
           "0%": { opacity: "0", transform: "translate3d(0, 12px, 0)" },
           "100%": { opacity: "1", transform: "translate3d(0, 0, 0)" },
+          
         },
         shimmer: {
           "0%": { backgroundPosition: "-200% 0" },
@@ -103,6 +108,7 @@ const config: Config = {
       animation: {
         "fade-up": "fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both",
         shimmer: "shimmer 2.2s linear infinite",
+         "ticker-scroll": "ticker-scroll 60s linear infinite",
       },
     },
   },
