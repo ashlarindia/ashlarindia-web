@@ -93,7 +93,7 @@ export const PRODUCTS = [
     accentBg: "from-blue-500/10 to-blue-500/5",
     accentBar: "bg-blue-500",
     badge: "",
-    href: "/equity",
+    href: "products/equity",
   },
 
   {
@@ -106,7 +106,7 @@ export const PRODUCTS = [
     accentBg: "from-green-500/10 to-green-500/5",
     accentBar: "bg-green-500",
     badge: "",
-    href: "/currency",
+    href: "products/currency",
   },
 
   {
@@ -119,7 +119,7 @@ export const PRODUCTS = [
     accentBg: "from-red-500/10 to-red-500/5",
     accentBar: "bg-red-500",
     badge: "Hot",
-    href: "/ipo",
+    href: "products/ipo",
   },
 
   {
@@ -132,7 +132,7 @@ export const PRODUCTS = [
     accentBg: "from-sky-500/10 to-sky-500/5",
     accentBar: "bg-sky-500",
     badge: "Essential",
-    href: "/general-insurance",
+    href: "investment/general-insurance",
   },
 
   {
@@ -145,7 +145,7 @@ export const PRODUCTS = [
     accentBg: "from-emerald-500/10 to-emerald-500/5",
     accentBar: "bg-emerald-500",
     badge: "Popular",
-    href: "/life-insurance",
+    href: "investment/life-insurance",
   },
   {
     id: 6,
@@ -157,7 +157,7 @@ export const PRODUCTS = [
     accentBg: "from-amber-500/10 to-amber-500/5",
     accentBar: "bg-amber-500",
     badge: "Trending",
-    href: "/commodities",
+    href: "products/commodities",
   },
 ];
 

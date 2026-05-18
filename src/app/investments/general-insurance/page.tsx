@@ -3,40 +3,42 @@
 import Link from "next/link";
 import {
   ShieldCheck,
-  Database,
-  Layers3,
+  HeartPulse,
+  Car,
+  Home,
   ArrowUpRight,
   BadgeCheck,
 } from "lucide-react";
 
-const services = [
-  "Dematerialization of physical securities",
-  "Rematerialization of securities",
-  "Safe transfer of securities",
-  "Settlement of trades",
-  "Automatic corporate action updates",
-  "Secure electronic storage",
+const insuranceTypes = [
+  {
+    title: "Health Insurance",
+    description:
+      "Financial protection against medical emergencies and healthcare expenses.",
+    icon: HeartPulse,
+  },
+  {
+    title: "Vehicle Insurance",
+    description:
+      "Coverage against accidental damage, theft, and third-party liabilities.",
+    icon: Car,
+  },
+  {
+    title: "Home Insurance",
+    description:
+      "Protect your property and belongings against fire, theft, and natural risks.",
+    icon: Home,
+  },
 ];
 
 const benefits = [
-  {
-    title: "Secure Storage",
-    description:
-      "Store shares and securities safely in electronic form with reduced operational risks.",
-  },
-  {
-    title: "Faster Transfers",
-    description:
-      "Transfer securities seamlessly without paperwork or stamp duty requirements.",
-  },
-  {
-    title: "Better Transparency",
-    description:
-      "Track holdings and transactions easily through organized digital records.",
-  },
+  "Financial protection against unexpected events",
+  "Wide range of insurance coverage options",
+  "Simple and hassle-free claim support",
+  "Customized plans based on your needs",
 ];
 
-export default function DPServicesPage() {
+export default function GeneralInsurancePage() {
   return (
     <main className="min-h-screen bg-[#fafafa]">
       {/* HERO */}
@@ -45,33 +47,33 @@ export default function DPServicesPage() {
         <div className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
           <div className="max-w-3xl">
             <span className="text-sm font-semibold uppercase tracking-wider text-[#9B2C1F]">
-              Depository Services
+              Insurance Solutions
             </span>
 
             <h1 className="mt-5 text-5xl font-bold tracking-tight text-slate-900">
-              Depository Participant Services
+              General Insurance Plans
             </h1>
 
             <p className="mt-6 text-lg leading-8 text-slate-600">
-              Manage and store your securities securely in electronic form
-              with reliable depository participant services from Ashlar
-              India.
+              Protect your health, vehicle, home, and valuable assets with
+              comprehensive general insurance solutions tailored to your
+              needs.
             </p>
 
             <div className="mt-10 flex flex-wrap gap-4">
               <Link
-                href="https://kyc.wisdomcapital.in/"
-                target="_blank"
+                href="#quote-form"
                 className="inline-flex items-center rounded-xl bg-[#9B2C1F] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#7f2318]"
               >
-                Open Demat Account
+                Get A Quote
               </Link>
 
               <Link
-                href="/contact"
+                href="https://kyc.wisdomcapital.in/"
+                target="_blank"
                 className="inline-flex items-center rounded-xl border border-[#d8c4bd] bg-white px-6 py-3 text-sm font-semibold text-[#9B2C1F] transition hover:border-[#9B2C1F]"
               >
-                Contact Us
+                Open Account
               </Link>
             </div>
           </div>
@@ -84,29 +86,29 @@ export default function DPServicesPage() {
         <div className="grid gap-16 lg:grid-cols-2">
           <div>
             <span className="text-sm font-semibold uppercase tracking-wider text-[#9B2C1F]">
-              About DP Services
+              About General Insurance
             </span>
 
             <h2 className="mt-4 text-3xl font-bold text-slate-900">
-              Secure Electronic Holding Of Securities
+              Protection Against Everyday Risks
             </h2>
 
             <div className="mt-6 space-y-6 text-slate-600 leading-8">
               <p>
-                Depository Participants act as intermediaries between
-                investors and depositories like NSDL and CDSL for managing
-                securities in electronic form.
+                General insurance provides financial protection for assets,
+                health, liabilities, and unforeseen situations other than
+                life coverage.
               </p>
 
               <p>
-                A Demat account enables investors to securely hold shares,
-                mutual funds, debentures, and other securities digitally.
+                Insurance plans can help reduce financial burden arising
+                from accidents, theft, property damage, and medical
+                emergencies.
               </p>
 
               <p>
-                Electronic holding simplifies trading, improves
-                transparency, and eliminates risks associated with physical
-                certificates.
+                Selecting the right insurance policy depends on your
+                financial goals, lifestyle, and protection requirements.
               </p>
             </div>
           </div>
@@ -120,76 +122,84 @@ export default function DPServicesPage() {
               </div>
 
               <h3 className="mt-6 text-xl font-semibold text-slate-900">
-                Secure Holdings
+                Financial Security
               </h3>
 
               <p className="mt-3 text-sm leading-7 text-slate-600">
-                Protect securities against loss, theft, forgery, and damage.
+                Stay protected against unexpected financial losses and
+                emergencies.
               </p>
             </div>
 
             <div className="rounded-3xl border border-[#eadfda] bg-white p-7 transition hover:-translate-y-1">
               <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#fff3ef] text-[#9B2C1F]">
-                <Database className="h-7 w-7" />
+                <HeartPulse className="h-7 w-7" />
               </div>
 
               <h3 className="mt-6 text-xl font-semibold text-slate-900">
-                Digital Access
+                Health Coverage
               </h3>
 
               <p className="mt-3 text-sm leading-7 text-slate-600">
-                Access and manage investments conveniently through electronic
-                records.
+                Manage healthcare expenses with suitable insurance plans.
               </p>
             </div>
 
             <div className="rounded-3xl border border-[#eadfda] bg-white p-7 transition hover:-translate-y-1 sm:col-span-2">
               <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#fff3ef] text-[#9B2C1F]">
-                <Layers3 className="h-7 w-7" />
+                <Home className="h-7 w-7" />
               </div>
 
               <h3 className="mt-6 text-xl font-semibold text-slate-900">
-                Seamless Transactions
+                Asset Protection
               </h3>
 
               <p className="mt-3 text-sm leading-7 text-slate-600">
-                Faster settlements and simplified transfer of securities
-                without paperwork delays.
+                Safeguard your home, vehicle, and valuable possessions
+                against risks and damages.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* SERVICES */}
+      {/* INSURANCE TYPES */}
 
       <section className="border-y border-[#eadfda] bg-white">
         <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
           <div className="max-w-3xl">
             <span className="text-sm font-semibold uppercase tracking-wider text-[#9B2C1F]">
-              DP Services
+              Insurance Categories
             </span>
 
             <h2 className="mt-4 text-3xl font-bold text-slate-900">
-              Services Offered Through Demat Accounts
+              Explore General Insurance Solutions
             </h2>
           </div>
 
-          <div className="mt-12 grid gap-4 md:grid-cols-2">
-            {services.map((service) => (
-              <div
-                key={service}
-                className="flex items-start gap-4 rounded-2xl border border-[#eadfda] bg-[#fafafa] p-6"
-              >
-                <div className="mt-1 text-[#9B2C1F]">
-                  <BadgeCheck className="h-5 w-5" />
-                </div>
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {insuranceTypes.map((item) => {
+              const Icon = item.icon;
 
-                <p className="text-sm leading-7 text-slate-700">
-                  {service}
-                </p>
-              </div>
-            ))}
+              return (
+                <div
+                  key={item.title}
+                  className="rounded-3xl border border-[#eadfda] bg-[#fafafa] p-8"
+                >
+                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#fff3ef] text-[#9B2C1F]">
+                    <Icon className="h-7 w-7" />
+                  </div>
+
+                  <h3 className="mt-6 text-2xl font-semibold text-slate-900">
+                    {item.title}
+                  </h3>
+
+                  <p className="mt-4 text-sm leading-7 text-slate-600">
+                    {item.description}
+                  </p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -199,26 +209,26 @@ export default function DPServicesPage() {
       <section className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
         <div className="max-w-3xl">
           <span className="text-sm font-semibold uppercase tracking-wider text-[#9B2C1F]">
-            Benefits
+            Key Benefits
           </span>
 
           <h2 className="mt-4 text-3xl font-bold text-slate-900">
-            Advantages Of Depository Services
+            Why Choose General Insurance
           </h2>
         </div>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <div className="mt-12 grid gap-4 md:grid-cols-2">
           {benefits.map((item) => (
             <div
-              key={item.title}
-              className="rounded-3xl border border-[#eadfda] bg-white p-8 transition hover:-translate-y-1"
+              key={item}
+              className="flex items-start gap-4 rounded-2xl border border-[#eadfda] bg-white p-6"
             >
-              <h3 className="text-2xl font-semibold text-slate-900">
-                {item.title}
-              </h3>
+              <div className="mt-1 text-[#9B2C1F]">
+                <BadgeCheck className="h-5 w-5" />
+              </div>
 
-              <p className="mt-4 text-sm leading-7 text-slate-600">
-                {item.description}
+              <p className="text-sm leading-7 text-slate-700">
+                {item}
               </p>
             </div>
           ))}
@@ -231,26 +241,33 @@ export default function DPServicesPage() {
         <div className="rounded-[32px] border border-[#eadfda] bg-[#fff8f6] px-8 py-14">
           <div className="max-w-3xl">
             <span className="text-sm font-semibold uppercase tracking-wider text-[#9B2C1F]">
-              Get Started
+              Secure Your Future
             </span>
 
             <h2 className="mt-4 text-4xl font-bold text-slate-900">
-              Open Your Demat Account Today
+              Get The Right Insurance Coverage Today
             </h2>
 
             <p className="mt-6 text-lg leading-8 text-slate-600">
-              Experience secure electronic holding of securities with
-              seamless access and reliable depository participant services.
+              Explore reliable insurance solutions designed to protect your
+              health, assets, and financial well-being.
             </p>
 
-            <div className="mt-10">
+            <div className="mt-10 flex flex-wrap gap-4">
+              <Link
+                href="#quote-form"
+                className="inline-flex items-center gap-2 rounded-xl bg-[#9B2C1F] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#7f2318]"
+              >
+                Get A Quote
+                <ArrowUpRight className="h-4 w-4" />
+              </Link>
+
               <Link
                 href="https://kyc.wisdomcapital.in/"
                 target="_blank"
-                className="inline-flex items-center gap-2 rounded-xl bg-[#9B2C1F] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#7f2318]"
+                className="inline-flex items-center rounded-xl border border-[#d8c4bd] bg-white px-6 py-3 text-sm font-semibold text-[#9B2C1F] transition hover:border-[#9B2C1F]"
               >
-                Open Demat Account
-                <ArrowUpRight className="h-4 w-4" />
+                Open Account
               </Link>
             </div>
           </div>

@@ -2,41 +2,39 @@
 
 import Link from "next/link";
 import {
+  Landmark,
   ShieldCheck,
-  Database,
-  Layers3,
+  Wallet,
   ArrowUpRight,
   BadgeCheck,
 } from "lucide-react";
 
-const services = [
-  "Dematerialization of physical securities",
-  "Rematerialization of securities",
-  "Safe transfer of securities",
-  "Settlement of trades",
-  "Automatic corporate action updates",
-  "Secure electronic storage",
+const advantages = [
+  "Low default risk investment option",
+  "High liquidity across government securities",
+  "Half-yearly interest payments",
+  "Long-term maturity options from 2 to 30 years",
 ];
 
-const benefits = [
+const bondTypes = [
   {
-    title: "Secure Storage",
+    title: "Treasury Bills",
     description:
-      "Store shares and securities safely in electronic form with reduced operational risks.",
+      "Short-term government securities with maturity periods of less than one year.",
   },
   {
-    title: "Faster Transfers",
+    title: "Government Bonds",
     description:
-      "Transfer securities seamlessly without paperwork or stamp duty requirements.",
+      "Long-term dated securities issued by the government with fixed or floating interest rates.",
   },
   {
-    title: "Better Transparency",
+    title: "State Development Loans",
     description:
-      "Track holdings and transactions easily through organized digital records.",
+      "Bonds issued by state governments for raising public funds and development financing.",
   },
 ];
 
-export default function DPServicesPage() {
+export default function BondsPage() {
   return (
     <main className="min-h-screen bg-[#fafafa]">
       {/* HERO */}
@@ -45,17 +43,16 @@ export default function DPServicesPage() {
         <div className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
           <div className="max-w-3xl">
             <span className="text-sm font-semibold uppercase tracking-wider text-[#9B2C1F]">
-              Depository Services
+              Government Securities
             </span>
 
             <h1 className="mt-5 text-5xl font-bold tracking-tight text-slate-900">
-              Depository Participant Services
+              Invest In Bonds & Government Securities
             </h1>
 
             <p className="mt-6 text-lg leading-8 text-slate-600">
-              Manage and store your securities securely in electronic form
-              with reliable depository participant services from Ashlar
-              India.
+              Explore secure fixed-income investment opportunities through
+              government bonds, treasury bills, and other debt securities.
             </p>
 
             <div className="mt-10 flex flex-wrap gap-4">
@@ -64,7 +61,7 @@ export default function DPServicesPage() {
                 target="_blank"
                 className="inline-flex items-center rounded-xl bg-[#9B2C1F] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#7f2318]"
               >
-                Open Demat Account
+                Open Account
               </Link>
 
               <Link
@@ -84,29 +81,29 @@ export default function DPServicesPage() {
         <div className="grid gap-16 lg:grid-cols-2">
           <div>
             <span className="text-sm font-semibold uppercase tracking-wider text-[#9B2C1F]">
-              About DP Services
+              About Bonds
             </span>
 
             <h2 className="mt-4 text-3xl font-bold text-slate-900">
-              Secure Electronic Holding Of Securities
+              Stable Fixed Income Investment Solutions
             </h2>
 
             <div className="mt-6 space-y-6 text-slate-600 leading-8">
               <p>
-                Depository Participants act as intermediaries between
-                investors and depositories like NSDL and CDSL for managing
-                securities in electronic form.
+                Bonds and government securities are fixed-income
+                instruments issued to raise capital for public and
+                financial development purposes.
               </p>
 
               <p>
-                A Demat account enables investors to securely hold shares,
-                mutual funds, debentures, and other securities digitally.
+                Treasury bills and dated securities offer investors stable
+                returns with varying maturity periods and risk profiles.
               </p>
 
               <p>
-                Electronic holding simplifies trading, improves
-                transparency, and eliminates risks associated with physical
-                certificates.
+                Government securities are widely considered secure
+                investment options with strong liquidity and predictable
+                income streams.
               </p>
             </div>
           </div>
@@ -116,77 +113,78 @@ export default function DPServicesPage() {
           <div className="grid gap-6 sm:grid-cols-2">
             <div className="rounded-3xl border border-[#eadfda] bg-white p-7 transition hover:-translate-y-1">
               <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#fff3ef] text-[#9B2C1F]">
-                <ShieldCheck className="h-7 w-7" />
+                <Landmark className="h-7 w-7" />
               </div>
 
               <h3 className="mt-6 text-xl font-semibold text-slate-900">
-                Secure Holdings
+                Government Backed
               </h3>
 
               <p className="mt-3 text-sm leading-7 text-slate-600">
-                Protect securities against loss, theft, forgery, and damage.
+                Invest in securities issued by central and state
+                governments.
               </p>
             </div>
 
             <div className="rounded-3xl border border-[#eadfda] bg-white p-7 transition hover:-translate-y-1">
               <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#fff3ef] text-[#9B2C1F]">
-                <Database className="h-7 w-7" />
+                <ShieldCheck className="h-7 w-7" />
               </div>
 
               <h3 className="mt-6 text-xl font-semibold text-slate-900">
-                Digital Access
+                Lower Risk
               </h3>
 
               <p className="mt-3 text-sm leading-7 text-slate-600">
-                Access and manage investments conveniently through electronic
-                records.
+                Government securities are considered relatively secure
+                investment instruments.
               </p>
             </div>
 
             <div className="rounded-3xl border border-[#eadfda] bg-white p-7 transition hover:-translate-y-1 sm:col-span-2">
               <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#fff3ef] text-[#9B2C1F]">
-                <Layers3 className="h-7 w-7" />
+                <Wallet className="h-7 w-7" />
               </div>
 
               <h3 className="mt-6 text-xl font-semibold text-slate-900">
-                Seamless Transactions
+                Fixed Income Returns
               </h3>
 
               <p className="mt-3 text-sm leading-7 text-slate-600">
-                Faster settlements and simplified transfer of securities
-                without paperwork delays.
+                Earn periodic interest payments with defined maturity
+                structures.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* SERVICES */}
+      {/* TYPES */}
 
       <section className="border-y border-[#eadfda] bg-white">
         <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
           <div className="max-w-3xl">
             <span className="text-sm font-semibold uppercase tracking-wider text-[#9B2C1F]">
-              DP Services
+              Bond Categories
             </span>
 
             <h2 className="mt-4 text-3xl font-bold text-slate-900">
-              Services Offered Through Demat Accounts
+              Types Of Government Securities
             </h2>
           </div>
 
-          <div className="mt-12 grid gap-4 md:grid-cols-2">
-            {services.map((service) => (
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {bondTypes.map((bond) => (
               <div
-                key={service}
-                className="flex items-start gap-4 rounded-2xl border border-[#eadfda] bg-[#fafafa] p-6"
+                key={bond.title}
+                className="rounded-3xl border border-[#eadfda] bg-[#fafafa] p-8"
               >
-                <div className="mt-1 text-[#9B2C1F]">
-                  <BadgeCheck className="h-5 w-5" />
-                </div>
+                <h3 className="text-2xl font-semibold text-slate-900">
+                  {bond.title}
+                </h3>
 
-                <p className="text-sm leading-7 text-slate-700">
-                  {service}
+                <p className="mt-4 text-sm leading-7 text-slate-600">
+                  {bond.description}
                 </p>
               </div>
             ))}
@@ -194,7 +192,7 @@ export default function DPServicesPage() {
         </div>
       </section>
 
-      {/* BENEFITS */}
+      {/* ADVANTAGES */}
 
       <section className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
         <div className="max-w-3xl">
@@ -203,22 +201,22 @@ export default function DPServicesPage() {
           </span>
 
           <h2 className="mt-4 text-3xl font-bold text-slate-900">
-            Advantages Of Depository Services
+            Advantages Of Investing In Bonds
           </h2>
         </div>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
-          {benefits.map((item) => (
+        <div className="mt-12 grid gap-4 md:grid-cols-2">
+          {advantages.map((item) => (
             <div
-              key={item.title}
-              className="rounded-3xl border border-[#eadfda] bg-white p-8 transition hover:-translate-y-1"
+              key={item}
+              className="flex items-start gap-4 rounded-2xl border border-[#eadfda] bg-white p-6"
             >
-              <h3 className="text-2xl font-semibold text-slate-900">
-                {item.title}
-              </h3>
+              <div className="mt-1 text-[#9B2C1F]">
+                <BadgeCheck className="h-5 w-5" />
+              </div>
 
-              <p className="mt-4 text-sm leading-7 text-slate-600">
-                {item.description}
+              <p className="text-sm leading-7 text-slate-700">
+                {item}
               </p>
             </div>
           ))}
@@ -231,16 +229,16 @@ export default function DPServicesPage() {
         <div className="rounded-[32px] border border-[#eadfda] bg-[#fff8f6] px-8 py-14">
           <div className="max-w-3xl">
             <span className="text-sm font-semibold uppercase tracking-wider text-[#9B2C1F]">
-              Get Started
+              Start Investing
             </span>
 
             <h2 className="mt-4 text-4xl font-bold text-slate-900">
-              Open Your Demat Account Today
+              Open Your Investment Account Today
             </h2>
 
             <p className="mt-6 text-lg leading-8 text-slate-600">
-              Experience secure electronic holding of securities with
-              seamless access and reliable depository participant services.
+              Invest in government securities and fixed-income products
+              with reliable access and expert assistance from Ashlar India.
             </p>
 
             <div className="mt-10">
@@ -249,7 +247,7 @@ export default function DPServicesPage() {
                 target="_blank"
                 className="inline-flex items-center gap-2 rounded-xl bg-[#9B2C1F] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#7f2318]"
               >
-                Open Demat Account
+                Open Account
                 <ArrowUpRight className="h-4 w-4" />
               </Link>
             </div>

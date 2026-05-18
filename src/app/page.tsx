@@ -7,6 +7,7 @@ import WhyAshlar from '@/components/home/WhyAshlar';
 import ContactForm from '@/components/home/contact-form';
 import RiskDisclosure from '@/components/home/RiskDisclosure'; // New component
 import LeadershipSection from '@/components/home/LeadershipSection';
+import Blog from '@/components/home/blog';
 
 export default function HomePage() {
   return (
@@ -16,6 +17,7 @@ export default function HomePage() {
       <ProductsSection />
       <CalculatorsSection />
       <WhyAshlar />
+      <Blog />
       <LeadershipSection/>
       <ContactForm />
       <RiskDisclosure/>

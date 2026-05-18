@@ -2,41 +2,39 @@
 
 import Link from "next/link";
 import {
+  Wallet,
   ShieldCheck,
-  Database,
-  Layers3,
+  Landmark,
   ArrowUpRight,
   BadgeCheck,
 } from "lucide-react";
 
-const services = [
-  "Dematerialization of physical securities",
-  "Rematerialization of securities",
-  "Safe transfer of securities",
-  "Settlement of trades",
-  "Automatic corporate action updates",
-  "Secure electronic storage",
-];
-
 const benefits = [
+  "Higher interest rates compared to traditional bank FDs",
+  "Fixed returns with predefined maturity periods",
+  "Nomination facility available",
+  "Flexible tenure options for short and medium-term investing",
+];
+
+const features = [
   {
-    title: "Secure Storage",
+    title: "Stable Returns",
     description:
-      "Store shares and securities safely in electronic form with reduced operational risks.",
+      "Corporate fixed deposits offer predictable returns with fixed maturity structures.",
   },
   {
-    title: "Faster Transfers",
+    title: "Flexible Tenure",
     description:
-      "Transfer securities seamlessly without paperwork or stamp duty requirements.",
+      "Choose investment durations based on financial goals and liquidity preferences.",
   },
   {
-    title: "Better Transparency",
+    title: "Simple Investment",
     description:
-      "Track holdings and transactions easily through organized digital records.",
+      "Invest easily through a streamlined process with minimal documentation.",
   },
 ];
 
-export default function DPServicesPage() {
+export default function CorporateFDsPage() {
   return (
     <main className="min-h-screen bg-[#fafafa]">
       {/* HERO */}
@@ -45,17 +43,16 @@ export default function DPServicesPage() {
         <div className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
           <div className="max-w-3xl">
             <span className="text-sm font-semibold uppercase tracking-wider text-[#9B2C1F]">
-              Depository Services
+              Fixed Income Investments
             </span>
 
             <h1 className="mt-5 text-5xl font-bold tracking-tight text-slate-900">
-              Depository Participant Services
+              Corporate Fixed Deposits
             </h1>
 
             <p className="mt-6 text-lg leading-8 text-slate-600">
-              Manage and store your securities securely in electronic form
-              with reliable depository participant services from Ashlar
-              India.
+              Invest in corporate fixed deposits for stable returns,
+              flexible tenures, and fixed-income investment opportunities.
             </p>
 
             <div className="mt-10 flex flex-wrap gap-4">
@@ -64,7 +61,7 @@ export default function DPServicesPage() {
                 target="_blank"
                 className="inline-flex items-center rounded-xl bg-[#9B2C1F] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#7f2318]"
               >
-                Open Demat Account
+                Invest Now
               </Link>
 
               <Link
@@ -84,29 +81,28 @@ export default function DPServicesPage() {
         <div className="grid gap-16 lg:grid-cols-2">
           <div>
             <span className="text-sm font-semibold uppercase tracking-wider text-[#9B2C1F]">
-              About DP Services
+              About Corporate FDs
             </span>
 
             <h2 className="mt-4 text-3xl font-bold text-slate-900">
-              Secure Electronic Holding Of Securities
+              Fixed Income Solutions With Assured Returns
             </h2>
 
             <div className="mt-6 space-y-6 text-slate-600 leading-8">
               <p>
-                Depository Participants act as intermediaries between
-                investors and depositories like NSDL and CDSL for managing
-                securities in electronic form.
+                Corporate fixed deposits are investment instruments issued
+                by companies to raise funds for business operations and
+                expansion.
               </p>
 
               <p>
-                A Demat account enables investors to securely hold shares,
-                mutual funds, debentures, and other securities digitally.
+                These deposits generally offer higher interest rates
+                compared to traditional bank fixed deposits.
               </p>
 
               <p>
-                Electronic holding simplifies trading, improves
-                transparency, and eliminates risks associated with physical
-                certificates.
+                Investors can select suitable tenure options based on their
+                financial goals and return expectations.
               </p>
             </div>
           </div>
@@ -116,77 +112,77 @@ export default function DPServicesPage() {
           <div className="grid gap-6 sm:grid-cols-2">
             <div className="rounded-3xl border border-[#eadfda] bg-white p-7 transition hover:-translate-y-1">
               <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#fff3ef] text-[#9B2C1F]">
-                <ShieldCheck className="h-7 w-7" />
+                <Wallet className="h-7 w-7" />
               </div>
 
               <h3 className="mt-6 text-xl font-semibold text-slate-900">
-                Secure Holdings
+                Fixed Returns
               </h3>
 
               <p className="mt-3 text-sm leading-7 text-slate-600">
-                Protect securities against loss, theft, forgery, and damage.
+                Earn predictable returns with predefined maturity periods.
               </p>
             </div>
 
             <div className="rounded-3xl border border-[#eadfda] bg-white p-7 transition hover:-translate-y-1">
               <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#fff3ef] text-[#9B2C1F]">
-                <Database className="h-7 w-7" />
+                <ShieldCheck className="h-7 w-7" />
               </div>
 
               <h3 className="mt-6 text-xl font-semibold text-slate-900">
-                Digital Access
+                Secure Investment
               </h3>
 
               <p className="mt-3 text-sm leading-7 text-slate-600">
-                Access and manage investments conveniently through electronic
-                records.
+                Choose from reputed companies offering fixed deposit
+                schemes.
               </p>
             </div>
 
             <div className="rounded-3xl border border-[#eadfda] bg-white p-7 transition hover:-translate-y-1 sm:col-span-2">
               <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#fff3ef] text-[#9B2C1F]">
-                <Layers3 className="h-7 w-7" />
+                <Landmark className="h-7 w-7" />
               </div>
 
               <h3 className="mt-6 text-xl font-semibold text-slate-900">
-                Seamless Transactions
+                Better Interest Rates
               </h3>
 
               <p className="mt-3 text-sm leading-7 text-slate-600">
-                Faster settlements and simplified transfer of securities
-                without paperwork delays.
+                Corporate FDs often provide higher returns compared to
+                regular savings instruments.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* SERVICES */}
+      {/* FEATURES SECTION */}
 
       <section className="border-y border-[#eadfda] bg-white">
         <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
           <div className="max-w-3xl">
             <span className="text-sm font-semibold uppercase tracking-wider text-[#9B2C1F]">
-              DP Services
+              Investment Benefits
             </span>
 
             <h2 className="mt-4 text-3xl font-bold text-slate-900">
-              Services Offered Through Demat Accounts
+              Why Invest In Corporate Fixed Deposits
             </h2>
           </div>
 
-          <div className="mt-12 grid gap-4 md:grid-cols-2">
-            {services.map((service) => (
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {features.map((feature) => (
               <div
-                key={service}
-                className="flex items-start gap-4 rounded-2xl border border-[#eadfda] bg-[#fafafa] p-6"
+                key={feature.title}
+                className="rounded-3xl border border-[#eadfda] bg-[#fafafa] p-8"
               >
-                <div className="mt-1 text-[#9B2C1F]">
-                  <BadgeCheck className="h-5 w-5" />
-                </div>
+                <h3 className="text-2xl font-semibold text-slate-900">
+                  {feature.title}
+                </h3>
 
-                <p className="text-sm leading-7 text-slate-700">
-                  {service}
+                <p className="mt-4 text-sm leading-7 text-slate-600">
+                  {feature.description}
                 </p>
               </div>
             ))}
@@ -194,31 +190,31 @@ export default function DPServicesPage() {
         </div>
       </section>
 
-      {/* BENEFITS */}
+      {/* ADVANTAGES */}
 
       <section className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
         <div className="max-w-3xl">
           <span className="text-sm font-semibold uppercase tracking-wider text-[#9B2C1F]">
-            Benefits
+            Key Advantages
           </span>
 
           <h2 className="mt-4 text-3xl font-bold text-slate-900">
-            Advantages Of Depository Services
+            Benefits Of Corporate FD Investments
           </h2>
         </div>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <div className="mt-12 grid gap-4 md:grid-cols-2">
           {benefits.map((item) => (
             <div
-              key={item.title}
-              className="rounded-3xl border border-[#eadfda] bg-white p-8 transition hover:-translate-y-1"
+              key={item}
+              className="flex items-start gap-4 rounded-2xl border border-[#eadfda] bg-white p-6"
             >
-              <h3 className="text-2xl font-semibold text-slate-900">
-                {item.title}
-              </h3>
+              <div className="mt-1 text-[#9B2C1F]">
+                <BadgeCheck className="h-5 w-5" />
+              </div>
 
-              <p className="mt-4 text-sm leading-7 text-slate-600">
-                {item.description}
+              <p className="text-sm leading-7 text-slate-700">
+                {item}
               </p>
             </div>
           ))}
@@ -231,16 +227,16 @@ export default function DPServicesPage() {
         <div className="rounded-[32px] border border-[#eadfda] bg-[#fff8f6] px-8 py-14">
           <div className="max-w-3xl">
             <span className="text-sm font-semibold uppercase tracking-wider text-[#9B2C1F]">
-              Get Started
+              Start Investing
             </span>
 
             <h2 className="mt-4 text-4xl font-bold text-slate-900">
-              Open Your Demat Account Today
+              Invest In Corporate Fixed Deposits Today
             </h2>
 
             <p className="mt-6 text-lg leading-8 text-slate-600">
-              Experience secure electronic holding of securities with
-              seamless access and reliable depository participant services.
+              Explore fixed-income investment opportunities with attractive
+              returns and flexible investment tenures.
             </p>
 
             <div className="mt-10">
@@ -249,7 +245,7 @@ export default function DPServicesPage() {
                 target="_blank"
                 className="inline-flex items-center gap-2 rounded-xl bg-[#9B2C1F] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#7f2318]"
               >
-                Open Demat Account
+                Invest Now
                 <ArrowUpRight className="h-4 w-4" />
               </Link>
             </div>

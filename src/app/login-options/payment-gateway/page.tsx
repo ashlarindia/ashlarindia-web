@@ -1,74 +1,382 @@
-// src/app/login-options/payment-gateway/page.tsx
-import type { Metadata } from "next";
+"use client";
+
+import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { Hero, Prose, Features, Disclaimer } from "@/components/parts";
 
-export const metadata: Metadata = {
-  title: "Payment Gateway | Ashlar Securities",
-  description:
-    "Transfer funds to your Ashlar trading account instantly using UPI, net banking or NEFT. Safe, fast and available 24x7.",
-};
+export default function FundTransferPage() {
+  const [activeTab, setActiveTab] = useState<
+    "deposit" | "withdraw"
+  >("deposit");
 
-export default function PaymentGatewayPage() {
   return (
-    <main>
-      <Hero
-        tag="Login Option / Payment Gateway"
-        title="Add funds"
-        highlight="in seconds."
-        text="Top up your Ashlar trading account anytime using UPI, net banking or NEFT. Money reflects in your account quickly, so you never miss a market opportunity."
-      />
+    <main className="min-h-screen bg-white">
+      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+        {/* HEADING */}
 
-      <section className="bg-white px-6 py-14 md:py-16">
-        <div className="mx-auto max-w-3xl text-center">
-          <h2 className="font-display text-2xl font-bold text-[#0A1F44] md:text-3xl">
-            Open the payment gateway
-          </h2>
-          <p className="mt-3 text-base leading-relaxed text-slate-600">
-            Log in with your client ID to start a fund transfer.
-          </p>
-          <p className="mt-8">
-            <Link
-              href="https://www.ashlarindia.com/fund-transfer"
-              className="rounded-full bg-[#1E5EFF] px-7 py-3 text-sm font-semibold text-white"
-            >
-              Transfer Funds →
-            </Link>
-          </p>
+        <div className="text-center">
+          <h1 className="text-5xl font-bold text-slate-900">
+            Fund{" "}
+            <span className="text-[#9B2C1F]">
+              Transfer
+            </span>
+          </h1>
+
+          <div className="mx-auto mt-5 h-[2px] w-40 bg-slate-200" />
         </div>
+
+        {/* TABS */}
+
+        <div className="mt-12 flex gap-4">
+          <button
+            onClick={() => setActiveTab("deposit")}
+            className={`rounded-md px-6 py-3 text-sm font-medium transition ${
+              activeTab === "deposit"
+                ? "bg-[#9B2C1F] text-white"
+                : "bg-slate-100 text-slate-700"
+            }`}
+          >
+            Deposit Funds
+          </button>
+
+          <button
+            onClick={() => setActiveTab("withdraw")}
+            className={`rounded-md px-6 py-3 text-sm font-medium transition ${
+              activeTab === "withdraw"
+                ? "bg-[#9B2C1F] text-white"
+                : "bg-slate-100 text-slate-700"
+            }`}
+          >
+            Withdraw Funds
+          </button>
+        </div>
+
+        {/* DEPOSIT TAB */}
+
+        {activeTab === "deposit" && (
+          <div className="mt-14">
+            <h2 className="text-2xl font-semibold text-slate-900">
+              Mode of Fund Transfer
+            </h2>
+
+            {/* UPI */}
+
+            <div className="mt-10">
+              <h3 className="text-lg font-semibold text-slate-900">
+                UPI
+              </h3>
+
+              <p className="mt-4 text-sm leading-7 text-slate-700">
+                The UPI method is the fastest way to
+                deposit money into client trading account.
+                Client can instantly transfer money from
+                registered bank account using UPI for free.
+              </p>
+
+              <ul className="mt-5 list-disc space-y-2 pl-5 text-sm text-slate-700">
+                <li>
+                  Client fund transfer UPI ID:
+                  <strong>
+                    {" "}
+                    ASHL54ClientCode@HDFCBANK
+                  </strong>
+                </li>
+
+                <li>
+                  UPI ID:
+                  <strong>
+                    {" "}
+                    ashlar.brk@validhdfc
+                  </strong>
+                </li>
+              </ul>
+
+              {/* QR IMAGE */}
+
+              <div className="mt-8">
+                <p className="mb-3 text-sm font-medium text-slate-800">
+                  QR Code For Payment
+                </p>
+
+                <div className="flex h-[220px] w-[220px] items-center justify-center border border-slate-300 bg-slate-50">
+                  {/* Replace with your actual QR image */}
+
+                  <Image
+                    src="/images/qr-code.png"
+                    alt="QR Code"
+                    width={220}
+                    height={220}
+                    className="object-contain"
+                  />
+
+                  {/* If image not available remove Image and use this:
+                  <span className="text-sm text-slate-400">
+                    QR Code Image
+                  </span>
+                  */}
+                </div>
+              </div>
+
+              <p className="mt-6 text-sm leading-7 text-slate-700">
+                Verify the account registered name as{" "}
+                <strong>
+                  “Ashlar Securities Pvt Ltd USCABA”
+                </strong>{" "}
+                before making payment.
+              </p>
+            </div>
+
+            {/* PAYMENT GATEWAY */}
+
+            <div className="mt-14">
+              <h3 className="text-lg font-semibold text-slate-900">
+                Instant Payment Gateway
+              </h3>
+
+              <p className="mt-4 text-sm leading-7 text-slate-700">
+                Funds can be transferred instantly through
+                ATOM from WISDOMNEO trading app.
+                ₹10 + 18% GST will be charged for such
+                transfers.
+              </p>
+
+              <div className="mt-6">
+                <Link
+                  href="http://fundtransfer.ashlarindia.com:9002/fundtransfer.aspx"
+                  target="_blank"
+                  className="inline-flex rounded-full bg-[#9B2C1F] px-6 py-3 text-sm font-medium text-white transition hover:bg-[#7f2318]"
+                >
+                  Click here for Online Payment
+                </Link>
+              </div>
+            </div>
+
+            {/* BANK DETAILS */}
+
+            <div className="mt-16">
+              <h2 className="text-2xl font-semibold text-slate-900">
+                IMPS / NEFT / RTGS Transfer
+              </h2>
+
+              <div className="mt-8 overflow-hidden rounded-md border border-slate-200">
+                <table className="w-full text-sm">
+                  <tbody>
+                    <tr className="border-b">
+                      <td className="bg-slate-50 px-4 py-4 font-medium">
+                        Bank Name
+                      </td>
+
+                      <td className="px-4 py-4">
+                        HDFC BANK LTD.
+                      </td>
+                    </tr>
+
+                    <tr className="border-b">
+                      <td className="bg-slate-50 px-4 py-4 font-medium">
+                        Beneficiary Account Name
+                      </td>
+
+                      <td className="px-4 py-4">
+                        ASHLAR SECURITIES PVT. LTD
+                      </td>
+                    </tr>
+
+                    <tr className="border-b">
+                      <td className="bg-slate-50 px-4 py-4 font-medium">
+                        Account Number
+                      </td>
+
+                      <td className="px-4 py-4">
+                        00030340043554
+                      </td>
+                    </tr>
+
+                    <tr className="border-b">
+                      <td className="bg-slate-50 px-4 py-4 font-medium">
+                        Account Type
+                      </td>
+
+                      <td className="px-4 py-4">
+                        Current Account
+                      </td>
+                    </tr>
+
+                    <tr className="border-b">
+                      <td className="bg-slate-50 px-4 py-4 font-medium">
+                        Branch
+                      </td>
+
+                      <td className="px-4 py-4">
+                        Kailash Building 26, K.G Marg
+                        New Delhi-110001
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td className="bg-slate-50 px-4 py-4 font-medium">
+                        IFSC Code
+                      </td>
+
+                      <td className="px-4 py-4">
+                        HDFC0000003
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              {/* NOTES */}
+
+              <ul className="mt-8 list-disc space-y-2 pl-5 text-sm leading-7 text-slate-700">
+                <li>
+                  Kindly ensure correct account details are
+                  entered before transfer.
+                </li>
+
+                <li>
+                  Transfer funds only from the registered
+                  bank account linked with Ashlar.
+                </li>
+
+                <li>
+                  Ashlar does not accept deposits via cash
+                  or Demand Draft (DD).
+                </li>
+              </ul>
+            </div>
+
+            {/* CHARGES */}
+
+            <div className="mt-16">
+              <h2 className="text-2xl font-semibold text-slate-900">
+                Charges and Time Taken to Update Funds
+              </h2>
+
+              <div className="mt-8 overflow-hidden rounded-md border border-slate-200">
+                <table className="w-full text-sm">
+                  <thead className="bg-slate-50">
+                    <tr>
+                      <th className="px-4 py-4 text-left font-medium">
+                        Method
+                      </th>
+
+                      <th className="px-4 py-4 text-left font-medium">
+                        Time Taken
+                      </th>
+
+                      <th className="px-4 py-4 text-left font-medium">
+                        Charges
+                      </th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr className="border-t">
+                      <td className="px-4 py-4">
+                        UPI
+                      </td>
+
+                      <td className="px-4 py-4">
+                        Instant
+                      </td>
+
+                      <td className="px-4 py-4">
+                        Free
+                      </td>
+                    </tr>
+
+                    <tr className="border-t">
+                      <td className="px-4 py-4">
+                        Payment Gateway
+                      </td>
+
+                      <td className="px-4 py-4">
+                        Instant
+                      </td>
+
+                      <td className="px-4 py-4">
+                        ₹10 + 18% GST
+                      </td>
+                    </tr>
+
+                    <tr className="border-t">
+                      <td className="px-4 py-4">
+                        NEFT/RTGS
+                      </td>
+
+                      <td className="px-4 py-4">
+                        Within 2 hours
+                      </td>
+
+                      <td className="px-4 py-4">
+                        Bank charges may apply
+                      </td>
+                    </tr>
+
+                    <tr className="border-t">
+                      <td className="px-4 py-4">
+                        IMPS
+                      </td>
+
+                      <td className="px-4 py-4">
+                        Within 10 minutes
+                      </td>
+
+                      <td className="px-4 py-4">
+                        Free at Ashlar
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <p className="mt-8 text-sm leading-7 text-slate-700">
+                Ashlar staff never ask for Client ID,
+                Password, OTP or personal banking details.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* WITHDRAW TAB */}
+
+        {activeTab === "withdraw" && (
+          <div className="mt-14">
+            <h2 className="text-2xl font-semibold text-slate-900">
+              Withdraw Funds
+            </h2>
+
+            <ul className="mt-8 list-disc space-y-3 pl-5 text-sm leading-7 text-slate-700">
+              <li>
+                From Trading App
+              </li>
+
+              <li>
+                From Online Backoffice
+              </li>
+
+              <li>
+                By calling Ashlar customer care from your
+                registered mobile number
+              </li>
+
+              <li>
+                By email from your registered email ID
+              </li>
+
+              <li>
+                Withdrawal requests before 3 PM are
+                processed on the same working day.
+              </li>
+
+              <li>
+                For delays contact:
+                fundsout@ashlarindia.com
+              </li>
+            </ul>
+          </div>
+        )}
       </section>
-
-      <Prose alt>
-        <h2>Ways to transfer funds</h2>
-        <ul className="ml-6 list-disc space-y-2">
-          <li><strong>UPI.</strong> Fastest method — money reflects almost instantly. Use any UPI app like Google Pay, PhonePe or BHIM.</li>
-          <li><strong>Net banking.</strong> Direct transfer from your registered bank account. Reflects within minutes during banking hours.</li>
-          <li><strong>NEFT / RTGS.</strong> Useful for larger amounts. May take a few hours depending on banking hours.</li>
-          <li><strong>IMPS.</strong> Available 24x7 for smaller transfers.</li>
-        </ul>
-
-        <h2>Important things to remember</h2>
-        <ul className="ml-6 list-disc space-y-2">
-          <li>Always transfer funds <strong>only from your own registered bank account</strong>. Third-party transfers are not allowed under SEBI rules.</li>
-          <li>Cheque deposits are not accepted for margin — they are processed on a delayed basis.</li>
-          <li>For withdrawals, raise a payout request from the trading platform — funds will land in your registered bank account on the next working day.</li>
-          <li>Never share your login credentials, OTP or UPI PIN with anyone — including someone claiming to be from Ashlar.</li>
-        </ul>
-      </Prose>
-
-      <Features
-        heading="What to check after every transfer"
-        items={[
-          { t: "Confirmation message", d: "You should get an SMS and email once funds are credited." },
-          { t: "Ledger entry", d: "Check the Back Office ledger to see the credit reflected." },
-          { t: "Available margin", d: "Trading platform shows updated margin after credit." },
-          { t: "Bank statement", d: "Cross-check your bank for the debit entry." },
-          { t: "Refund if any", d: "Failed transfers usually reverse to your bank within 24 hours." },
-          { t: "Help", d: "Email fundsout@ashlarindia.com or call 0120-6633205." },
-        ]}
-      />
-
-      <Disclaimer text="As per SEBI guidelines, funds must be transferred only from a bank account registered with Ashlar in your name. Third-party transfers will be returned and may attract a penalty. Ashlar Securities Pvt. Ltd. — SEBI Reg: INZ000203739." />
     </main>
   );
 }

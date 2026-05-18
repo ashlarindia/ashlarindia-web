@@ -30,7 +30,7 @@ export default function StatsSection() {
   const { stats } = SITE_CONTENT;
 
   return (
-    <Section tone="subtle" dotted className="pt-0 pb-22 sm:pb-30">
+    <Section tone="subtle" className="pt-0 pb-10 sm:pb-12">
       <SectionHeader
         eyebrow="By the numbers"
         title={stats.title}

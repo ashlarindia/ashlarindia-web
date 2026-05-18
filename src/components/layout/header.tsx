@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Menu, X, ChevronDown, ExternalLink, Phone, Mail, Home,
-  ArrowUpRight, Calendar,
+  ArrowUpRight,
 } from "lucide-react";
 import { SITE, getKycUrl } from "@/data/site-data";
 import { Container, Button } from "@/components/ui";
@@ -27,68 +27,90 @@ interface NavLink {
    DATA — Full information architecture
    ================================================================= */
 
-const ABOUT_DROPDOWN: NavLink[] = [
-  { name: "Company Profile",      href: "/about-ashlar/company-profile" },
-  { name: "Founder's Desk",       href: "/about-ashlar/founders-desk" },
-  { name: "Management's Desk",    href: "/about-ashlar/managements-desk" },
-  { name: "Mission & Vision",     href: "/about-ashlar/mission-vision" },
-  { name: "Core Values",          href: "/about-ashlar/core-values" },
-  { name: "Why Ashlar",           href: "/about-ashlar/why-ashlar" },
-  { name: "Leadership Team",      href: "/about-ashlar/leadership" },
-  { name: "Awards & Recognition", href: "/about-ashlar/awards" },
-  { name: "Careers",              href: "/about-ashlar/careers" },
-];
+// const ABOUT_DROPDOWN: NavLink[] = [
+//   { name: "Company Profile",      href: "/about-ashlar/company-profile" },
+//   { name: "Founder's Desk",       href: "/about-ashlar/founders-desk" },
+//   { name: "Management's Desk",    href: "/about-ashlar/managements-desk" },
+//   { name: "Mission & Vision",     href: "/about-ashlar/mission-vision" },
+//   { name: "Core Values",          href: "/about-ashlar/core-values" },
+//   { name: "Why Ashlar",           href: "/about-ashlar/why-ashlar" },
+//   { name: "Leadership Team",      href: "/about-ashlar/leadership" },
+//   { name: "Awards & Recognition", href: "/about-ashlar/awards" },
+//   { name: "Careers",              href: "/about-ashlar/careers" },
+// ];
 
 const PRODUCTS_DROPDOWN: NavLink[] = [
   { name: "Equity",       href: "/products/equity",       description: "Cash & delivery trading" },
-  { name: "Derivatives",  href: "/products/derivatives",  description: "Futures & Options" },
   { name: "Commodities",  href: "/products/commodities",  description: "MCX & NCDEX trading" },
   { name: "Currency",     href: "/products/currency",     description: "FX & forex pairs" },
-  { name: "Mutual Funds", href: "/products/mutual-funds", description: "Direct & regular plans" },
-  { name: "Insurance",    href: "/products/insurance",    description: "Life & general cover" },
   { name: "IPO",          href: "/products/ipo",          description: "Apply via UPI", badge: "Live" },
   { name: "DP Services",  href: "/products/dp",           description: "Demat & depository" },
   { name: "Bonds & NCDs", href: "/products/bonds",        description: "Fixed income securities" },
+  { name: "Future & Options", href: "/products/futute-options",        description: "Future Options & securities" },
 ];
-
-const RESEARCH_DROPDOWN: NavLink[] = [
-  { name: "Daily Market View",     href: "/research/daily-view" },
-  { name: "Stock Recommendations", href: "/research/recommendations" },
-  { name: "Technical Analysis",    href: "/research/technical" },
-  { name: "Fundamental Reports",   href: "/research/fundamental" },
-  { name: "Sector Reports",        href: "/research/sectors" },
-  { name: "IPO Analysis",          href: "/research/ipo-analysis" },
-  { name: "Result Updates",        href: "/research/results" },
-  { name: "Telegram Channel",      href: "https://t.me/ashlarindia", external: true },
+const MF_DROPDOWN: NavLink[] = [
+  {
+    name: "Mutual Funds",
+    href: "https://mf.ashlarindia.com/",
+    description: "Invest in diversified mutual fund schemes",
+  },
+  {
+    name: "Dematerialize Mutual Fund Units",
+    href: "https://eservices.nsdl.com/cas-stmt-mf-conv/?src=dp&guid=Si2nFq1V",
+    description: "Convert mutual fund holdings into demat format",
+    external: true,
+  },
 ];
+const INVESTMENTS_DROPDOWN: NavLink[] = [
+  {
+    name: "General Insurance",
+    href: "/investments/general-insurance",
+    description: "Health, vehicle & asset protection",
+  },
+  {
+    name: "Life Insurance",
+    href: "/investments/life-insurance",
+    description: "Long-term financial security plans",
+  },
+  {
+    name: "Corporate FD's",
+    href: "/investments/corporate-fd",
+    description: "Fixed income investment products",
+  },
+  {
+    name: "Bonds",
+    href: "/investments/bonds",
+    description: "Government & corporate securities",
+    badge: "Popular",
+  },
+];
+// const RESEARCH_DROPDOWN: NavLink[] = [
+//   { name: "Daily Market View",     href: "/research/daily-view" },
+//   { name: "Stock Recommendations", href: "/research/recommendations" },
+//   { name: "Technical Analysis",    href: "/research/technical" },
+//   { name: "Fundamental Reports",   href: "/research/fundamental" },
+//   { name: "Sector Reports",        href: "/research/sectors" },
+//   { name: "IPO Analysis",          href: "/research/ipo-analysis" },
+//   { name: "Result Updates",        href: "/research/results" },
+//   { name: "Telegram Channel",      href: "https://t.me/ashlarindia", external: true },
+// ];
 
 const TOOLS_DROPDOWN: NavLink[] = [
-  { name: "Brokerage Calculator", href: "/calculators/brokerage" },
-  { name: "Margin Calculator",    href: "/calculators/margin" },
-  { name: "SIP Calculator",       href: "/calculators/sip" },
-  { name: "SIP Planner",          href: "/calculators/sip-planner" },
-  { name: "Goal Planner",         href: "/calculators/goal-planner" },
-  { name: "Lumpsum Calculator",   href: "/calculators/lumpsum" },
-  { name: "PPF Calculator",       href: "/calculators/ppf" },
-  { name: "FD Calculator",        href: "/calculators/fd" },
-  { name: "All Calculators",      href: "/calculators" },
+  { name: "Brokerage Calculator", href: "/calculators" },
+  { name: "Margin Calculator",    href: "/calculators" },
+ 
 ];
 
 const IPO_DROPDOWN: NavLink[] = [
-  { name: "Current IPOs",    href: "/ipo/current", badge: "Live" },
-  { name: "Upcoming IPOs",   href: "/ipo/upcoming" },
-  { name: "Listed IPOs",     href: "/ipo/listed" },
-  { name: "IPO Performance", href: "/ipo/performance" },
-  { name: "SME IPOs",        href: "/ipo/sme" },
-  { name: "How to Apply",    href: "/ipo/how-to-apply" },
-  { name: "IPO News",        href: "/ipo/news" },
+  { name: "Apply IPOs",    href: "https://wisdomcapital.in/ipo" },
+ 
 ];
 
 const DOWNLOADS_DROPDOWN: NavLink[] = [
-  { name: "Mobile Trading App",    href: "/downloads/mobile-app" },
-  { name: "Desktop Application",   href: "/downloads/desktop" },
-  { name: "Web Trading Platform",  href: "https://trading.ashlarindia.com", external: true },
-  { name: "Mutual Fund App",       href: "/downloads/mf-app" },
+  { name: "Mobile Trading App",    href: "https://play.google.com/store/search?q=wisdom+neo&c=apps&hl=en-IN" },
+  { name: "Desktop Application",   href: "https://www1.ashlarindia.com/downloads" },
+  { name: "Web Trading Platform",  href: "https://trade.wisdomcapital.in/#!/app", external: true },
+  { name: "Mutual Fund App",       href: "https://mf.ashlarindia.com/" },
   { name: "KYC Forms",             href: "/downloads/kyc-forms" },
   { name: "Account Opening Forms", href: "/downloads/account-forms" },
   { name: "Margin Documents",      href: "/downloads/margin-docs" },
@@ -96,13 +118,13 @@ const DOWNLOADS_DROPDOWN: NavLink[] = [
 ];
 
 const KNOWLEDGE_DROPDOWN: NavLink[] = [
-  { name: "Blog",               href: "/blog" },
-  { name: "Market Glossary",    href: "/knowledge/glossary" },
-  { name: "Learn Stock Market", href: "/knowledge/learn" },
-  { name: "Trading Guides",     href: "/knowledge/guides" },
-  { name: "Video Tutorials",    href: "/knowledge/videos" },
-  { name: "FAQs",               href: "/knowledge/faqs" },
-  { name: "Investor Education", href: "/knowledge/investor-education" },
+  { name: "Blog",               href: "/knowledge/Blog" },
+  { name: "Market Glossary",    href: "/knowledge/Market-Glossary" },
+  { name: "Learn Stock Market", href: "/knowledge/Learn-Stock-Market" },
+  { name: "Trading Guides",     href: "/knowledge/Trading-Guides" },
+  { name: "Video Tutorials",    href: "/knowledge/Video-Tutorials" },
+  { name: "FAQs",               href: "/knowledge/FAQs" },
+  { name: "Investor Education", href: "/knowledge/Investor-Education" },
 ];
 
 const SUPPORT_DROPDOWN: NavLink[] = [
@@ -117,10 +139,11 @@ const SUPPORT_DROPDOWN: NavLink[] = [
 ];
 
 const LOGIN_DROPDOWN: NavLink[] = [
-  { name: "Web Trading Login", href: "https://trading.ashlarindia.com",   external: true },
-  { name: "Back Office Login", href: "https://backoffice.ashlarindia.com", external: true },
-  { name: "Mutual Fund Login", href: "https://mf.ashlarindia.com",         external: true },
-  { name: "Partner Login",     href: "https://partners.ashlarindia.com",   external: true },
+  { name: "Online Trading Login", href: "https://trade.wisdomcapital.in/#!/app",   external: true },
+  { name: "Payment Gateway", href: "/login-options/payment-gateway/", external: true },
+  { name: "Back Office Login", href: "https://bo.ashlarindia.com/Account/Login",         external: true },
+  { name: "WebMail Login",     href: "http://mail.ashlarindia.com/",   external: true },
+   { name: "Trading API",     href: "/login-options/trading-api/",   external: true },
 ];
 
 const UTILITY_LINKS: NavLink[] = [
@@ -128,7 +151,7 @@ const UTILITY_LINKS: NavLink[] = [
   { name: "Re-KYC",           href: "/account/re-kyc" },
   { name: "Media Coverage",   href: "/about-ashlar/media-coverage" },
   { name: "Events",           href: "/about-ashlar/events" },
-  { name: "Event Gallery",    href: "/about-ashlar/event-gallery" },
+  { name: "Gallery",    href: "/about-ashlar/event-gallery" },
   { name: "Business Partner", href: "/about-ashlar/business-partner" },
 ];
 
@@ -449,8 +472,6 @@ export default function Header() {
             <p className="font-medium text-ink-100/70">
               {"Welcome to "}
               <span className="text-white">{"Ashlar India"}</span>
-              <span className="ml-2 text-ink-100/40">{"·"}</span>
-              <span className="ml-2 text-ink-100/50">{"Building trust since 2009"}</span>
             </p>
 
             <nav aria-label="Utility" className="flex items-center gap-x-5">
@@ -550,9 +571,11 @@ export default function Header() {
               <span>{"Home"}</span>
             </Link>
 
-            <Dropdown label="About"     links={ABOUT_DROPDOWN}     onClose={closeMobile} isActive={isActive("/about-ashlar")} />
+            {/* <Dropdown label="About"     links={ABOUT_DROPDOWN}     onClose={closeMobile} isActive={isActive("/about-ashlar")} /> */}
             <Dropdown label="Products"  links={PRODUCTS_DROPDOWN}  onClose={closeMobile} isActive={isActive("/products")} wide />
-            <Dropdown label="Research"  links={RESEARCH_DROPDOWN}  onClose={closeMobile} isActive={isActive("/research")} />
+            <Dropdown label="Investments"  links={INVESTMENTS_DROPDOWN}  onClose={closeMobile} isActive={isActive("/investments")} wide />
+              <Dropdown label="Mutual Funds"  links={MF_DROPDOWN}  onClose={closeMobile} isActive={isActive("/mutual-funds")} wide />
+            {/* <Dropdown label="Research"  links={RESEARCH_DROPDOWN}  onClose={closeMobile} isActive={isActive("/research")} /> */}
             <Dropdown label="IPO"       links={IPO_DROPDOWN}       onClose={closeMobile} isActive={isActive("/ipo")} />
             <Dropdown label="Tools"     links={TOOLS_DROPDOWN}     onClose={closeMobile} isActive={isActive("/calculators")} />
             <Dropdown label="Downloads" links={DOWNLOADS_DROPDOWN} onClose={closeMobile} isActive={isActive("/downloads")} />
@@ -584,35 +607,7 @@ export default function Header() {
         </Container>
       </div>
 
-      {/* ============ Row 4: Live ticker + date ============ */}
-      <div className="hidden border-b border-border-subtle bg-surface-subtle lg:block">
-        <Container>
-          <div className="flex h-8 items-center justify-between text-[11px]">
-            <div className="flex items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 rounded-md border border-blue-200 bg-blue-50 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-blue-700">
-                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-blue-600" aria-hidden="true" />
-                {"BSE"}
-              </span>
-              <span className="inline-flex items-center gap-1.5 rounded-md border border-amber-200 bg-amber-50 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-amber-700">
-                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-amber-600" aria-hidden="true" />
-                {"NSE"}
-              </span>
-              <span className="ml-3 hidden text-ink-500 sm:inline">
-                {"SEBI · "}
-                {SITE.sebi}
-                <span className="mx-1.5 text-ink-300">{"·"}</span>
-                {"MCX · "}
-                {SITE.mcx}
-              </span>
-            </div>
-
-            <div className="flex items-center gap-2 text-ink-500">
-              <Calendar size={11} aria-hidden="true" />
-              <time className="font-medium tabular-nums">{formattedDate}</time>
-            </div>
-          </div>
-        </Container>
-      </div>
+     
 
       {/* ============ Mobile drawer ============ */}
       <AnimatePresence>
@@ -658,9 +653,11 @@ export default function Header() {
                     {"Home"}
                   </Link>
 
-                  <MobileAccordion label="About"     links={ABOUT_DROPDOWN}     onClose={closeMobile} />
+                  {/* <MobileAccordion label="About"     links={ABOUT_DROPDOWN}     onClose={closeMobile} /> */}
                   <MobileAccordion label="Products"  links={PRODUCTS_DROPDOWN}  onClose={closeMobile} />
-                  <MobileAccordion label="Research"  links={RESEARCH_DROPDOWN}  onClose={closeMobile} />
+                  {/* <MobileAccordion label="Research"  links={RESEARCH_DROPDOWN}  onClose={closeMobile} /> */}
+                  <MobileAccordion label="Investments"       links={INVESTMENTS_DROPDOWN}       onClose={closeMobile} />
+                  <MobileAccordion label="Mutual Funds"     links={MF_DROPDOWN}     onClose={closeMobile} />
                   <MobileAccordion label="IPO"       links={IPO_DROPDOWN}       onClose={closeMobile} />
                   <MobileAccordion label="Tools"     links={TOOLS_DROPDOWN}     onClose={closeMobile} />
                   <MobileAccordion label="Downloads" links={DOWNLOADS_DROPDOWN} onClose={closeMobile} />

@@ -16,7 +16,6 @@ import {
   StaggerGrid,
   StaggerItem,
   Reveal,
-  Button,
   Arrow,
 } from "@/components/ui";
 
@@ -180,7 +179,7 @@ export default function ProductsSection() {
   const { products } = SITE_CONTENT;
 
   return (
-    <Section tone="subtle" className="pt-0 pb-22 sm:pb-30">
+    <Section tone="subtle" className="pt-0 pb-10 sm:pb-12">
       {/* ============ Products bento ============ */}
       <SectionHeader
         eyebrow={products.badge}

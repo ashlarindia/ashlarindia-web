@@ -1,57 +1,264 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
+import Link from "next/link";
+import {
+  TrendingUp,
+  BarChart3,
+  ShieldCheck,
+  ArrowUpRight,
+  Briefcase,
+} from "lucide-react";
+
+const reasons = [
+  "Long-term capital appreciation",
+  "High liquidity through stock exchanges",
+  "Dividend income opportunities",
+  "Flexibility across sectors and companies",
+];
+
+const segments = [
+  {
+    title: "Intraday Trading",
+    description:
+      "Buy and sell securities within the same trading session.",
+  },
+  {
+    title: "Futures",
+    description:
+      "Trade contracts to buy or sell securities at a future date.",
+  },
+  {
+    title: "Options",
+    description:
+      "Gain the right to buy or sell without mandatory execution.",
+  },
+  {
+    title: "Delivery Trading",
+    description:
+      "Invest in stocks for medium and long-term wealth creation.",
+  },
+];
 
 export default function EquityPage() {
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
-        
-        {/* Hero */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">Equity</h1>
+    <main className="min-h-screen bg-[#fafafa]">
+      {/* HERO */}
+
+      <section className="border-b border-[#eadfda] bg-gradient-to-b from-[#f7f2ef] to-white">
+        <div className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
+          <div className="max-w-3xl">
+            <span className="text-sm font-semibold uppercase tracking-wider text-[#9B2C1F]">
+              Equity Trading
+            </span>
+
+            <h1 className="mt-5 text-5xl font-bold tracking-tight text-slate-900">
+              Invest In India’s Equity Markets
+            </h1>
+
+            <p className="mt-6 text-lg leading-8 text-slate-600">
+              Trade and invest in listed companies through reliable equity
+              trading platforms with market access across NSE, BSE, and
+              other leading exchanges.
+            </p>
+
+            <div className="mt-10 flex flex-wrap gap-4">
+              <Link
+                href="https://kyc.wisdomcapital.in/"
+                target="_blank"
+                className="inline-flex items-center rounded-xl bg-[#9B2C1F] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#7f2318]"
+              >
+                Open Free Account
+              </Link>
+
+              <Link
+                href="/contact"
+                className="inline-flex items-center rounded-xl border border-[#d8c4bd] bg-white px-6 py-3 text-sm font-semibold text-[#9B2C1F] transition hover:border-[#9B2C1F]"
+              >
+                Contact Us
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* OVERVIEW */}
+
+      <section className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
+        <div className="grid gap-16 lg:grid-cols-2">
+          <div>
+            <span className="text-sm font-semibold uppercase tracking-wider text-[#9B2C1F]">
+              Equity Market
+            </span>
+
+            <h2 className="mt-4 text-3xl font-bold text-slate-900">
+              Build Long-Term Wealth Through Equities
+            </h2>
+
+            <div className="mt-6 space-y-6 text-slate-600 leading-8">
+              <p>
+                Equity investing allows investors to participate in the
+                growth of listed companies through stock ownership.
+              </p>
+
+              <p>
+                Investors can trade shares through regulated exchanges such
+                as NSE and BSE using modern online trading platforms.
+              </p>
+
+              <p>
+                Equity markets provide opportunities for capital
+                appreciation, portfolio diversification, and long-term
+                wealth creation.
+              </p>
+            </div>
+          </div>
+
+          {/* FEATURES */}
+
+          <div className="grid gap-6 sm:grid-cols-2">
+            <div className="rounded-3xl border border-[#eadfda] bg-white p-7 transition hover:-translate-y-1">
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#fff3ef] text-[#9B2C1F]">
+                <TrendingUp className="h-7 w-7" />
+              </div>
+
+              <h3 className="mt-6 text-xl font-semibold text-slate-900">
+                Growth Potential
+              </h3>
+
+              <p className="mt-3 text-sm leading-7 text-slate-600">
+                Participate in long-term wealth creation through market
+                growth and company performance.
+              </p>
+            </div>
+
+            <div className="rounded-3xl border border-[#eadfda] bg-white p-7 transition hover:-translate-y-1">
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#fff3ef] text-[#9B2C1F]">
+                <ShieldCheck className="h-7 w-7" />
+              </div>
+
+              <h3 className="mt-6 text-xl font-semibold text-slate-900">
+                Secure Trading
+              </h3>
+
+              <p className="mt-3 text-sm leading-7 text-slate-600">
+                Access secure and regulated equity trading platforms with
+                reliable execution.
+              </p>
+            </div>
+
+            <div className="rounded-3xl border border-[#eadfda] bg-white p-7 transition hover:-translate-y-1 sm:col-span-2">
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#fff3ef] text-[#9B2C1F]">
+                <BarChart3 className="h-7 w-7" />
+              </div>
+
+              <h3 className="mt-6 text-xl font-semibold text-slate-900">
+                Multiple Trading Segments
+              </h3>
+
+              <p className="mt-3 text-sm leading-7 text-slate-600">
+                Trade across delivery, intraday, futures, and options
+                segments through a single platform.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* BENEFITS */}
+
+      <section className="border-y border-[#eadfda] bg-white">
+        <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
+          <div className="max-w-3xl">
+            <span className="text-sm font-semibold uppercase tracking-wider text-[#9B2C1F]">
+              Why Invest
+            </span>
+
+            <h2 className="mt-4 text-3xl font-bold text-slate-900">
+              Benefits Of Equity Investing
+            </h2>
+          </div>
+
+          <div className="mt-12 grid gap-4 md:grid-cols-2">
+            {reasons.map((reason) => (
+              <div
+                key={reason}
+                className="flex items-start gap-4 rounded-2xl border border-[#eadfda] bg-[#fafafa] p-6"
+              >
+                <div className="mt-1 text-[#9B2C1F]">
+                  <Briefcase className="h-5 w-5" />
+                </div>
+
+                <p className="text-sm leading-7 text-slate-700">
+                  {reason}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SEGMENTS */}
+
+      <section className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
+        <div className="max-w-3xl">
+          <span className="text-sm font-semibold uppercase tracking-wider text-[#9B2C1F]">
+            Trading Segments
+          </span>
+
+          <h2 className="mt-4 text-3xl font-bold text-slate-900">
+            Explore Different Equity Trading Opportunities
+          </h2>
         </div>
 
-        {/* Content Paragraphs */}
-        <div className="space-y-6 text-gray-700 leading-relaxed">
-          <p>
-            Equity market gives companies a medium to increase desirable capital and give investors an opportunity for profit by allowing those companies' stock share to be traded through stock exchanges that include National Stock Exchange (NSE), Bombay Stock Exchange (BSE) and MCX Stock Exchange (MCX-SX) in India. Basically, it represents ownership of stockholders in a company. In future if the company performs well, then stockholder lies in accumulating profits through grow in the value of stocks. Often, Investment in equity offers promising returns based on how-well you select your stocks and the competence with which you hold-up.
-          </p>
+        <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          {segments.map((segment) => (
+            <div
+              key={segment.title}
+              className="rounded-3xl border border-[#eadfda] bg-white p-8 transition hover:-translate-y-1"
+            >
+              <h3 className="text-2xl font-semibold text-slate-900">
+                {segment.title}
+              </h3>
 
-          <h2 className="text-xl font-semibold text-gray-900 mt-6 mb-3">Here are few reasons why you should consider investing in equities:</h2>
-          
-          <ul className="list-disc pl-6 space-y-2">
-            <li>Capital growth in the long term based on boost in market price of the shares</li>
-            <li>High level of liquidity</li>
-            <li>Dividends paid by the company to shareholders based on annual profits</li>
-            <li>The kind of flexibility afforded to investors in choice of companies, number of shares, price and form of transaction.</li>
-          </ul>
-
-          <h2 className="text-xl font-semibold text-gray-900 mt-6 mb-3">Investors can also trade in equities in the secondary market in numerous segments as explained below:</h2>
-          
-          <ul className="list-disc pl-6 space-y-2">
-            <li><strong>Intra Day Trading</strong> – Buying/Selling of securities takes place on the same trading day</li>
-            <li><strong>Futures</strong> – Investors reach an agreement to buy or sell at an agreed price at a future date</li>
-            <li><strong>Option</strong> – It is a contract which gives the right to an investor to buy or sell at a later date without the obligation to do so</li>
-            <li><strong>Delivery Based Transactions</strong> – It involves buying at a low price and selling at a high price at a later date</li>
-          </ul>
-
-          <p>
-            Moreover, before buying a stock in various companies an investor should understand its basic functioning, future growth prospects and nature of business to make sure it is a praiseworthy investment. Meanwhile, we must realize that market volatility can be somewhat high in the short-term which can bring more risks than opportunities for novice investors. Instead of buying share of one companies split your investment in various companies on the basis past and current performance, so that you ease the chances of sudden loss and could anticipate for the excellent growth in future. Ashlar India, brings a dedicated team of experts to assist our valuable clients to ensure outstanding returns to meet their expectations.
-          </p>
+              <p className="mt-4 text-sm leading-7 text-slate-600">
+                {segment.description}
+              </p>
+            </div>
+          ))}
         </div>
+      </section>
 
-        {/* CTA */}
-        <div className="mt-8 pt-6 border-t border-gray-200">
-          <Link 
-            href="https://kyc.wisdomcapital.in/" 
-            target="_blank"
-            className="inline-block px-6 py-2 bg-[#0066CC] text-white rounded hover:bg-[#0052A3] transition"
-          >
-            Open Free Account
-          </Link>
+      {/* CTA */}
+
+      <section className="mx-auto max-w-7xl px-6 pb-20 lg:px-8">
+        <div className="rounded-[32px] border border-[#eadfda] bg-[#fff8f6] px-8 py-14">
+          <div className="max-w-3xl">
+            <span className="text-sm font-semibold uppercase tracking-wider text-[#9B2C1F]">
+              Start Investing
+            </span>
+
+            <h2 className="mt-4 text-4xl font-bold text-slate-900">
+              Open Your Equity Trading Account
+            </h2>
+
+            <p className="mt-6 text-lg leading-8 text-slate-600">
+              Start investing in India’s equity markets with trusted
+              platforms, expert support, and seamless account opening.
+            </p>
+
+            <div className="mt-10">
+              <Link
+                href="https://kyc.wisdomcapital.in/"
+                target="_blank"
+                className="inline-flex items-center gap-2 rounded-xl bg-[#9B2C1F] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#7f2318]"
+              >
+                Open Free Account
+                <ArrowUpRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }

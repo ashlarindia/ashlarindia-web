@@ -24,7 +24,7 @@ export const SITE_CONTENT = {
     subtitle: 'Trusted by investors across India',
     items: [
       { value: '15+', label: 'Years of Experience' },
-      { value: '500+', label: 'Satisfied Clients' },
+      { value: '1000+', label: 'Satisfied Clients' },
       { value: '150+', label: 'Team Members' },
       { value: '10+', label: 'Asset Classes' },
     ],

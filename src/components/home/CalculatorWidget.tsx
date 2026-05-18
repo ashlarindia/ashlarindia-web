@@ -98,7 +98,7 @@ export default function CalculatorsSection() {
     <Section
       tone="subtle"
       dotted
-      className="pt-0 pb-22 sm:pb-30"
+     className="!pt-0 pb- sm:pb-10"
     >
       <SectionHeader
         eyebrow="Smart tools"

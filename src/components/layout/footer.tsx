@@ -19,20 +19,20 @@ const FOOTER_PRODUCTS = [
 
 const FOOTER_ACCOUNTS = [
   { label: "Open Account", href: getKycUrl("footer"), external: true },
-  { label: "Re-KYC", href: "/accounts/re-kyc" },
+  { label: "Re-KYC", href: "https://ekyc.ashlarindia.com:9000/directpan.aspx" },
   { label: "KRA Inquiry", href: "/accounts/kra-inquiry" },
   { label: "Freezing & Blocking", href: "/accounts/freeze-blocking" },
-  { label: "Fund Transfer", href: "/accounts/fund-transfer" },
-  { label: "Pledge & Unpledge", href: "/accounts/pledge-unpledge" },
-  { label: "Online Nomination", href: "/accounts/nomination" },
+  { label: "Fund Transfer", href: "/login-options/payment-gateway/" },
+  { label: "Pledge & Unpledge", href: "https://eservices.nsdl.com/" },
+  { label: "Online Nomination", href: "https://eservices.nsdl.com/instademat-kyc-nomination/#/login" },
 ];
 
 const FOOTER_SUPPORT = [
   { label: "Contact us", href: "/supports/contact-us" },
   { label: "Margin calculator", href: "/calculators" },
-  { label: "Quick mail", href: "/supports/quick-mail" },
+  { label: "Quick mail", href: "https://bo.ashlarindia.com/Account/Login" },
   { label: "Downloads", href: "/supports/downloads" },
-  { label: "Complaints", href: "/supports/complaints" },
+  { label: "Complaints", href: "/pdfs/COMPLIANT_FILLING.pdf" },
 ];
 
 const FOOTER_COMPANY = [

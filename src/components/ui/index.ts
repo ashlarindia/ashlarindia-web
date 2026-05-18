@@ -13,3 +13,4 @@ export { default as FormStatus } from "./FormStatus";
 export { default as Reveal } from "./motion/Reveal";
 export { default as AnimatedNumber } from "./motion/AnimatedNumber";
 export { StaggerGrid, StaggerItem } from "./motion/StaggerGrid";
+export { default as PageHero } from "./PageHero";
