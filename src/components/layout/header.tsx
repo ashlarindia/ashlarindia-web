@@ -6,7 +6,13 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Menu, X, ChevronDown, ExternalLink, Phone, Mail, Home,
+  Menu,
+  X,
+  ChevronDown,
+  ExternalLink,
+  Phone,
+  Mail,
+  Home,
   ArrowUpRight,
 } from "lucide-react";
 import { SITE, getKycUrl } from "@/data/site-data";
@@ -40,13 +46,42 @@ interface NavLink {
 // ];
 
 const PRODUCTS_DROPDOWN: NavLink[] = [
-  { name: "Equity",       href: "/products/equity",       description: "Cash & delivery trading" },
-  { name: "Commodities",  href: "/products/commodities",  description: "MCX & NCDEX trading" },
-  { name: "Currency",     href: "/products/currency",     description: "FX & forex pairs" },
-  { name: "IPO",          href: "/products/ipo",          description: "Apply via UPI", badge: "Live" },
-  { name: "DP Services",  href: "/products/dp",           description: "Demat & depository" },
-  { name: "Bonds & NCDs", href: "/investments/bonds",        description: "Fixed income securities" },
-  { name: "Future & Options", href: "/products/futute-options",        description: "Future Options & securities" },
+  {
+    name: "Equity",
+    href: "/products/equity",
+    description: "Cash & delivery trading",
+  },
+  {
+    name: "Commodities",
+    href: "/products/commodities",
+    description: "MCX & NCDEX trading",
+  },
+  {
+    name: "Currency",
+    href: "/products/currency",
+    description: "FX & forex pairs",
+  },
+  {
+    name: "IPO",
+    href: "/products/ipo",
+    description: "Apply via UPI",
+    badge: "Live",
+  },
+  {
+    name: "DP Services",
+    href: "/products/dp",
+    description: "Demat & depository",
+  },
+  {
+    name: "Bonds & NCDs",
+    href: "/investments/bonds",
+    description: "Fixed income securities",
+  },
+  {
+    name: "Future & Options",
+    href: "/products/futute-options",
+    description: "Future Options & securities",
+  },
 ];
 const MF_DROPDOWN: NavLink[] = [
   {
@@ -97,61 +132,85 @@ const INVESTMENTS_DROPDOWN: NavLink[] = [
 
 const TOOLS_DROPDOWN: NavLink[] = [
   { name: "Brokerage Calculator", href: "/calculators" },
-  { name: "Margin Calculator",    href: "/calculators" },
- 
+  { name: "Margin Calculator", href: "/calculators" },
 ];
 
 const IPO_DROPDOWN: NavLink[] = [
-  { name: "Apply IPOs",    href: "https://wisdomcapital.in/ipo" },
- 
+  { name: "Apply IPOs", href: "https://wisdomcapital.in/ipo" },
 ];
 
 const DOWNLOADS_DROPDOWN: NavLink[] = [
-  { name: "Mobile Trading App",    href: "https://play.google.com/store/search?q=wisdom+neo&c=apps&hl=en-IN" },
-  { name: "Desktop Application",   href: "https://www1.ashlarindia.com/downloads" },
-  { name: "Web Trading Platform",  href: "https://trade.wisdomcapital.in/#!/app", external: true },
-  { name: "Mutual Fund App",       href: "https://mf.ashlarindia.com/" },
-  { name: "KYC Forms",             href: "/downloads/kyc-forms" },
+  {
+    name: "Mobile Trading App",
+    href: "https://play.google.com/store/search?q=wisdom+neo&c=apps&hl=en-IN",
+  },
+  {
+    name: "Desktop Application",
+    href: "https://www1.ashlarindia.com/downloads",
+  },
+  {
+    name: "Web Trading Platform",
+    href: "https://trade.wisdomcapital.in/#!/app",
+    external: true,
+  },
+  { name: "Mutual Fund App", href: "https://mf.ashlarindia.com/" },
+  { name: "KYC Forms", href: "/downloads/kyc-forms" },
   { name: "Account Opening Forms", href: "/downloads/account-forms" },
-  { name: "Margin Documents",      href: "/downloads/margin-docs" },
-  { name: "All Downloads",         href: "/downloads" },
+  { name: "Margin Documents", href: "/downloads/margin-docs" },
+  { name: "All Downloads", href: "/downloads" },
 ];
 
 const KNOWLEDGE_DROPDOWN: NavLink[] = [
-  { name: "Blog",               href: "/knowledge/Blog" },
-  { name: "Market Glossary",    href: "/knowledge/Market-Glossary" },
+  { name: "Blog", href: "/knowledge/Blog" },
+  { name: "Market Glossary", href: "/knowledge/Market-Glossary" },
   { name: "Learn Stock Market", href: "/knowledge/Learn-Stock-Market" },
-  { name: "Trading Guides",     href: "/knowledge/Trading-Guides" },
-  { name: "Video Tutorials",    href: "/knowledge/Video-Tutorials" },
-  { name: "FAQs",               href: "/knowledge/FAQs" },
+  { name: "Trading Guides", href: "/knowledge/Trading-Guides" },
+  { name: "Video Tutorials", href: "/knowledge/Video-Tutorials" },
+  { name: "FAQs", href: "/knowledge/FAQs" },
   { name: "Investor Education", href: "/knowledge/Investor-Education" },
 ];
 
 const SUPPORT_DROPDOWN: NavLink[] = [
-  { name: "Contact Us",        href: "/supports/contact-us" },
-  { name: "Raise a Ticket",    href: "/support/raise-ticket" },
-  { name: "Track Ticket",      href: "/support/track-ticket" },
- 
-  { name: "Quick Mail",        href: "/support/quick-mail" },
-  { name: "Complaints",        href: "/support/complaints" },
-  { name: "Branch Locator",    href: "/support/branches" },
+  { name: "Contact Us", href: "/supports/contact-us" },
+  { name: "Raise a Ticket", href: "/support/raise-ticket" },
+  { name: "Track Ticket", href: "/support/track-ticket" },
+
+  { name: "Quick Mail", href: "/support/quick-mail" },
+  { name: "Complaints", href: "/support/complaints" },
+  { name: "Branch Locator", href: "/support/branches" },
   { name: "Escalation Matrix", href: "/support/escalation" },
 ];
 
 const LOGIN_DROPDOWN: NavLink[] = [
-  { name: "Online Trading Login", href: "https://trade.wisdomcapital.in/#!/app",   external: true },
-  { name: "Payment Gateway", href: "/login-options/payment-gateway/", external: true },
-  { name: "Back Office Login", href: "https://bo.ashlarindia.com/Account/Login",         external: true },
-  { name: "WebMail Login",     href: "http://mail.ashlarindia.com/",   external: true },
-   { name: "Trading API",     href: "/login-options/trading-api/",   external: true },
+  {
+    name: "Online Trading Login",
+    href: "https://trade.wisdomcapital.in/#!/app",
+    external: true,
+  },
+  {
+    name: "Payment Gateway",
+    href: "/login-options/payment-gateway/",
+    external: true,
+  },
+  {
+    name: "Back Office Login",
+    href: "https://bo.ashlarindia.com/Account/Login",
+    external: true,
+  },
+  {
+    name: "WebMail Login",
+    href: "http://mail.ashlarindia.com/",
+    external: true,
+  },
+  { name: "Trading API", href: "/login-options/trading-api/", external: true },
 ];
 
 const UTILITY_LINKS: NavLink[] = [
   { name: "Get Bank Details", href: "/account/bank-details" },
-  { name: "Re-KYC",           href: "/account/re-kyc" },
-  { name: "Media Coverage",   href: "/about-ashlar/media-coverage" },
-  { name: "Events",           href: "/about-ashlar/events" },
-  { name: "Gallery",    href: "/about-ashlar/event-gallery" },
+  { name: "Re-KYC", href: "/account/re-kyc" },
+  { name: "Media Coverage", href: "/about-ashlar/media-coverage" },
+  { name: "Events", href: "/about-ashlar/events" },
+  { name: "Gallery", href: "/about-ashlar/event-gallery" },
   { name: "Business Partner", href: "/about-ashlar/business-partner" },
 ];
 
@@ -175,8 +234,11 @@ const useFormattedDate = () => {
     const update = () => {
       setDate(
         new Date().toLocaleDateString("en-IN", {
-          weekday: "long", month: "long", day: "numeric", year: "numeric",
-        })
+          weekday: "long",
+          month: "long",
+          day: "numeric",
+          year: "numeric",
+        }),
       );
     };
     update();
@@ -208,7 +270,9 @@ const ContactBadge = ({
       <Icon size={14} strokeWidth={1.75} />
     </span>
     <span className="flex flex-col leading-tight">
-      <span className="text-[10px] uppercase tracking-wider text-ink-400">{label}</span>
+      <span className="text-[10px] uppercase tracking-wider text-ink-400">
+        {label}
+      </span>
       <span className="font-medium tabular-nums">{value}</span>
     </span>
   </a>
@@ -227,7 +291,12 @@ interface DropdownProps {
 }
 
 function Dropdown({
-  label, links, align = "left", onClose, isActive, wide = false,
+  label,
+  links,
+  align = "left",
+  onClose,
+  isActive,
+  wide = false,
 }: DropdownProps) {
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -257,7 +326,9 @@ function Dropdown({
 
   const triggerCls = [
     "inline-flex h-full items-center gap-1 px-3 text-[13px] font-medium transition-colors duration-200",
-    isActive ? "bg-brand-700 text-white" : "text-white/90 hover:bg-brand-700/50 hover:text-white",
+    isActive
+      ? "bg-brand-700 text-white"
+      : "text-white/90 hover:bg-brand-700/50 hover:text-white",
     "focus-visible:outline-none focus-visible:bg-brand-700",
   ].join(" ");
 
@@ -271,7 +342,8 @@ function Dropdown({
       onMouseLeave={handleLeave}
       onFocus={handleEnter}
       onBlur={(e) => {
-        if (!containerRef.current?.contains(e.relatedTarget as Node)) handleLeave();
+        if (!containerRef.current?.contains(e.relatedTarget as Node))
+          handleLeave();
       }}
     >
       <button
@@ -323,7 +395,9 @@ function Dropdown({
                     <div className="min-w-0">
                       <p className="font-medium">{link.name}</p>
                       {link.description && (
-                        <p className="mt-0.5 text-[11px] text-ink-400">{link.description}</p>
+                        <p className="mt-0.5 text-[11px] text-ink-400">
+                          {link.description}
+                        </p>
                       )}
                     </div>
                     <ExternalLink
@@ -346,7 +420,9 @@ function Dropdown({
                     <div className="min-w-0">
                       <p className="font-medium">{link.name}</p>
                       {link.description && (
-                        <p className="mt-0.5 text-[11px] text-ink-400">{link.description}</p>
+                        <p className="mt-0.5 text-[11px] text-ink-400">
+                          {link.description}
+                        </p>
                       )}
                     </div>
                     {link.badge && (
@@ -355,7 +431,7 @@ function Dropdown({
                       </span>
                     )}
                   </Link>
-                )
+                ),
               )}
             </div>
           </motion.div>
@@ -369,8 +445,14 @@ function Dropdown({
    MOBILE ACCORDION
    ================================================================= */
 function MobileAccordion({
-  label, links, onClose,
-}: { label: string; links: NavLink[]; onClose: () => void }) {
+  label,
+  links,
+  onClose,
+}: {
+  label: string;
+  links: NavLink[];
+  onClose: () => void;
+}) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -413,7 +495,11 @@ function MobileAccordion({
                     className="flex items-center justify-between py-2.5 text-sm text-ink-600 hover:text-brand-700"
                   >
                     <span>{link.name}</span>
-                    <ExternalLink size={11} className="text-ink-400" aria-hidden="true" />
+                    <ExternalLink
+                      size={11}
+                      className="text-ink-400"
+                      aria-hidden="true"
+                    />
                   </a>
                 ) : (
                   <Link
@@ -429,7 +515,7 @@ function MobileAccordion({
                       </span>
                     )}
                   </Link>
-                )
+                ),
               )}
             </div>
           </motion.div>
@@ -513,15 +599,15 @@ export default function Header() {
               className="flex shrink-0 items-center gap-2"
               aria-label="Ashlar India — home"
             >
-              <div className="relative h-32 w-48 flex items-center justify-center">
-  <Image
-    src="/logo-img.png"
-    alt="Ashlar India Logo"
-    fill
-    className="object-contain"
-    priority
-  />
-</div>
+              <div className="relative h-48 w-80 flex items-center justify-center">
+                <Image
+                  src="/logo-img2.png"
+                  alt="Ashlar India Logo"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
             </Link>
 
             {/* Right cluster: phone + email + mobile menu */}
@@ -572,15 +658,58 @@ export default function Header() {
             </Link>
 
             {/* <Dropdown label="About"     links={ABOUT_DROPDOWN}     onClose={closeMobile} isActive={isActive("/about-ashlar")} /> */}
-            <Dropdown label="Products"  links={PRODUCTS_DROPDOWN}  onClose={closeMobile} isActive={isActive("/products")} wide />
-            <Dropdown label="Investments"  links={INVESTMENTS_DROPDOWN}  onClose={closeMobile} isActive={isActive("/investments")} wide />
-              <Dropdown label="Mutual Funds"  links={MF_DROPDOWN}  onClose={closeMobile} isActive={isActive("/mutual-funds")} wide />
+            <Dropdown
+              label="Products"
+              links={PRODUCTS_DROPDOWN}
+              onClose={closeMobile}
+              isActive={isActive("/products")}
+              wide
+            />
+            <Dropdown
+              label="Investments"
+              links={INVESTMENTS_DROPDOWN}
+              onClose={closeMobile}
+              isActive={isActive("/investments")}
+              wide
+            />
+            <Dropdown
+              label="Mutual Funds"
+              links={MF_DROPDOWN}
+              onClose={closeMobile}
+              isActive={isActive("/mutual-funds")}
+              wide
+            />
             {/* <Dropdown label="Research"  links={RESEARCH_DROPDOWN}  onClose={closeMobile} isActive={isActive("/research")} /> */}
-            <Dropdown label="IPO"       links={IPO_DROPDOWN}       onClose={closeMobile} isActive={isActive("/ipo")} />
-            <Dropdown label="Tools"     links={TOOLS_DROPDOWN}     onClose={closeMobile} isActive={isActive("/calculators")} />
-            <Dropdown label="Downloads" links={DOWNLOADS_DROPDOWN} onClose={closeMobile} isActive={isActive("/downloads")} />
-            <Dropdown label="Knowledge" links={KNOWLEDGE_DROPDOWN} onClose={closeMobile} isActive={isActive("/knowledge") || isActive("/blog")} />
-            <Dropdown label="Help"      links={SUPPORT_DROPDOWN}   onClose={closeMobile} isActive={isActive("/support") || isActive("/contact")} />
+            <Dropdown
+              label="IPO"
+              links={IPO_DROPDOWN}
+              onClose={closeMobile}
+              isActive={isActive("/ipo")}
+            />
+            <Dropdown
+              label="Tools"
+              links={TOOLS_DROPDOWN}
+              onClose={closeMobile}
+              isActive={isActive("/calculators")}
+            />
+            <Dropdown
+              label="Downloads"
+              links={DOWNLOADS_DROPDOWN}
+              onClose={closeMobile}
+              isActive={isActive("/downloads")}
+            />
+            <Dropdown
+              label="Knowledge"
+              links={KNOWLEDGE_DROPDOWN}
+              onClose={closeMobile}
+              isActive={isActive("/knowledge") || isActive("/blog")}
+            />
+            <Dropdown
+              label="Help"
+              links={SUPPORT_DROPDOWN}
+              onClose={closeMobile}
+              isActive={isActive("/support") || isActive("/contact")}
+            />
 
             <div className="ml-auto flex h-full items-center">
               <a
@@ -606,8 +735,6 @@ export default function Header() {
           </nav>
         </Container>
       </div>
-
-     
 
       {/* ============ Mobile drawer ============ */}
       <AnimatePresence>
@@ -654,15 +781,47 @@ export default function Header() {
                   </Link>
 
                   {/* <MobileAccordion label="About"     links={ABOUT_DROPDOWN}     onClose={closeMobile} /> */}
-                  <MobileAccordion label="Products"  links={PRODUCTS_DROPDOWN}  onClose={closeMobile} />
+                  <MobileAccordion
+                    label="Products"
+                    links={PRODUCTS_DROPDOWN}
+                    onClose={closeMobile}
+                  />
                   {/* <MobileAccordion label="Research"  links={RESEARCH_DROPDOWN}  onClose={closeMobile} /> */}
-                  <MobileAccordion label="Investments"       links={INVESTMENTS_DROPDOWN}       onClose={closeMobile} />
-                  <MobileAccordion label="Mutual Funds"     links={MF_DROPDOWN}     onClose={closeMobile} />
-                  <MobileAccordion label="IPO"       links={IPO_DROPDOWN}       onClose={closeMobile} />
-                  <MobileAccordion label="Tools"     links={TOOLS_DROPDOWN}     onClose={closeMobile} />
-                  <MobileAccordion label="Downloads" links={DOWNLOADS_DROPDOWN} onClose={closeMobile} />
-                  <MobileAccordion label="Knowledge" links={KNOWLEDGE_DROPDOWN} onClose={closeMobile} />
-                  <MobileAccordion label="Help"      links={SUPPORT_DROPDOWN}   onClose={closeMobile} />
+                  <MobileAccordion
+                    label="Investments"
+                    links={INVESTMENTS_DROPDOWN}
+                    onClose={closeMobile}
+                  />
+                  <MobileAccordion
+                    label="Mutual Funds"
+                    links={MF_DROPDOWN}
+                    onClose={closeMobile}
+                  />
+                  <MobileAccordion
+                    label="IPO"
+                    links={IPO_DROPDOWN}
+                    onClose={closeMobile}
+                  />
+                  <MobileAccordion
+                    label="Tools"
+                    links={TOOLS_DROPDOWN}
+                    onClose={closeMobile}
+                  />
+                  <MobileAccordion
+                    label="Downloads"
+                    links={DOWNLOADS_DROPDOWN}
+                    onClose={closeMobile}
+                  />
+                  <MobileAccordion
+                    label="Knowledge"
+                    links={KNOWLEDGE_DROPDOWN}
+                    onClose={closeMobile}
+                  />
+                  <MobileAccordion
+                    label="Help"
+                    links={SUPPORT_DROPDOWN}
+                    onClose={closeMobile}
+                  />
 
                   <p className="mt-6 mb-2 text-[11px] font-semibold uppercase tracking-wider text-ink-400">
                     {"Quick links"}
@@ -677,7 +836,11 @@ export default function Header() {
                       {link.name}
                     </Link>
                   ))}
-                  <MobileAccordion label="Login" links={LOGIN_DROPDOWN} onClose={closeMobile} />
+                  <MobileAccordion
+                    label="Login"
+                    links={LOGIN_DROPDOWN}
+                    onClose={closeMobile}
+                  />
 
                   <div className="mt-5 mb-3 grid gap-2">
                     <Button
