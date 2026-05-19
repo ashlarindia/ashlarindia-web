@@ -17,7 +17,7 @@ export default function HomePage() {
       <ProductsSection />
       <CalculatorsSection />
       <WhyAshlar />
-      <Blog />
+      {/* <Blog /> */}
       <LeadershipSection/>
       <ContactForm />
       <RiskDisclosure/>

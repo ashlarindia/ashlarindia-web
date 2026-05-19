@@ -108,7 +108,7 @@ const config: Config = {
       animation: {
         "fade-up": "fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both",
         shimmer: "shimmer 2.2s linear infinite",
-         "ticker-scroll": "ticker-scroll 60s linear infinite",
+          "ticker-scroll": "ticker-scroll 30s linear infinite",
       },
     },
   },

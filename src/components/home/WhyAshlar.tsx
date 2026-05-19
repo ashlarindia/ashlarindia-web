@@ -63,13 +63,7 @@ const ReasonRow: FC<ReasonRowProps> = ({
   <div className="group relative flex h-full flex-col rounded-xl border border-border bg-surface p-6 sm:p-7 transition-all duration-300 hover:-translate-y-0.5 hover:border-border-strong hover:shadow-md">
     <div className="flex items-start gap-4">
       <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-700 ring-1 ring-inset ring-brand-600/10 transition-colors duration-300 group-hover:bg-brand-600 group-hover:text-white">
-        {Icon && (
-          <Icon
-            size={22}
-            strokeWidth={1.75}
-            aria-hidden="true"
-          />
-        )}
+        {Icon && <Icon size={22} strokeWidth={1.75} aria-hidden="true" />}
       </div>
 
       <div className="min-w-0 flex-1">
@@ -101,7 +95,7 @@ export default function WhyAshlar() {
   return (
     <>
       {/* ================================================= */}
-      {/* SECTION 1 */}
+      {/* SECTION 1 — Feature bento                          */}
       {/* ================================================= */}
 
       <Section tone="subtle" className="!pt-0 pb-4 sm:pb-6">
@@ -119,21 +113,16 @@ export default function WhyAshlar() {
           {whyAshlar.features.map((feature, idx) => {
             const Icon = iconMap[feature.icon];
 
+            // Skip rendering if icon name is invalid
+            if (!Icon) return null;
+
             return (
               <StaggerItem
                 key={`${feature.title}-${idx}`}
                 className="h-full"
               >
                 <FeatureCard
-                  icon={
-                    Icon ? (
-                      <Icon
-                        size={20}
-                        strokeWidth={1.75}
-                        aria-hidden="true"
-                      />
-                    ) : null
-                  }
+                  icon={Icon}
                   title={feature.title}
                   description={feature.description}
                 />
@@ -144,19 +133,18 @@ export default function WhyAshlar() {
       </Section>
 
       {/* ================================================= */}
-      {/* SECTION 2 */}
+      {/* SECTION 2 — Differentiators                        */}
       {/* ================================================= */}
 
       <Section tone="subtle" dotted>
         <div className="mb-14 grid gap-8 lg:grid-cols-12 lg:items-end lg:gap-12">
           <div className="lg:col-span-5">
             <span className="text-eyebrow uppercase text-brand-600">
-              How we're different
+              {"How we're different"}
             </span>
 
             <h2 className="mt-4 font-display text-display-lg text-ink-900 text-balance">
-              {whyAshlarDetails?.title ??
-                "Why traders prefer Ashlar"}
+              {whyAshlarDetails?.title ?? "Why traders prefer Ashlar"}
             </h2>
           </div>
 
@@ -169,54 +157,35 @@ export default function WhyAshlar() {
         </div>
 
         {/* REASONS GRID */}
-
-        {whyAshlarDetails?.reasons &&
-          whyAshlarDetails.reasons.length > 0 && (
-            <StaggerGrid
-              className="grid gap-4 md:grid-cols-3 md:gap-6"
-              staggerDelay={0.07}
-            >
-              {whyAshlarDetails.reasons.map((reason, idx) => (
-                <StaggerItem
-                  key={`${reason.title}-${idx}`}
-                >
-                  <ReasonRow
-                    index={idx}
-                    icon={iconMap[reason.icon]}
-                    title={reason.title}
-                    description={reason.description}
-                  />
-                </StaggerItem>
-              ))}
-            </StaggerGrid>
-          )}
+        {whyAshlarDetails?.reasons && whyAshlarDetails.reasons.length > 0 && (
+          <StaggerGrid
+            className="grid gap-4 md:grid-cols-3 md:gap-6"
+            staggerDelay={0.07}
+          >
+            {whyAshlarDetails.reasons.map((reason, idx) => (
+              <StaggerItem key={`${reason.title}-${idx}`}>
+                <ReasonRow
+                  index={idx}
+                  icon={iconMap[reason.icon]}
+                  title={reason.title}
+                  description={reason.description}
+                />
+              </StaggerItem>
+            ))}
+          </StaggerGrid>
+        )}
 
         {/* FOOTER */}
-
-        <Reveal
-          delay={0.2}
-          y={10}
-          duration={0.5}
-          className="mt-12"
-        >
+        <Reveal delay={0.2} y={10} duration={0.5} className="mt-12">
           <div className="flex flex-col items-center gap-2 border-t border-border-subtle pt-8 sm:flex-row sm:justify-between">
             <div className="flex items-center gap-2 text-xs text-ink-500">
-              <ShieldCheck
-                size={14}
-                className="text-success"
-              />
-
+              <ShieldCheck size={14} className="text-success" aria-hidden="true" />
               <span>
-                SEBI-registered · Members of NSE, BSE, MCX,
-                NCDEX · NSDL depository participant
+                {"SEBI-registered · Members of NSE, BSE, MCX, NCDEX · NSDL depository participant"}
               </span>
             </div>
 
-            <ArrowLink
-              href="/contact"
-              tone="brand"
-              className="text-xs"
-            >
+            <ArrowLink href="/contact" tone="brand" className="text-xs">
               Talk to our team
             </ArrowLink>
           </div>

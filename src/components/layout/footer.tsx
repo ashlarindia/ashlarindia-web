@@ -55,14 +55,14 @@ const EXCHANGE_LINKS = [
 ];
 
 const LEGAL_LINKS = [
-  { label: "Investor Charter", href: "/investor-charter" },
-  { label: "For Investors", href: "/for-investors" },
-  { label: "Cybersecurity", href: "/cybersecurity" },
-  { label: "Escalation Matrix", href: "/escalation-matrix" },
-  { label: "Regulatory Info", href: "/regulatory" },
-  { label: "Policies", href: "/policies" },
-  { label: "Terms", href: "/terms" },
-  { label: "Privacy", href: "/privacy-policy" },
+  { label: "Investor Charter", href: "/footer-pages/invester-character" },
+  { label: "For Investors", href: "/footer-pages/for-investors" },
+  { label: "Cybersecurity", href: "/footer-pages/cyber-security" },
+  
+  { label: "Regulatory Info",  href: "/footer-pages/regulatory-and-other-information" },
+  { label: "Policies", href: "/footer-pages/policies" },
+  { label: "Terms & Conditions", href: "/footer-pages/terms-conditions" },
+  { label: "Privacy", href: "/footer-pages/privacy-policy" },
 ];
 
 /* ---------------- social icons ---------------- */

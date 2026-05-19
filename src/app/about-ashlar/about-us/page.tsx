@@ -1,128 +1,238 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { Shield, Award, Building2, Users, TrendingUp, Clock, CheckCircle } from 'lucide-react';
+import FadeUp from "@/components/animations/FadeUp";
+import PageWrapper from "@/components/animations/PageWrapper";
+import Link from "next/link";
 
 export default function AboutUsPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-[#1A1A2E] to-[#2D2D4A] py-20">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">About Ashlar India</h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            India's most trusted stockbroker, serving investors since 2009
-          </p>
-        </div>
-      </section>
+    <PageWrapper>
+      <main className="min-h-screen bg-white">
 
-      {/* Main Content */}
-      <section className="py-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="grid md:grid-cols-2 gap-12 mb-16">
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Story</h2>
-              <p className="text-gray-600 leading-relaxed mb-4">
-                Ashlar India is a SEBI-registered stockbroker committed to democratizing stock market investing in India. 
-                Founded in 2009, we have grown to serve over 50,000+ satisfied clients across the country.
+        {/* HERO */}
+
+        <section className="border-b border-slate-200 py-16">
+          <div className="mx-auto max-w-6xl px-4 text-center sm:px-6">
+
+            <FadeUp>
+              <h1 className="text-5xl font-bold text-[#24324B]">
+                About{" "}
+                <span className="text-[#9B2C1F]">
+                  Us
+                </span>
+              </h1>
+            </FadeUp>
+
+            <FadeUp delay={0.1}>
+              <div className="mx-auto mt-5 h-[1px] w-40 bg-slate-200" />
+            </FadeUp>
+
+            <FadeUp delay={0.2}>
+              <p className="mx-auto mt-6 max-w-3xl text-[15px] leading-8 text-slate-600">
+                Ashlar India is a trusted financial services
+                company offering trading, investment,
+                wealth management, and financial advisory
+                solutions to retail and institutional
+                investors across India.
               </p>
-              <p className="text-gray-600 leading-relaxed mb-4">
-                Our mission is to provide transparent, technology-driven trading solutions with flat ₹10 brokerage 
-                and zero hidden charges. We believe that every Indian deserves access to quality financial services.
-              </p>
-              <p className="text-gray-600 leading-relaxed">
-                With memberships on NSE, BSE, MCX, NCDEX, and as a Depository Participant with NSDL and CDSL, 
-                we offer a comprehensive range of investment options across all asset classes.
-              </p>
-            </div>
-            <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Our Vision</h3>
-              <p className="text-gray-600 mb-6">
-                To empower every Indian with the knowledge and tools needed to achieve financial independence 
-                through transparent and affordable stock market investing.
-              </p>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Our Mission</h3>
-              <ul className="space-y-3">
-                <li className="flex items-start gap-3">
-                  <CheckCircle size={20} className="text-green-500 mt-0.5" />
-                  <span className="text-gray-600">Provide transparent pricing with flat ₹10 brokerage</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <CheckCircle size={20} className="text-green-500 mt-0.5" />
-                  <span className="text-gray-600">Offer cutting-edge trading platforms for all devices</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <CheckCircle size={20} className="text-green-500 mt-0.5" />
-                  <span className="text-gray-600">Deliver exceptional customer support 24/7</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <CheckCircle size={20} className="text-green-500 mt-0.5" />
-                  <span className="text-gray-600">Educate investors through quality research and insights</span>
-                </li>
-              </ul>
+            </FadeUp>
+
+          </div>
+        </section>
+
+        {/* ABOUT CONTENT */}
+
+        <section className="py-16">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+
+            <div className="grid gap-10 md:grid-cols-2">
+
+              {/* LEFT */}
+
+              <FadeUp>
+                <div>
+                  <h2 className="text-3xl font-semibold text-slate-900">
+                    Building Trust Through Financial Excellence
+                  </h2>
+
+                  <div className="mt-6 space-y-6 text-[15px] leading-8 text-slate-700">
+
+                    <p>
+                      Ashlar India provides a complete
+                      range of broking and investment
+                      services including Equity,
+                      Commodities, Currency, Mutual Funds,
+                      IPOs, Insurance, Bonds, and Demat
+                      Services.
+                    </p>
+
+                    <p>
+                      Our mission is to simplify investing
+                      through technology-driven platforms,
+                      transparent pricing, and dedicated
+                      client support.
+                    </p>
+
+                    <p>
+                      With experienced market professionals
+                      and advanced trading infrastructure,
+                      we help investors make informed
+                      financial decisions.
+                    </p>
+
+                  </div>
+                </div>
+              </FadeUp>
+
+              {/* RIGHT */}
+
+              <FadeUp delay={0.2}>
+                <div className="rounded-md border border-slate-200 p-8">
+
+                  <h3 className="text-2xl font-semibold text-slate-900">
+                    Why Choose Ashlar India?
+                  </h3>
+
+                  <div className="mt-8 space-y-5">
+
+                    {[
+                      "Advanced Trading Platforms",
+                      "Dedicated Customer Support",
+                      "Research & Market Insights",
+                      "Fast Account Opening",
+                      "Secure Trading Infrastructure",
+                      "Transparent Pricing",
+                    ].map((item) => (
+                      <div
+                        key={item}
+                        className="flex items-center gap-3 border-b border-slate-100 pb-4"
+                      >
+                        <div className="h-2.5 w-2.5 rounded-full bg-[#9B2C1F]" />
+
+                        <p className="text-[15px] text-slate-700">
+                          {item}
+                        </p>
+                      </div>
+                    ))}
+
+                  </div>
+                </div>
+              </FadeUp>
+
             </div>
           </div>
+        </section>
 
-          {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
-            <div className="text-center p-6 bg-white rounded-xl shadow-sm">
-              <div className="text-3xl font-bold text-blue-600">15+</div>
-              <div className="text-gray-500 text-sm">Years of Experience</div>
-            </div>
-            <div className="text-center p-6 bg-white rounded-xl shadow-sm">
-              <div className="text-3xl font-bold text-blue-600">50,000+</div>
-              <div className="text-gray-500 text-sm">Satisfied Clients</div>
-            </div>
-            <div className="text-center p-6 bg-white rounded-xl shadow-sm">
-              <div className="text-3xl font-bold text-blue-600">200+</div>
-              <div className="text-gray-500 text-sm">Team Members</div>
-            </div>
-            <div className="text-center p-6 bg-white rounded-xl shadow-sm">
-              <div className="text-3xl font-bold text-blue-600">10+</div>
-              <div className="text-gray-500 text-sm">Asset Classes</div>
+        {/* VALUES */}
+
+        <section className="border-t border-slate-200 py-16">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+
+            <FadeUp>
+              <div className="text-center">
+                <h2 className="text-4xl font-bold text-slate-900">
+                  Our Core Values
+                </h2>
+
+                <p className="mx-auto mt-5 max-w-2xl text-[15px] leading-7 text-slate-600">
+                  We focus on long-term client relationships
+                  built on transparency, trust, and service.
+                </p>
+              </div>
+            </FadeUp>
+
+            <div className="mt-14 grid gap-6 md:grid-cols-3">
+
+              {[
+                {
+                  title: "Trust",
+                  desc: "Building lasting relationships through transparency and integrity.",
+                },
+                {
+                  title: "Innovation",
+                  desc: "Technology-driven solutions for modern investing needs.",
+                },
+                {
+                  title: "Support",
+                  desc: "Dedicated assistance for every stage of your investment journey.",
+                },
+              ].map((item, index) => (
+                <FadeUp key={item.title} delay={index * 0.1}>
+                  <div
+                    className="
+                    rounded-md
+                    border
+                    border-slate-200
+                    p-6
+                    transition-all
+                    duration-300
+                    hover:-translate-y-1
+                    hover:shadow-md
+                  "
+                  >
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      {item.title}
+                    </h3>
+
+                    <p className="mt-4 text-[15px] leading-7 text-slate-600">
+                      {item.desc}
+                    </p>
+                  </div>
+                </FadeUp>
+              ))}
+
             </div>
           </div>
+        </section>
 
-          {/* Registrations */}
-          <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Registrations & Memberships</h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="text-center p-3 bg-gray-50 rounded-lg">
-                <div className="font-semibold text-gray-900">SEBI</div>
-                <div className="text-xs text-gray-500">INZ000203739</div>
+        {/* CTA */}
+
+        <section className="py-16">
+          <div className="mx-auto max-w-4xl px-4 text-center sm:px-6">
+
+            <FadeUp>
+              <div className="rounded-md border border-slate-200 bg-slate-50 px-8 py-12">
+
+                <h2 className="text-3xl font-bold text-slate-900">
+                  Start Your Investment Journey Today
+                </h2>
+
+                <p className="mx-auto mt-5 max-w-2xl text-[15px] leading-7 text-slate-600">
+                  Open your trading and demat account with
+                  Ashlar India and access a wide range of
+                  investment opportunities.
+                </p>
+
+                <div className="mt-8">
+                  <Link
+                    href="https://kyc.wisdomcapital.in/"
+                    target="_blank"
+                    className="
+                      inline-flex
+                      rounded-full
+                      bg-[#9B2C1F]
+                      px-7
+                      py-3
+                      text-sm
+                      font-medium
+                      text-white
+                      transition-all
+                      duration-300
+                      hover:scale-[1.03]
+                      hover:bg-[#7f2318]
+                    "
+                  >
+                    Open Free Account
+                  </Link>
+                </div>
+
               </div>
-              <div className="text-center p-3 bg-gray-50 rounded-lg">
-                <div className="font-semibold text-gray-900">NSE</div>
-                <div className="text-xs text-gray-500">13718</div>
-              </div>
-              <div className="text-center p-3 bg-gray-50 rounded-lg">
-                <div className="font-semibold text-gray-900">BSE</div>
-                <div className="text-xs text-gray-500">3302</div>
-              </div>
-              <div className="text-center p-3 bg-gray-50 rounded-lg">
-                <div className="font-semibold text-gray-900">MCX</div>
-                <div className="text-xs text-gray-500">56815</div>
-              </div>
-              <div className="text-center p-3 bg-gray-50 rounded-lg">
-                <div className="font-semibold text-gray-900">NCDEX</div>
-                <div className="text-xs text-gray-500">01002</div>
-              </div>
-              <div className="text-center p-3 bg-gray-50 rounded-lg">
-                <div className="font-semibold text-gray-900">NSDL DP</div>
-                <div className="text-xs text-gray-500">IN303921</div>
-              </div>
-              <div className="text-center p-3 bg-gray-50 rounded-lg">
-                <div className="font-semibold text-gray-900">CDSL DP</div>
-                <div className="text-xs text-gray-500">IN-DP-2362016</div>
-              </div>
-              <div className="text-center p-3 bg-gray-50 rounded-lg">
-                <div className="font-semibold text-gray-900">CIN</div>
-                <div className="text-xs text-gray-500">U74899UP1994PTC016662</div>
-              </div>
-            </div>
+            </FadeUp>
+
           </div>
-        </div>
-      </section>
-    </div>
+        </section>
+
+      </main>
+    </PageWrapper>
   );
 }

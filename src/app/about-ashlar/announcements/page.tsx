@@ -1,59 +1,110 @@
-'use client';
+"use client";
+
+import { motion } from "framer-motion";
+
+const announcements = [
+  {
+    id: 1,
+    title: "SEBI Circular: New Margin Rules Effective from March 2024",
+    date: "March 15, 2024",
+    category: "Regulatory",
+    summary:
+      "SEBI has introduced revised margin requirements for intraday and derivatives trading.",
+  },
+  {
+    id: 2,
+    title: "Trading Holiday on Holi - March 25, 2024",
+    date: "March 10, 2024",
+    category: "Exchange Holiday",
+    summary:
+      "NSE, BSE, MCX and commodity markets will remain closed on account of Holi.",
+  },
+  {
+    id: 3,
+    title: "Instant Fund Transfer Now Available",
+    date: "March 5, 2024",
+    category: "Platform Update",
+    summary:
+      "Clients can now transfer funds instantly using UPI and Payment Gateway services.",
+  },
+  {
+    id: 4,
+    title: "Upcoming IPO: Bharat Electronics Limited",
+    date: "March 1, 2024",
+    category: "IPO Alert",
+    summary:
+      "IPO subscription opens next week. Apply easily through your Ashlar trading account.",
+  },
+];
 
 export default function AnnouncementsPage() {
-  const announcements = [
-    {
-      id: 1,
-      title: 'SEBI Circular: New Margin Rules Effective from March 2024',
-      date: 'March 15, 2024',
-      category: 'Regulatory',
-      summary: 'SEBI has introduced new margin requirements for intraday trading...'
-    },
-    {
-      id: 2,
-      title: 'Trading Holiday on Holi - March 25, 2024',
-      date: 'March 10, 2024',
-      category: 'Exchange Holiday',
-      summary: 'All markets will remain closed on March 25, 2024 on account of Holi.'
-    },
-    {
-      id: 3,
-      title: 'New Feature: Instant Fund Transfer Now Available',
-      date: 'March 5, 2024',
-      category: 'Platform Update',
-      summary: 'Transfer funds instantly from your bank account to trading account 24x7.'
-    },
-    {
-      id: 4,
-      title: 'Upcoming IPO: Bharat Electronics Limited',
-      date: 'March 1, 2024',
-      category: 'IPO Alert',
-      summary: 'IPO opens on March 20, 2024. Price band ₹80-₹85 per share.'
-    }
-  ];
-
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Announcements</h1>
-        <p className="text-gray-500 mb-8">Latest updates and important notifications from Ashlar India</p>
-        
-        <div className="space-y-4">
-          {announcements.map((item) => (
-            <div key={item.id} className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-              <div className="flex flex-wrap items-start justify-between gap-4 mb-3">
-                <h3 className="text-lg font-semibold text-gray-900">{item.title}</h3>
-                <span className="text-xs px-3 py-1 rounded-full bg-blue-100 text-blue-700">{item.category}</span>
+    <main className="min-h-screen bg-white py-14">
+      <section className="mx-auto max-w-6xl px-4 sm:px-6">
+
+        {/* HEADING */}
+
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="mb-12"
+        >
+          <h1 className="text-4xl font-bold text-[#24324B]">
+            Announcements
+          </h1>
+
+          <p className="mt-3 text-sm text-slate-500">
+            Latest updates and important notifications from Ashlar India.
+          </p>
+
+          <div className="mt-5 h-[1px] w-32 bg-slate-200" />
+        </motion.div>
+
+        {/* ANNOUNCEMENTS */}
+
+        <div className="space-y-5">
+          {announcements.map((item, index) => (
+            <motion.div
+              key={item.id}
+              initial={{ opacity: 0, y: 35 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.45,
+                delay: index * 0.08,
+              }}
+              viewport={{ once: true }}
+              className="rounded-xl border border-slate-200 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+            >
+              <div className="flex flex-wrap items-start justify-between gap-4">
+                <div>
+                  <h2 className="text-lg font-semibold text-[#24324B]">
+                    {item.title}
+                  </h2>
+
+                  <p className="mt-2 text-sm leading-7 text-slate-600">
+                    {item.summary}
+                  </p>
+                </div>
+
+                <span className="rounded-full bg-[#9B2C1F]/10 px-3 py-1 text-xs font-medium text-[#9B2C1F]">
+                  {item.category}
+                </span>
               </div>
-              <p className="text-gray-600 text-sm mb-3">{item.summary}</p>
-              <div className="flex items-center justify-between">
-                <span className="text-xs text-gray-400">{item.date}</span>
-                <button className="text-sm text-blue-600 hover:text-blue-700">Read More →</button>
+
+              <div className="mt-5 flex items-center justify-between border-t border-slate-100 pt-4">
+                <span className="text-xs text-slate-400">
+                  {item.date}
+                </span>
+
+                <button className="text-sm font-medium text-[#9B2C1F] transition hover:translate-x-1">
+                  Read More →
+                </button>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }

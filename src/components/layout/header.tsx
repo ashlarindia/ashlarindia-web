@@ -45,7 +45,7 @@ const PRODUCTS_DROPDOWN: NavLink[] = [
   { name: "Currency",     href: "/products/currency",     description: "FX & forex pairs" },
   { name: "IPO",          href: "/products/ipo",          description: "Apply via UPI", badge: "Live" },
   { name: "DP Services",  href: "/products/dp",           description: "Demat & depository" },
-  { name: "Bonds & NCDs", href: "/products/bonds",        description: "Fixed income securities" },
+  { name: "Bonds & NCDs", href: "/investments/bonds",        description: "Fixed income securities" },
   { name: "Future & Options", href: "/products/futute-options",        description: "Future Options & securities" },
 ];
 const MF_DROPDOWN: NavLink[] = [
@@ -128,10 +128,10 @@ const KNOWLEDGE_DROPDOWN: NavLink[] = [
 ];
 
 const SUPPORT_DROPDOWN: NavLink[] = [
-  { name: "Contact Us",        href: "/contact" },
+  { name: "Contact Us",        href: "/supports/contact-us" },
   { name: "Raise a Ticket",    href: "/support/raise-ticket" },
   { name: "Track Ticket",      href: "/support/track-ticket" },
-  { name: "Knowledge Base",    href: "/support/knowledge-base" },
+ 
   { name: "Quick Mail",        href: "/support/quick-mail" },
   { name: "Complaints",        href: "/support/complaints" },
   { name: "Branch Locator",    href: "/support/branches" },
@@ -446,7 +446,7 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const scrolled = useScrolled(40);
   const pathname = usePathname();
-  const formattedDate = useFormattedDate();
+
   const closeMobile = useCallback(() => setMobileOpen(false), []);
 
   useEffect(() => {
@@ -513,9 +513,9 @@ export default function Header() {
               className="flex shrink-0 items-center gap-2"
               aria-label="Ashlar India — home"
             >
-              <div className="relative h-64 w-80 flex items-center justify-center">
+              <div className="relative h-32 w-48 flex items-center justify-center">
   <Image
-    src="/logo2.png"
+    src="/logo-img.png"
     alt="Ashlar India Logo"
     fill
     className="object-contain"

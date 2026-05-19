@@ -113,7 +113,7 @@ export default function CalculatorsSection() {
       >
         <StaggerItem>
           <CalcCard
-            href="/calculators/brokerage"
+            href="/calculators"
             icon={Calculator}
             label={calculators.brokerageLabel}
             description={calculators.brokerageDesc}
@@ -128,7 +128,7 @@ export default function CalculatorsSection() {
 
         <StaggerItem>
           <CalcCard
-            href="/calculators/margin"
+            href="/calculators"
             icon={TrendingUp}
             label={calculators.marginLabel}
             description={calculators.marginDesc}

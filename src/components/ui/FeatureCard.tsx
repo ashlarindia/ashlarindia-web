@@ -2,133 +2,129 @@
 
 import type { FC, ReactNode } from "react";
 import Link from "next/link";
-
+import { motion } from "framer-motion";
+import type { LucideIcon } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { Arrow } from "./ArrowLink";
 
 type IconTone = "brand" | "success" | "amber" | "ink";
 
 interface FeatureCardProps {
-  icon?: ReactNode;
+  icon: LucideIcon;
   title: string;
   description: string;
   href?: string;
-  external?: boolean;
-  tone?: IconTone;
-  children?: ReactNode;
   cta?: string;
-  className?: string;
+  tone?: IconTone;
   invertOnHover?: boolean;
+  className?: string;
+  children?: ReactNode;
 }
 
-const tones: Record<IconTone, { idle: string; hover: string }> = {
+const toneClasses: Record<IconTone, { base: string; invert: string }> = {
   brand: {
-    idle: "bg-brand-50 text-brand-700 ring-brand-600/10",
-    hover:
-      "group-hover:bg-brand-600 group-hover:text-white group-hover:ring-brand-600",
+    base: "bg-brand-50 text-brand-700 ring-brand-600/10",
+    invert: "group-hover:bg-brand-600 group-hover:text-white group-hover:ring-brand-600",
   },
-
   success: {
-    idle: "bg-success/5 text-success ring-success/15",
-    hover:
-      "group-hover:bg-success group-hover:text-white group-hover:ring-success",
+    base: "bg-success/5 text-success ring-success/15",
+    invert: "group-hover:bg-success group-hover:text-white group-hover:ring-success",
   },
-
   amber: {
-    idle: "bg-amber-50 text-amber-700 ring-amber-600/10",
-    hover:
-      "group-hover:bg-amber-600 group-hover:text-white group-hover:ring-amber-600",
+    base: "bg-amber-50 text-amber-700 ring-amber-600/10",
+    invert: "group-hover:bg-amber-600 group-hover:text-white group-hover:ring-amber-600",
   },
-
   ink: {
-    idle: "bg-ink-50 text-ink-800 ring-border",
-    hover:
-      "group-hover:bg-ink-900 group-hover:text-white group-hover:ring-ink-900",
+    base: "bg-ink-50 text-ink-800 ring-border",
+    invert: "group-hover:bg-ink-900 group-hover:text-white group-hover:ring-ink-900",
   },
 };
 
 const FeatureCard: FC<FeatureCardProps> = ({
-  icon,
+  icon: Icon,
   title,
   description,
   href,
-  external,
+  cta = "Learn more",
   tone = "brand",
-  children,
-  cta,
-  className,
   invertOnHover = true,
+  className,
+  children,
 }) => {
-  const inner = (
-    <>
-      {icon && (
-        <div
-          className={cn(
-            "flex h-11 w-11 items-center justify-center rounded-lg ring-1 ring-inset transition-colors duration-300",
-            tones[tone].idle,
-            invertOnHover && tones[tone].hover
-          )}
-        >
-          {icon}
-        </div>
-      )}
+  const toneCls = toneClasses[tone];
 
-      <h3
+  const content = (
+    <motion.div
+      whileHover={{ y: -4 }}
+      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+      className={cn(
+        "group relative flex h-full flex-col rounded-xl border border-border bg-surface p-6 overflow-hidden",
+        "transition-[border-color,box-shadow] duration-300 ease-out-expo",
+        "hover:border-border-strong hover:shadow-lg",
+        className,
+      )}
+    >
+      {/* Animated gradient sweep on hover */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-brand-50/50 to-transparent opacity-0 transition-all duration-700 ease-out-expo group-hover:translate-x-full group-hover:opacity-100"
+      />
+
+      {/* Radial hover glow */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 rounded-xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        style={{
+          background:
+            "radial-gradient(120% 80% at 50% 0%, rgba(139,47,38,0.05), transparent 60%)",
+        }}
+      />
+
+      {/* Icon tile with bounce on hover */}
+      <motion.div
+        whileHover={{ scale: 1.08, rotate: -3 }}
+        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         className={cn(
-          "font-display text-base font-medium leading-snug tracking-tight text-ink-900 transition-colors duration-200",
-          href && "group-hover:text-brand-700",
-          icon ? "mt-5" : ""
+          "relative flex h-11 w-11 items-center justify-center rounded-lg ring-1 ring-inset",
+          "transition-colors duration-300 ease-out-expo",
+          toneCls.base,
+          invertOnHover && toneCls.invert,
         )}
       >
-        {title}
-      </h3>
+        <Icon size={20} strokeWidth={1.75} aria-hidden="true" />
+      </motion.div>
 
-      <p className="mt-2 text-sm leading-relaxed text-ink-600">
-        {description}
-      </p>
+      {/* Content */}
+      <div className="relative mt-5">
+        <h3 className="font-display text-base font-medium leading-snug tracking-tight text-ink-900 transition-colors duration-200 group-hover:text-brand-700">
+          {title}
+        </h3>
+        <p className="mt-2 text-sm leading-relaxed text-ink-600">{description}</p>
+      </div>
 
-      {children}
+      {children && <div className="relative mt-4 flex-1">{children}</div>}
 
-      {cta && (
-        <div className="mt-5 inline-flex items-center gap-1.5 text-xs font-medium text-brand-600">
+      {/* CTA */}
+      {cta && href && (
+        <div className="relative mt-5 inline-flex items-center gap-1.5 text-xs font-medium text-brand-600">
           {cta}
           <Arrow />
         </div>
       )}
-    </>
-  );
-
-  const wrapperCls = cn(
-    "group relative flex h-full flex-col rounded-xl border border-border bg-surface p-6",
-    "transition-[transform,border-color,box-shadow] duration-300 ease-out-expo",
-    "hover:-translate-y-0.5 hover:border-border-strong hover:shadow-md",
-    href &&
-      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2",
-    className
+    </motion.div>
   );
 
   if (href) {
-    if (external) {
-      return (
-        <a
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={wrapperCls}
-        >
-          {inner}
-        </a>
-      );
-    }
-
     return (
-      <Link href={href} className={wrapperCls}>
-        {inner}
+      <Link
+        href={href}
+        className="block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 focus-visible:ring-offset-surface rounded-xl"
+      >
+        {content}
       </Link>
     );
   }
-
-  return <div className={wrapperCls}>{inner}</div>;
+  return content;
 };
 
 export default FeatureCard;
